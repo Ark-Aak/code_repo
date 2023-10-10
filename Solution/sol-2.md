@@ -67,7 +67,7 @@ signed main() {
 	if (cnt < n) res[++cnt] = lft;
 	if (res[n - 1] == r) res[n] = l;
 	rep (i, 1, n) cout << res[i] << endl;
-	return 0; 
+	return 0;
 }
 ```
 
@@ -128,7 +128,7 @@ signed main() {
 		}
 	}
 	cout << ans << endl;
-	return 0; 
+	return 0;
 }
 ```
 
@@ -144,7 +144,7 @@ Farmer John，也就是 FJ，带领了他的奶牛们登上了一座座山峰…
 
 ### 解题思路
 
-签到题。单调栈就可以了。
+签。单调栈就可以了。
 
 输入量太大不要用 `std::cin` 和 `std::cout` 以及 `std::endl` 啊！！！
 
@@ -171,7 +171,7 @@ int main() {
 		s.push({h[i], i});
 	}
 	rep (i, 1, n) print(ans2[i] - ans1[i] - 2), putchar(10);
-	return 0; 
+	return 0;
 }
 ```
 
@@ -227,10 +227,210 @@ int main() {
 		}
 		else cout << "tie" << endl;
 	}
-	return 0; 
+	return 0;
 }
 ```
 
 ## path 初始之路
 
 ### 题目大意
+
+勇者小 $A$ 拔出了村子门口的石中剑,成为了钦定的勇者。开始踏上了过伐魔王的漫长道路，走出村子，就是一段初始之路,路上有 $N$ 只史莱姆，这 $N$ 只史莱姆排成了一行，每一支史莱姆有一个战斗力指数 $a_i$，小 $A$ 必须依次讨伐他们。刚刚拔出石中剑的小 $A$ 对于石中剑的使用并不款练，因此每一次小 $A$ 只能以一个额定功率$P$ 催动这把剑，此时，小 $A$ 可以击败任何战斗力小于等于 $P$ 的史莱姆。
+
+如果小 $A$ 以额定功率 $P$ 击败了一只战斗力为 $S$ 的史莱姆，我们称小 $A$ 浪费了 $P - S$ 的能量。由于小 $A$ 对于石中剑的使用不太款练,小 $A$ 一天最多只能更改 $K$ 次剑的功率，请问，小 $A$ 如果要在一天之内通过初始之路他最少会浪费多少能量。（最开始的时候, 小 $A$ 可以免费设置一次石中剑功率并开始使用）
+
+### 解题思路
+
+一道 DP 签到题，但是没签上。
+
+区间 DP，设定的功率一定是某一段区间的最大值。
+
+$$
+f_{i, j} = \min\{f_{k, j - 1} + \max\{a_{k + 1}, \cdots, a_i\} \times (i - k) - (sum_i - sum_k)\}
+$$
+
+### 代码
+
+```cpp
+signed main() {
+	cin >> n >> k;
+	rep (i, 1, n) cin >> a[i];
+	k += 1;
+	memset(f, 0x3f, sizeof f);
+	f[0][0] = 0;
+	rep (i, 1, n) {
+		rep (j, 1, k) {
+			int Max = 0, sum = 0;
+			_rep (K, i, 1) {
+				sum += a[K];
+				Max = max(Max, a[K]);
+				f[i][j] = min(f[K - 1][j - 1] + Max * (i - K + 1) - sum, f[i][j]);
+			}
+		}
+	}
+	int ans = LONG_LONG_MAX;
+	rep (i, 1, k) ans = min(ans, f[n][i]);
+	cout << ans;
+	return 0;
+}
+```
+
+## gaze 星锚
+
+### 题目大意
+
+虚数之树的一截树枝落入了量子之海中，这一截树枝中有 $n$ 个相互连通的世界泡，世界泡以链的方式连接（即 $1$ 号世界泡与 $2$ 号世界泡之间有双向通道，$2$ 号世界泡与 $3$ 号世界泡之间有双向通道依次类推，$n-1$ 号世界泡
+ 与 $n$ 号世界泡有双向通道连接）
+
+作为有能力穿梭于量子之海的大善人组织，你们需要前往营救这些落入量子之海的世界泡，你们可以使用星锚技术将世界泡重新带回虚数之树上，每一次使用星锚，你可以将尚可通过双向通道与其联通的所有世界泡同时锚定回虚数之树。
+
+量子之海有一个随时可能变化的侵蚀力 $X$，所有稳定性低于 $X$ 的世界泡都无法完整地在量子之海中表征，这也就意味着这个世界泡与其他世界泡之双向通道无法使用。当然世界泡内的人们也会采取行动，因此每一个世界泡的稳定性也是会变化的。
+
+你只是组织里的一个观测员,你的任务是观测所有的变化，并在量子之海的侵蚀力发生变化时，告诉我们拯救所有当前还能完整表征的世界泡需要进行多少次锚定。
+
+### 解题思路
+
+看到数据范围是 $\le 2 \times 10^5$，考虑莫队。
+
+> 莫队适合的最大数据范围大约是 $\le 5 \times 10^5$。
+
+考虑在莫队指针的指向。我们令 $T$ 为时间轴，$L$ 为当前的侵蚀力。
+
+我们把采取的行动看作是一次修改。考虑当侵蚀力移动时，新的 $L$ 为 $x$，那么明显的，被移除掉的点就是稳定性为 $x - 1$ 的所有点。
+
+考虑移除一个点对答案带来的贡献。如果这个点两边都有点，移除它会使答案 $+1$，如果两边都没有点，则会使答案 $-1$。
+
+我们把所有的点插入一个链表。每次就把新的值插入链表即可。
+
+移动侵蚀力的时候把所有对应链表上的点执行删除操作即可。
+
+### 代码
+
+```cpp
+const int MAXN = 2e5 + 5;
+
+struct Query {
+	int t, x, blk, id;
+	bool operator < (const Query &t) const {
+		if (blk != t.blk) return (this -> t) < t.t;
+		if (blk & 1) return x > t.x;
+		return x < t.x;
+	}
+};
+
+vector <Query> query;
+
+struct Modify {
+	int x, val, bval;
+} modify[MAXN];
+
+vector <int> H;
+
+int Hash(int x) {
+	return lower_bound(H.begin(), H.end(), x) - H.begin() + 1;
+}
+
+struct List {
+	int nxt[3 * MAXN], pre[3 * MAXN];
+
+	void insert(int x, int y) {
+		pre[nxt[x]] = y;
+		nxt[y] = nxt[x];
+		nxt[x] = y;
+		pre[y] = x;
+	}
+
+	void erase(int x) {
+		nxt[pre[x]] = nxt[x];
+		pre[nxt[x]] = pre[x];
+	}
+} lst;
+
+int n, m, cnt;
+
+struct Bucket {
+	bitset <MAXN> vis;
+	int ans;
+
+	void init() {
+		rep (i, 1, n) vis[i] = 1;
+		ans = 1;
+	}
+
+	void add(int x) {
+		vis[x] = 1;
+		if (vis[x - 1] && vis[x + 1]) ans--;
+		if (!vis[x - 1] && !vis[x + 1]) ans++;
+	}
+
+	void del(int x) {
+		vis[x] = 0;
+		if (vis[x - 1] && vis[x + 1]) ans++;
+		if (!vis[x - 1] && !vis[x + 1]) ans--;
+	}
+} counter;
+
+int a[MAXN], blockSize, ans[MAXN];
+
+signed main() {
+	read(n), read(m);
+	blockSize = ceil(n / sqrt(m) * 4);
+	rep (i, 1, n) cin >> a[i], H.emplace_back(a[i]);
+	rep (i, 1, m) {
+		int op; read(op);
+		if (op == 1) {
+			int x; read(x);
+			query.emplace_back((Query) {i, x, i / blockSize, ++cnt});
+		}
+		else {
+			read(modify[i].x), read(modify[i].val);
+			H.emplace_back(modify[i].val);
+		}
+	}
+
+	sort(H.begin(), H.end());
+	auto iter = unique(H.begin(), H.end());
+	H.erase(iter, H.end());
+	rep (i, 1, n) {
+		a[i] = Hash(a[i]);
+		lst.insert(a[i] + MAXN, i);
+	}
+	rep (i, 0, (int) (query.size() - 1)) query[i].x = Hash(query[i].x);
+	rep (i, 1, m) if (modify[i].x) {
+		modify[i].val = Hash(modify[i].val);
+		modify[i].bval = a[modify[i].x];
+		a[modify[i].x] = modify[i].val;
+	}
+
+	sort(query.begin(), query.end());
+	int T = 1, X = 1;
+	counter.init();
+	for (auto [t, x, _bid, id] : query) {
+		while (T < t) {
+			if (modify[T].bval >= X) counter.del(modify[T].x);
+			lst.erase(modify[T].x);
+			lst.insert(modify[T].val + MAXN, modify[T].x);
+			if (modify[T].val >= X) counter.add(modify[T].x);
+			T++;
+		}
+		while (T > t) {
+			T--;
+			if (modify[T].val >= X) counter.del(modify[T].x);
+			lst.erase(modify[T].x);
+			lst.insert(modify[T].bval + MAXN, modify[T].x);
+			if (modify[T].bval >= X) counter.add(modify[T].x);
+		}
+		while (X < x) {
+			for (auto i = lst.nxt[X + MAXN]; i; i = lst.nxt[i]) counter.del(i);
+			X++;
+		}
+		while (X > x) {
+			X--;
+			for (auto i = lst.nxt[X + MAXN]; i; i = lst.nxt[i]) counter.add(i);
+		}
+		ans[id] = counter.ans;
+	}
+	rep (i, 1, cnt) print(ans[i]), putchar(10);
+	return 0;
+}
+```
