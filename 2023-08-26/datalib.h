@@ -40,4 +40,3 @@ namespace IO{
 	template<typename T,typename... Types>
 	void println(T first, Types... args){print(first,args...);eoln();}
 }
-
