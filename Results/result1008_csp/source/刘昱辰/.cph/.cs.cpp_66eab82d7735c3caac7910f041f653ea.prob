@@ -1,0 +1,1 @@
+{"name":"Local: cs","url":"d:\\yshpdyt\\test\\10.8\\刘昱辰\\cs.cpp","tests":[{"id":1696725496796,"input":"5 9\n1 3\n5 3\n2 4\n4 3\nJC 4\nQuery 5\nQuery 4\nJC 2\nQuery 5\nJC 1\nQuery 5\nQuery 1\nQuery 4","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\yshpdyt\\test\\10.8\\刘昱辰\\cs.cpp","group":"local","local":true}

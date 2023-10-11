@@ -1,9 +1,7 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <filesystem>
+#include <bits/stdc++.h>
+#include <comdef.h>
+#include <comutil.h>
+#include <windows.h>
 
 namespace fs = std::filesystem;
 
@@ -27,16 +25,22 @@ bool isIgnored(const std::string& fileName, const std::vector<std::string>& igno
 
 std::string getPath(std::string s) {
     s = s.substr(1);
-    for (int i = 0; i < s.size(); i++) if (s[i] == '\\') s[i] = '/';
+    for (int i = 0; i < (int) s.size(); i++) if (s[i] == '\\') s[i] = '/';
     return s;
 }
 
+std::wstring to_wide_string(const std::string &input) {
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+    return converter.from_bytes(input);
+}
+
 void generateMarkdownFileList(const std::string& directory, const std::vector<std::string>& ignorePatterns, std::ofstream& outputFile, int depth = 0) {
-    for (const auto& entry : fs::directory_iterator(directory)) {
+    std::cout << directory << std::endl;
+    for (const auto& entry : fs::directory_iterator(to_wide_string(directory))) {
         const auto& path = entry.path();
         std::string indentation(depth * 2, ' '); // Adjust the indentation based on depth
         std::string fileName = path.filename().string();
-        if (fileName != ".git" && fileName != ".gitignore" && !isIgnored(fileName, ignorePatterns) && !isIgnored(path.string(), ignorePatterns)) {
+        if (fileName != ".git" && fileName != "$RECYCLE.BIN" && fileName != ".gitignore" && !isIgnored(fileName, ignorePatterns) && !isIgnored(path.string(), ignorePatterns)) {
             if (fs::is_directory(path)) {
                 outputFile << indentation << "- **" << fileName << "**" << std::endl;
                 generateMarkdownFileList(path.string(), ignorePatterns, outputFile, depth + 1); // Recursive call for subdirectories
@@ -48,6 +52,7 @@ void generateMarkdownFileList(const std::string& directory, const std::vector<st
 }
 
 int main() {
+    SetConsoleOutputCP(CP_UTF8);
     std::string gitignorePath = ".gitignore"; // Path to .gitignore file
     std::ifstream gitignoreFile(gitignorePath);
     std::vector<std::string> ignorePatterns;
