@@ -1588,8 +1588,6 @@
           - [triple.cpp](/Results/result1001/source/CQYC_lh/triple/triple.cpp)
         - [triple.cpp](/Results/result1001/source/CQYC_lh/triple.cpp)
       - **CQYC_sxh**
-        - **.vscode**
-          - [settings.json](/Results/result1001/source/CQYC_sxh/.vscode/settings.json)
         - **badge**
           - [badge.cpp](/Results/result1001/source/CQYC_sxh/badge/badge.cpp)
         - [badge.cpp](/Results/result1001/source/CQYC_sxh/badge.cpp)
@@ -2313,8 +2311,6 @@
         - [jump.cpp](/Results/result1003_csp/source/std/jump.cpp)
         - [lca.cpp](/Results/result1003_csp/source/std/lca.cpp)
       - **刘昱辰**
-        - **.cph**
-          - [.flip.cpp_ed0bd4135b47f2dc509c4ea1ea226cab.prob](/Results/result1003_csp/source/刘昱辰/.cph/.flip.cpp_ed0bd4135b47f2dc509c4ea1ea226cab.prob)
         - **explorer**
           - [explorer.cpp](/Results/result1003_csp/source/刘昱辰/explorer/explorer.cpp)
         - [explorer.cpp](/Results/result1003_csp/source/刘昱辰/explorer.cpp)
@@ -2416,8 +2412,6 @@
     - [sol.pdf](/Results/result1004_csp/sol.pdf)
     - **source**
       - **a 刘昱辰**
-        - **.cph**
-          - [.chessboard.cpp_e4bc5f7693415d25129ad23940822bfa.prob](/Results/result1004_csp/source/a 刘昱辰/.cph/.chessboard.cpp_e4bc5f7693415d25129ad23940822bfa.prob)
         - **chessboard**
           - [chessboard.cpp](/Results/result1004_csp/source/a 刘昱辰/chessboard/chessboard.cpp)
         - [chessboard.cpp](/Results/result1004_csp/source/a 刘昱辰/chessboard.cpp)
@@ -3551,7 +3545,6 @@
         - [network.cpp](/Results/result1008_csp/source/CQYC_C1ZhangJinxuan/network.cpp)
         - [stone.cpp](/Results/result1008_csp/source/CQYC_C1ZhangJinxuan/stone.cpp)
       - **CQYC_C1_张瀚之**
-        - [.swp](/Results/result1008_csp/source/CQYC_C1_张瀚之/.swp)
         - [count.cpp](/Results/result1008_csp/source/CQYC_C1_张瀚之/count.cpp)
         - [network.cpp](/Results/result1008_csp/source/CQYC_C1_张瀚之/network.cpp)
       - **CQYC_C3_李承灿**
@@ -3668,10 +3661,6 @@
         - [increase.cpp](/Results/result1008_csp/source/何家进/increase.cpp)
         - [network.cpp](/Results/result1008_csp/source/何家进/network.cpp)
       - **刘昱辰**
-        - **.cph**
-          - [.cs.cpp_66eab82d7735c3caac7910f041f653ea.prob](/Results/result1008_csp/source/刘昱辰/.cph/.cs.cpp_66eab82d7735c3caac7910f041f653ea.prob)
-          - [.increase.cpp_75cc18721d02eed227b73882ff8e06a5.prob](/Results/result1008_csp/source/刘昱辰/.cph/.increase.cpp_75cc18721d02eed227b73882ff8e06a5.prob)
-          - [.network.cpp_e5ec4390da0369f4ca80e06ea90ed2cf.prob](/Results/result1008_csp/source/刘昱辰/.cph/.network.cpp_e5ec4390da0369f4ca80e06ea90ed2cf.prob)
         - [cs.cpp](/Results/result1008_csp/source/刘昱辰/cs.cpp)
         - **increase**
           - [increase.cpp](/Results/result1008_csp/source/刘昱辰/increase/increase.cpp)
@@ -3896,8 +3885,6 @@
         - [loser.cpp](/Results/result1009_csp/source/CQYC_C1ZhangJinxuan/loser.cpp)
         - [tower.cpp](/Results/result1009_csp/source/CQYC_C1ZhangJinxuan/tower.cpp)
       - **CQYC_C1_张瀚之**
-        - [.swo](/Results/result1009_csp/source/CQYC_C1_张瀚之/.swo)
-        - [.swp](/Results/result1009_csp/source/CQYC_C1_张瀚之/.swp)
         - **ak**
           - [ak.cpp](/Results/result1009_csp/source/CQYC_C1_张瀚之/ak/ak.cpp)
         - [ak.cpp](/Results/result1009_csp/source/CQYC_C1_张瀚之/ak.cpp)
@@ -4281,9 +4268,6 @@
           - [wisdom.cpp](/Results/result1010_csp/source/CQYCc3曾奕翰/wisdom/wisdom.cpp)
         - [wisdom.cpp](/Results/result1010_csp/source/CQYCc3曾奕翰/wisdom.cpp)
       - **CQYC_C1_张瀚之**
-        - [.c.swp](/Results/result1010_csp/source/CQYC_C1_张瀚之/.c.swp)
-        - [.swo](/Results/result1010_csp/source/CQYC_C1_张瀚之/.swo)
-        - [.swp](/Results/result1010_csp/source/CQYC_C1_张瀚之/.swp)
         - **matrix**
           - [matrix.cpp](/Results/result1010_csp/source/CQYC_C1_张瀚之/matrix/matrix.cpp)
         - [matrix.cpp](/Results/result1010_csp/source/CQYC_C1_张瀚之/matrix.cpp)
@@ -4666,11 +4650,6 @@
           - [sequence.cpp](/Results/result1011_csp/source/cqyc3张勤浩1011/sequence/sequence.cpp)
         - [sequence.cpp](/Results/result1011_csp/source/cqyc3张勤浩1011/sequence.cpp)
       - **CQYC_C1_张瀚之**
-        - [.ave.cpp.swp](/Results/result1011_csp/source/CQYC_C1_张瀚之/.ave.cpp.swp)
-        - [.ave1.cpp.swp](/Results/result1011_csp/source/CQYC_C1_张瀚之/.ave1.cpp.swp)
-        - [.c.swp](/Results/result1011_csp/source/CQYC_C1_张瀚之/.c.swp)
-        - [.swo](/Results/result1011_csp/source/CQYC_C1_张瀚之/.swo)
-        - [.swp](/Results/result1011_csp/source/CQYC_C1_张瀚之/.swp)
         - **ave**
           - [ave.cpp](/Results/result1011_csp/source/CQYC_C1_张瀚之/ave/ave.cpp)
         - [ave.cpp](/Results/result1011_csp/source/CQYC_C1_张瀚之/ave.cpp)

@@ -40,7 +40,7 @@ void generateMarkdownFileList(const std::string& directory, const std::vector<st
         const auto& path = entry.path();
         std::string indentation(depth * 2, ' '); // Adjust the indentation based on depth
         std::string fileName = path.filename().string();
-        if (fileName != ".git" && fileName != "$RECYCLE.BIN" && fileName != ".gitignore" && !isIgnored(fileName, ignorePatterns) && !isIgnored(path.string(), ignorePatterns)) {
+        if (fileName[0] != '.' && fileName != ".git" && fileName != "$RECYCLE.BIN" && fileName != ".gitignore" && !isIgnored(fileName, ignorePatterns) && !isIgnored(path.string(), ignorePatterns)) {
             if (fs::is_directory(path)) {
                 outputFile << indentation << "- **" << fileName << "**" << std::endl;
                 generateMarkdownFileList(path.string(), ignorePatterns, outputFile, depth + 1); // Recursive call for subdirectories
