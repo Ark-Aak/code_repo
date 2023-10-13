@@ -31,39 +31,47 @@ void print(_Tp x) {
 
 #define int ll
 
-const int MAXN = 2e3 + 5;
-const int MOD = 998244353;
-int n, m, f[MAXN][MAXN];
-vector <int> g[MAXN];
+ll a, b, ans;
+const int MAXN = 5e7 + 5;
 
-void Mod(int &x) {
-	if (x >= MOD) x -= MOD;
-	if (x < 0) x += MOD;
+vector <int> p;
+bitset <MAXN> vis;
+int f[MAXN];
+
+void sieve(int n) {
+	f[1] = 1;
+	vis[1] = 1;
+	rep (i, 2, n) {
+		if (!vis[i]) {
+			p.emplace_back(i);
+			f[i] = i + 1;
+		}
+		for (auto j : p) {
+			if (i * j > n) break;
+			int pos = i * j;
+			vis[pos] = 1;
+			f[pos] = f[i] * f[j];
+			if (i % j == 0) {
+				f[pos] -= f[i / j] * j;
+				break;
+			}
+		}
+	}
 }
 
 signed main() {
 #ifndef LOCAL
 #ifndef ONLINE_JUDGE
-	freopen("sequence.in", "r", stdin);
-	freopen("sequence.out", "w", stdout);
+	freopen("calc.in", "r", stdin);
+	freopen("calc.out", "w", stdout);
 #endif
 #endif
-	read(n), read(m);
-	int sum = m;
-	rep (i, 1, m) f[n][i] = 1;
-	rep (i, 1, m) rep (j, 1, m) {
-		if (i > j && i % j == 0) g[i].emplace_back(j);
+	int tans = 0;
+	read(a), read(b);
+	sieve(b);
+	rep (i, a, b) {
+		tans += abs(i - (f[i] - i));
 	}
-	_rep (i, n - 1, 1) {
-		rep (j, 1, m) f[i][j] += sum, Mod(f[i][j]);
-		rep (j, 1, m) {
-			for (auto k : g[j]) f[i][j] -= f[i + 1][k], Mod(f[i][j]);
-		}
-		sum = 0;
-		rep (j, 1, m) sum += f[i][j], Mod(sum);
-	}
-	int ans = 0;
-	rep (i, 1, m) ans += f[1][i], Mod(ans);
-	print(ans);
+	print(tans);
 	return 0;
 }

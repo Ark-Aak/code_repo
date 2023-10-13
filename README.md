@@ -112,6 +112,15 @@
   - [ring.cpp](/2023-10-11/ring.cpp)
   - [sequence-std.cpp](/2023-10-11/sequence-std.cpp)
   - [sequence.cpp](/2023-10-11/sequence.cpp)
+- **2023-10-12**
+  - [calc-std.cpp](/2023-10-12/calc-std.cpp)
+  - [calc.cpp](/2023-10-12/calc.cpp)
+  - [king.cpp](/2023-10-12/king.cpp)
+- **2023-10-13**
+  - [beach.cpp](/2023-10-13/beach.cpp)
+  - [equation.cpp](/2023-10-13/equation.cpp)
+  - [game.cpp](/2023-10-13/game.cpp)
+  - [test.txt](/2023-10-13/test.txt)
 - **AtCoder**
   - [abc321a.cpp](/AtCoder/abc321a.cpp)
   - [abc321b.cpp](/AtCoder/abc321b.cpp)
@@ -136,6 +145,7 @@
 - **Hack**
   - [compare.cpp](/Hack/compare.cpp)
   - [datalib.h](/Hack/datalib.h)
+  - [genData.cpp](/Hack/genData.cpp)
   - [generator.cpp](/Hack/generator.cpp)
   - [prob.cpp](/Hack/prob.cpp)
   - [std.cpp](/Hack/std.cpp)
@@ -149,6 +159,7 @@
   - [CF21D.cpp](/Luogu/CF21D.cpp)
   - [CF36E.cpp](/Luogu/CF36E.cpp)
   - [P1829.cpp](/Luogu/P1829.cpp)
+  - [P2464.cpp](/Luogu/P2464.cpp)
   - [P3792-ori.cpp](/Luogu/P3792-ori.cpp)
   - [P3792-zhl.cpp](/Luogu/P3792-zhl.cpp)
   - [P3792.cpp](/Luogu/P3792.cpp)

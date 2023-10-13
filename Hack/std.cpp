@@ -31,34 +31,49 @@ void print(_Tp x) {
 
 #define int ll
 
-const int MAXN = 2e3 + 5;
-const int MOD = 998244353;
-int n, m, f[MAXN][MAXN];
-vector <int> g[MAXN];
+ll a, b, ans;
+const int MAXN = 5e7 + 5;
 
-void Mod(int &x) {
-	if (x >= MOD) x -= MOD;
-	if (x < 0) x += MOD;
-}
+vector <int> p;
+bitset <MAXN> vis;
+int f[MAXN], sum[MAXN];
 
-signed main() {
-#ifndef LOCAL
-#ifndef ONLINE_JUDGE
-	freopen("sequence.in", "r", stdin);
-	freopen("sequence.out", "w", stdout);
-#endif
-#endif
-	read(n), read(m);
-	rep (i, 1, m) f[n][i] = 1;
-	_rep (i, n - 1, 1) {
-		rep (j, 1, m) rep (k, 1, m) {
-			if (j > k && j % k == 0) continue;
-			f[i][j] += f[i + 1][k];
-			Mod(f[i][j]);
+void sieve(int n) {
+	f[1] = 1;
+	vis[1] = 1;
+	rep (i, 2, n) {
+		if (!vis[i]) {
+			p.emplace_back(i);
+			f[i] = i + 1;
+		}
+		for (auto j : p) {
+			if (i * j > n) break;
+			int pos = i * j;
+			vis[pos] = 1;
+			f[pos] = f[i] * f[j];
+			if (i % j == 0) {
+				f[pos] -= f[i / j] * j;
+				break;
+			}
 		}
 	}
-	int ans = 0;
-	rep (i, 1, m) ans += f[1][i], Mod(ans);
-	print(ans);
+}
+
+int lstans = 0;
+const int MOD = 998244353;
+
+signed main() {
+	sieve(5e7);
+	for (int i = 1; i <= 5e7; i++) sum[i] = (sum[i - 1] + abs(i - (f[i] - i))) % MOD;
+	int T;
+	read(T);
+	while (T --> 0) {
+		int a, b;
+		read(a), read(b);
+		a ^= lstans, b ^= lstans;
+		cout << a << " " << b << endl;
+		print((sum[b] - sum[a - 1] + MOD) % MOD); putchar(10);
+		lstans = (sum[b] - sum[a - 1] + MOD) % MOD;
+	}
 	return 0;
 }

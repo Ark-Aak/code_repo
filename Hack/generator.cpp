@@ -11,10 +11,15 @@ typedef long long ll;
 typedef pair <int, int> pii;
 
 int n, m;
+int T;
 
 int main() {
-	n = rand_int(1, 200);
-	m = rand_int(1, 200);
-	printf("%d %d", n, m);
+	T = 2e6;
+	IO::print(T);
+	while (T --> 0) {
+		n = rand_int(1, 5e7);
+		m = rand_int(1, 5e7);
+		IO::print(min(n, m), max(n, m)), putchar(10);
+	}
 	return 0;
 }
