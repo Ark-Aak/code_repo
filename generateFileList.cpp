@@ -34,6 +34,15 @@ std::wstring to_wide_string(const std::string &input) {
     return converter.from_bytes(input);
 }
 
+std::string urlEncode(std::string s) {
+    std::string res;
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] == ' ') res += "%20";
+        else res += s[i];
+    }
+    return res;
+}
+
 void generateMarkdownFileList(const std::string& directory, const std::vector<std::string>& ignorePatterns, std::ofstream& outputFile, int depth = 0) {
     std::cout << directory << std::endl;
     for (const auto& entry : fs::directory_iterator(to_wide_string(directory))) {
@@ -45,7 +54,7 @@ void generateMarkdownFileList(const std::string& directory, const std::vector<st
                 outputFile << indentation << "- **" << fileName << "**" << std::endl;
                 generateMarkdownFileList(path.string(), ignorePatterns, outputFile, depth + 1); // Recursive call for subdirectories
             } else if (fs::is_regular_file(path)) {
-                outputFile << indentation << "- [" << fileName << "](" << getPath(path.string()) << ")" << std::endl;
+                outputFile << indentation << "- [" << fileName << "](" << urlEncode(getPath(path.string())) << ")" << std::endl;
             }
         }
     }
