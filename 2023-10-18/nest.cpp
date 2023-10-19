@@ -29,24 +29,15 @@ void print(_Tp x) {
 	putchar(x % 10 + '0');
 }
 
-const int MAXN = 1e5 + 5;
-int n, m, a[MAXN], st[MAXN][21];
+
 
 int main() {
-	read(n), read(m);
-	rep (i, 1, n) read(a[i]);
-	rep (i, 1, n) st[i][0] = a[i];
-	rep (j, 1, log2(n)) {
-		rep (i, 1, n - (1 << j) + 1) {
-			st[i][j] = max(st[i + (1 << (j - 1))][j - 1], st[i][j - 1]);
-		}
-	}
-	rep (i, 1, m) {
-		int u, v;
-		read(u), read(v);
-		int l = log2(v - u + 1);
-		print(max(st[u][l], st[v - (1 << l) + 1][l]));
-		putchar(10);
-	}
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+
+#endif
+#endif
+
 	return 0;
 }
+

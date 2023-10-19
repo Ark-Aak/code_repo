@@ -29,24 +29,32 @@ void print(_Tp x) {
 	putchar(x % 10 + '0');
 }
 
-const int MAXN = 1e5 + 5;
-int n, m, a[MAXN], st[MAXN][21];
+int n, a[3005];
+int f[3005][3005], g[3005][3005];
 
 int main() {
-	read(n), read(m);
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("river.in", "r", stdin);
+	freopen("river.out", "w", stdout);
+#endif
+#endif
+	read(n);
 	rep (i, 1, n) read(a[i]);
-	rep (i, 1, n) st[i][0] = a[i];
-	rep (j, 1, log2(n)) {
-		rep (i, 1, n - (1 << j) + 1) {
-			st[i][j] = max(st[i + (1 << (j - 1))][j - 1], st[i][j - 1]);
+	memset(f, 0x7f, sizeof f);
+	rep (i, 1, n) rep (j, i, n) {
+		if (j == i) g[i][j] = a[i];
+		else g[i][j] = __gcd(g[i][j - 1], a[j]);
+	}
+	rep (i, 1, n) f[i][i] = 0;
+	rep (len, 1, n) {
+		rep (i, 1, n) {
+			int j = i + len - 1;
+			if (j > n) break;
+			f[i - 1][j] = min(f[i - 1][j], f[i][j] + g[i][j] + a[i - 1]);
+			f[i][j + 1] = min(f[i][j + 1], f[i][j] + g[i][j] + a[j + 1]);
 		}
 	}
-	rep (i, 1, m) {
-		int u, v;
-		read(u), read(v);
-		int l = log2(v - u + 1);
-		print(max(st[u][l], st[v - (1 << l) + 1][l]));
-		putchar(10);
-	}
+	cout << f[1][n];
 	return 0;
 }

@@ -29,24 +29,40 @@ void print(_Tp x) {
 	putchar(x % 10 + '0');
 }
 
-const int MAXN = 1e5 + 5;
-int n, m, a[MAXN], st[MAXN][21];
+#define int ll
 
-int main() {
-	read(n), read(m);
-	rep (i, 1, n) read(a[i]);
-	rep (i, 1, n) st[i][0] = a[i];
-	rep (j, 1, log2(n)) {
-		rep (i, 1, n - (1 << j) + 1) {
-			st[i][j] = max(st[i + (1 << (j - 1))][j - 1], st[i][j - 1]);
-		}
+int n, m;
+int ans[200005], c[200005], v[200005], l[200005], r[200005];
+vector <int> G[200005];
+bitset <200005> vis;
+
+void dfs(int u, int col) {
+	c[u] = col;
+	ans[col] = max(ans[col], v[u]);
+	vis[u] = 1;
+	for (auto x : G[u]) {
+		if (!vis[x]) dfs(x, col);
+	}
+}
+
+signed main() {
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("journey.in", "r", stdin);
+	freopen("journey.out", "w", stdout);
+#endif
+#endif
+	cin >> n >> m;
+	rep (i, 1, n) {
+		cin >> l[i] >> r[i] >> v[i];
 	}
 	rep (i, 1, m) {
 		int u, v;
-		read(u), read(v);
-		int l = log2(v - u + 1);
-		print(max(st[u][l], st[v - (1 << l) + 1][l]));
-		putchar(10);
+		cin >> u >> v;
+		G[u].emplace_back(v);
+		G[v].emplace_back(u);
 	}
+	rep (i, 1, n) if (!vis[i]) dfs(i, i);
+	rep (i, 1, n) cout << ans[c[i]] << " ";
 	return 0;
 }
