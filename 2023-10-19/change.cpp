@@ -29,6 +29,8 @@ void print(_Tp x) {
 	putchar(x % 10 + '0');
 }
 
+#define int ll
+
 int T;
 int n;
 
@@ -114,7 +116,7 @@ int solve(node *u, bool target) {
 	return res;
 }
 
-int main() {
+signed main() {
 #ifndef LOCAL
 #ifndef ONLINE_JUDGE
 	freopen("change.in", "r", stdin);
@@ -125,6 +127,7 @@ int main() {
 	cin >> T;
 	while (T --> 0) {
 		release(root);
+		root = nullptr;
 		cin >> n;
 		string s;
 		rep (i, 1, 2 * n - 1) {
