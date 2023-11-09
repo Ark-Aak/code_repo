@@ -32,11 +32,13 @@ void print(_Tp x) {
 
 
 int main() {
-#ifndef LOCAL
-#ifndef ONLINE_JUDGE
-
-#endif
-#endif
-	
+	ll n;
+	cin >> n;
+	rep (i, 1, 30) {
+		ll res = 1;
+		rep (j, 1, i) res *= i;
+		if (res == n) return cout << i, 0;
+	}
+	cout << -1;
 	return 0;
 }

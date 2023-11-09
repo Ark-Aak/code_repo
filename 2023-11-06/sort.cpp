@@ -29,14 +29,41 @@ void print(_Tp x) {
 	putchar(x % 10 + '0');
 }
 
+namespace Subtask1 {
+	int cmpcnt = 0;
 
+	void sort(vector <int> a, int n) {
+		if (n <= 1) return;
+		int pivot = a[ceil(a.size() / 2)];
+		vector <int> al, ag;
+		al.emplace_back(0), ag.emplace_back(0);
+		rep (i, 1, n) {
+			cmpcnt = cmpcnt + 1;
+			if (a[i] < pivot) al.emplace_back(a[i]);
+			if (a[i] > pivot) ag.emplace_back(a[i]);
+		}
+		sort(al, al.size() - 1), sort(ag, ag.size() - 1);
+	}
+}
+
+int n;
+vector <int> tt;
 
 int main() {
 #ifndef LOCAL
 #ifndef ONLINE_JUDGE
-
+	freopen("sort.in", "r", stdin);
+	freopen("sort.out", "w", stdout);
 #endif
 #endif
-	
+	read(n);
+	tt.emplace_back(0);
+	rep (i, 1, n) {
+		int c;
+		read(c);
+		tt.emplace_back(c);
+	}
+	Subtask1::sort(tt, n);
+	print(Subtask1::cmpcnt);
 	return 0;
 }

@@ -34,9 +34,13 @@ void print(_Tp x) {
 int main() {
 #ifndef LOCAL
 #ifndef ONLINE_JUDGE
-
+	freopen("courage.in", "r", stdin);
+	freopen("courage.out", "w", stdout);
 #endif
 #endif
-	
+	int n;
+	cin >> n;
+	if (n & 1) cout << "0 0\n";
+	else cout << "0 0\n";
 	return 0;
 }

@@ -29,14 +29,33 @@ void print(_Tp x) {
 	putchar(x % 10 + '0');
 }
 
-
+int T, n, a[20], b[20];
 
 int main() {
 #ifndef LOCAL
 #ifndef ONLINE_JUDGE
-
+	freopen("op.in", "r", stdin);
+	freopen("op.out", "w", stdout);
 #endif
 #endif
-	
+	cin >> T;
+	while (T --> 0) {
+		cin >> n;
+		rep (i, 1, n) cin >> a[i] >> b[i];
+		if (a[1] < b[1]) {
+			cout << b[1] - a[1] << endl;
+			continue;
+		}
+		else {
+			int ans = a[1] - b[1], cnt = 0;
+			while (a[1] > b[1]) {
+				++cnt;
+				a[1] /= 2;
+				ans = min(ans, cnt + abs(b[1] - a[1]));
+			}
+			ans = min(ans, cnt + b[1] - a[1]);
+			print(ans); putchar(10);
+		}
+	}
 	return 0;
 }

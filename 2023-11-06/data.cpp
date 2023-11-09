@@ -29,14 +29,22 @@ void print(_Tp x) {
 	putchar(x % 10 + '0');
 }
 
+int arr[700005];
+mt19937 rnd(time(0));
 
+set <pair <int, int> > s;
 
 int main() {
-#ifndef LOCAL
-#ifndef ONLINE_JUDGE
-
-#endif
-#endif
-	
+	int n = 200000, m = n - 1;
+	cout << n << " " << 0 << endl;
+	rep (i, 1, n) {
+		arr[i] = i;
+	}
+	shuffle(arr + 1, arr + 1 + n, rnd);
+	rep (i, 1, n - 1) s.insert(make_pair(min(arr[i], arr[i + 1]), max(arr[i], arr[i + 1])));
+	for (auto x : s) {
+		cout << x.first << " " << x.second << endl;
+	}
+	rep (i, 1, n) cout << abs((int) rnd()) << " ";
 	return 0;
 }

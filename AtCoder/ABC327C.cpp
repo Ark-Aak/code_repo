@@ -29,14 +29,29 @@ void print(_Tp x) {
 	putchar(x % 10 + '0');
 }
 
-
+vector <int> grid[15][3];
 
 int main() {
-#ifndef LOCAL
-#ifndef ONLINE_JUDGE
-
-#endif
-#endif
-	
+	rep (i, 1, 9) {
+		rep (j, 1, 9) {
+			int c;
+			cin >> c;
+			int ps = (i - 1) / 3;
+			ps *= 3;
+			ps += (j - 1) / 3 + 1;
+			grid[ps][0].emplace_back(c);
+			grid[i][1].emplace_back(c);
+			grid[j][2].emplace_back(c);
+		}
+	}
+	rep (i, 0, 2) rep (j, 1, 9) sort(grid[j][i].begin(), grid[j][i].end());
+	rep (i, 1, 9) {
+		rep (k, 0, 2)
+			rep (j, 1, grid[i][k].size() - 1) if (grid[i][k][j] == grid[i][k][j - 1]) {
+				cout << "No";
+				return 0;
+			}
+	}
+	cout << "Yes";
 	return 0;
 }

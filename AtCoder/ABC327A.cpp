@@ -32,11 +32,15 @@ void print(_Tp x) {
 
 
 int main() {
-#ifndef LOCAL
-#ifndef ONLINE_JUDGE
-
-#endif
-#endif
-	
+	int n;
+	string s;
+	cin >> n >> s;
+	s = ' ' + s;
+	rep (i, 1, n - 1) {
+		if (s[i] == 'a' && s[i + 1] == 'b' || s[i] == 'b' && s[i + 1] == 'a') {
+			return cout << "Yes", 0;
+		}
+	}
+	cout << "No";
 	return 0;
 }

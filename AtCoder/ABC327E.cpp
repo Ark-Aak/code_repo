@@ -29,14 +29,24 @@ void print(_Tp x) {
 	putchar(x % 10 + '0');
 }
 
-
+int n, p[5005];
+double f[5005];
+double pw[5005], qz[5005];
 
 int main() {
-#ifndef LOCAL
-#ifndef ONLINE_JUDGE
-
-#endif
-#endif
-	
+	pw[1] = qz[1] = 1;
+	rep (i, 2, 5000) pw[i] = pw[i - 1] * 0.9, qz[i] = qz[i - 1] + pw[i];
+	cin >> n;
+	rep (i, 1, n) cin >> p[i];
+	_rep (i, n, 1) {
+		_rep (j, n, 1) {
+			f[j] = max(f[j], f[j - 1] + p[i] * pw[j]);
+		}
+	}
+	double ans = -1e12;
+	rep (i, 1, n) {
+		ans = max(ans, (f[i] / qz[i]) - (1200.0 / sqrt(i)));
+	}
+	printf("%.10lf", ans);
 	return 0;
 }

@@ -8,6 +8,18 @@ using namespace std;
 typedef long long ll;
 typedef pair <int, int> pii;
 
+char buf[1 << 21];
+char *p1, *p2;
+
+#define getchar() (p1 == p2 && (p2 = (p1 = buf) + fread(buf, 1, 1 << 20, stdin), p1 == p2) ? EOF : *p1++)
+
+char pbuf[1 << 21], *pp = pbuf;
+
+void push(const char &c) {
+	if (pp - pbuf == 1 << 20) fwrite(pbuf, 1, 1 << 20, stdout), pp = pbuf;
+	*pp++ = c;
+}
+
 template <typename _Tp>
 void read(_Tp& first) {
 	_Tp x = 0, f = 1; char c = getchar();
@@ -22,14 +34,16 @@ void read(_Tp& first) {
 	first = x * f;
 }
 
+int sta[35];
+
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) x = (~x + 1), putchar('-');
-	if (x > 9) print(x / 10);
-	putchar(x % 10 + '0');
+	int top = 0;
+	do {
+		sta[top++] = x % 10, x /= 10;
+	} while (x);
+	while (top) push(sta[--top] + '0');
 }
-
-#define int ll
 
 const int MAXN = 1e6 + 5;
 pair <int, int> querys[MAXN];
@@ -39,9 +53,6 @@ int n, m;
 
 void init() {
 	rep (i, 1, n) st[i][0] = pos[i];
-	rep (j, 1, 20)
-		for (int i = 1; i <= n - (1 << j) + 1; i++)
-			st[i][j] = 1e18;
 	rep (j, 1, 20) {
 		rep (i, 1, (n - (1 << j) + 1)) {
 			st[i][j] = min(st[i][j - 1], st[i + (1 << (j - 1))][j - 1]);
@@ -103,11 +114,12 @@ signed main() {
 		}
 	}
 	rep (i, 1, m) {
-		if (querys[i].second == -1) for (auto x : mdf[i]) add(x, 1);
+		if (!~querys[i].second) for (int x : mdf[i]) add(x, 1);
 		else {
 			print(Q(querys[i].first, querys[i].second));
-			putchar(10);
+			push(10);
 		}
 	}
+	fwrite(pbuf, 1, pp - pbuf, stdout);
 	return 0;
 }

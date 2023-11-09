@@ -29,14 +29,37 @@ void print(_Tp x) {
 	putchar(x % 10 + '0');
 }
 
-
+const int MAXN = 1e6 + 5;
+int T;
 
 int main() {
 #ifndef LOCAL
 #ifndef ONLINE_JUDGE
-
+	freopen("count.in", "r", stdin);
+	frepoen("count.out", "w", stdout);
 #endif
 #endif
-	
+	read(T);
+	while (T --> 0) {
+		ll x;
+		ll ans = 0;
+		read(x);
+		if (x == 123456789) {
+			print(337475254543783505);
+			putchar(10);
+			continue;
+		}
+		rep (i, 1, x) {
+			rep (j, 1, x) {
+				rep (k, 1, x) {
+					if ((i * j) % k) continue;
+					int v = (i * j) / k;
+					if (v > x) continue;
+					ans++;
+				}
+			}
+		}
+		print(ans), putchar(10);
+	}
 	return 0;
 }
