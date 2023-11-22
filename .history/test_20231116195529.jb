@@ -1,0 +1,16 @@
+def a,b int
+
+scan $a
+scan $b
+
+$a += $b
+
+if $a leq $b
+	jmp 14
+endif
+
+sprintln "1"
+jmp 15
+sprintln "2"
+
+end

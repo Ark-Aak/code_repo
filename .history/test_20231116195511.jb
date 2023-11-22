@@ -1,0 +1,16 @@
+def a,b int
+
+scan $a
+scan $b
+
+$a += $b
+
+if $a leq $b
+	goto 14
+endif
+
+sprintln "1"
+goto 15
+sprintln "2"
+
+end

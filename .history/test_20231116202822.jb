@@ -1,0 +1,23 @@
+def a,b int
+
+scan $a
+scan $b
+
+def zero,tmp int
+
+$zero = 0
+final $zero
+
+label loop
+
+if $b eq $zero
+	jmp print
+endif
+
+$tmp := $a
+$a := $b
+$tmp %= $b
+$b := $tmp
+
+label print
+println $a

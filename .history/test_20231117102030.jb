@@ -1,0 +1,52 @@
+defarray b 10
+
+def i int
+def max int
+def tmp int
+$max = 6
+
+$i = 1
+
+label readArray
+
+if $i geq $max
+	jmp @main
+endif
+
+scan $tmp
+put $tmp &b $i
+$i += 1
+
+jmp @readArray
+
+label main
+
+$i = 1
+def j int
+$j = 1
+
+label loopis
+	
+	label loopjs
+
+	label loopje
+label loopie
+
+label print
+
+$i = 1
+
+label printElement
+
+if $i geq $max
+	exit
+endif
+
+get $tmp &b $i
+print $tmp
+sprint " "
+$tmp := $i
+$tmp += 1
+$i := $tmp
+
+jmp @printElement

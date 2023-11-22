@@ -1,0 +1,76 @@
+defarray b 100
+
+def i int
+def max int
+def tmp int
+$max = 6
+
+$i = 1
+
+label readArray
+
+if $i gr $max
+	jmp @main
+endif
+
+scan $tmp
+put $tmp &b $i
+$i += 1
+
+jmp @readArray
+
+label main
+
+$i = 1
+def j int
+$j = 1
+
+def tmp1,tmp2,tmp3 int
+
+label loopis
+	if $i gr $max
+		jmp @loopie
+	endif
+	$j = 1
+	label loopjs
+		if $j gr $max
+			jmp @loopje
+		endif
+		get $tmp1 &b $i
+		get $tmp2 &b $j
+		if $tmp1 gr $tmp2
+			jmp @swap
+		endif
+		jmp @continue
+		label swap
+			$tmp3 := $tmp1
+			$tmp1 := $tmp2
+			$tmp2 := $tmp3
+		label continue
+		$j += 1
+		jmp @loopjs
+	label loopje
+	$i += 1
+	jmp @loopis
+label loopie
+
+label print
+
+print $max
+
+$i = 1
+
+label printElement
+
+if $i gr $max
+	exit
+endif
+
+get $tmp &b $i
+print $tmp
+sprint " "
+$tmp := $i
+$tmp += 1
+$i := $tmp
+
+jmp @printElement

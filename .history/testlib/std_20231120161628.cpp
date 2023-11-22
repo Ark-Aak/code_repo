@@ -1,0 +1,256 @@
+#include<bits/stdc++.h>
+
+namespace IO{
+    char buff[1<<21],*p1=buff,*p2=buff;
+    char getch(){
+        return p1==p2&&(p2=((p1=buff)+fread(buff,1,1<<21,stdin)),p1==p2)?EOF:*p1++;
+    }
+    template<typename T>
+    void read(T &x){
+        char ch=getch();int fl=1;x=0;
+        while(ch>'9'||ch<'0'){if(ch=='-')fl=-1;ch=getch();}
+        while(ch<='9'&&ch>='0'){x=x*10+ch-48;ch=getch();}
+        x*=fl;
+    }
+    template<typename T,typename ...Args>
+    void read(T &x,Args& ...args){
+        read(x);read(args...);
+    }
+    char obuf[1<<21],*p3=obuf;
+    void putch(char ch){
+        if(p3-obuf<(1<<21))*p3++=ch;
+        else fwrite(obuf,p3-obuf,1,stdout),p3=obuf,*p3++=ch;
+    }
+    char ch[100];
+    template<typename T>
+    void write(T x){
+        if(!x)return putch('0');
+        if(x<0)putch('-'),x*=-1;
+        int top=0;
+        while(x)ch[++top]=x%10+48,x/=10;
+        while(top)putch(ch[top]),top--;
+    }
+    template<typename T,typename ...Args>
+    void write(T x,Args ...args){
+        write(x);write(args...);
+    }
+    void flush(){fwrite(obuf,p3-obuf,1,stdout);}
+}
+using namespace IO;
+using namespace std;
+
+int s[100005],n;
+vector<int> q[100005];
+
+int dfn[100005],low[100005],stk[100005],tail,cnt,a[100005],group[100005],w[100005];
+int head[100005],to[100005],nxt[100005],tot,idx;
+int siz[100005],dep[100005],fa[100005],son[100005],id[100005],wt[100005],top[100005],m;
+struct mat {int m[2][2];};
+mat mul(mat x,mat y) {
+	mat z;
+	z.m[0][0]=min(x.m[0][0]+y.m[0][0],x.m[0][1]+y.m[1][0]);
+	z.m[0][1]=min(x.m[0][0]+y.m[0][1],x.m[0][1]+y.m[1][1]);
+	z.m[1][0]=min(x.m[1][0]+y.m[0][0],x.m[1][1]+y.m[1][0]);
+	z.m[1][1]=min(x.m[1][0]+y.m[0][1],x.m[1][1]+y.m[1][1]);
+	return z;
+}//建立矩阵 
+
+struct treeT {
+	#define mid (l+r>>1)
+	#define ls (rt<<1)
+	#define rs (rt<<1|1)
+	mat a[400005];
+	void build(int rt,int l,int r,int k) {
+		if(l==r) {
+			int W=(wt[l]>=k);
+			a[rt].m[0][0]=W;
+			a[rt].m[1][0]=1e8;
+			a[rt].m[0][1]=(!W);
+			a[rt].m[1][1]=(!W);
+			return ;
+		}
+		build(ls,l,mid,k);
+		build(rs,mid+1,r,k);
+		a[rt]=mul(a[ls],a[rs]);
+	}
+	void update(int rt,int l,int r,int L,int R,int k) {
+		if(L<=l && r<=R) {
+			int W=(wt[l]>=k);
+			a[rt].m[0][0]=W;
+			a[rt].m[1][0]=1e8;
+			a[rt].m[0][1]=(!W);
+			a[rt].m[1][1]=(!W);
+			return ;
+		}
+		if(L<=mid) update(ls,l,mid,L,R,k);
+		if(mid<R) update(rs,mid+1,r,L,R,k);
+		a[rt]=mul(a[ls],a[rs]);
+	}
+	mat query(int rt,int l,int r,int L,int R) {
+		if(L<=l && r<=R) return a[rt];
+		mat res;
+		if(L<=mid && mid<R) res=mul(query(ls,l,mid,L,R),query(rs,mid+1,r,L,R));
+		if(L<=mid) res=query(ls,l,mid,L,R);
+		if(mid<R) res=query(rs,mid+1,r,L,R);
+		a[rt]=mul(a[ls],a[rs]);
+		return res;
+	}
+}T[31]; //线段树 
+
+struct treeS {
+	mat a[400005];
+	void build(int rt,int l,int r,int k) {
+		if(l==r) {
+			int W=(wt[l]>=k);
+			a[rt].m[0][0]=W;
+			a[rt].m[1][0]=1e8;
+			a[rt].m[0][1]=(!W);
+			a[rt].m[1][1]=(!W);
+			return ;
+		}
+		build(ls,l,mid,k);
+		build(rs,mid+1,r,k);
+		a[rt]=mul(a[rs],a[ls]);
+	}
+	void update(int rt,int l,int r,int L,int R,int k) {
+		if(L<=l && r<=R) {
+			int W=(wt[l]>=k);
+			a[rt].m[0][0]=W;
+			a[rt].m[1][0]=1e8;
+			a[rt].m[0][1]=(!W);
+			a[rt].m[1][1]=(!W);
+			return ;
+		}
+		if(L<=mid) update(ls,l,mid,L,R,k);
+		if(mid<R) update(rs,mid+1,r,L,R,k);
+		a[rt]=mul(a[rs],a[ls]);
+	}
+	mat query(int rt,int l,int r,int L,int R) {
+		if(L<=l && r<=R) return a[rt];
+		mat res;
+		if(L<=mid && mid<R) res=mul(query(rs,mid+1,r,L,R),query(ls,l,mid,L,R));
+		if(L<=mid) res=query(ls,l,mid,L,R);
+		if(mid<R) res=query(rs,mid+1,r,L,R);
+		a[rt]=mul(a[rs],a[ls]);
+		return res;
+	}
+}S[31]; //线段树 
+
+
+void dfs1(int x,int f) {
+	siz[x]=1;
+	dep[x]=dep[f]+1;
+	fa[x]=f;
+	for(int i=0;i<q[x].size();i++) {
+		int v=q[x][i];
+		if(v==f) continue;
+		dfs1(v,x);
+		siz[x]+=siz[v];
+		if(siz[son[x]]<siz[v]) son[x]=v;
+	}
+}
+void dfs2(int x,int topf) {
+	top[x]=topf;
+	id[x]=++cnt;
+	wt[cnt]=w[x];
+	if(!son[x]) return ;
+	dfs2(son[x],topf);
+	for(int i=0;i<q[x].size();i++) {
+		int v=q[x][i];
+		if(v==fa[x] || v==son[x]) continue;
+		dfs2(v,v);
+	}
+}
+int query(int x,int y) {
+	mat sum1[31],sum2[31]; 
+	
+	int flag1=0,flag2=0,fl=0;
+	while(top[x]!=top[y]) {
+		if(dep[top[x]]<dep[top[y]]) {
+			swap(x,y);
+			fl=!fl;
+		} 
+		if(!fl) {
+			if(flag1) for(int i=0;i<=30;i++) sum1[i]=mul(sum1[i],T[i].query(1,1,n,id[top[x]],id[x]));
+			else {
+				flag1=1;
+				for(int i=0;i<=30;i++) sum1[i]=T[i].query(1,1,n,id[top[x]],id[x]);
+			}
+		} else {
+			if(flag2) for(int i=0;i<=30;i++) sum2[i]=mul(S[i].query(1,1,n,id[top[x]],id[x]),sum2[i]);
+			else {
+				flag2=1;
+				for(int i=0;i<=30;i++) sum2[i]=S[i].query(1,1,n,id[top[x]],id[x]);
+			}
+		}
+		x=fa[top[x]];
+	}
+	if(dep[x]>dep[y]) {
+		swap(x,y);
+		fl=!fl;
+	}
+	if(!fl) {
+		if(flag1) for(int i=0;i<=30;i++) sum1[i]=mul(sum1[i],T[i].query(1,1,n,id[x],id[y]));
+		else {
+			flag1=1;
+			for(int i=0;i<=30;i++) sum1[i]=T[i].query(1,1,n,id[x],id[y]);
+		}
+	} else {
+		if(flag2) for(int i=0;i<=30;i++) sum2[i]=mul(S[i].query(1,1,n,id[x],id[y]),sum2[i]);
+		else {
+			flag2=1;
+			for(int i=0;i<=30;i++) sum2[i]=S[i].query(1,1,n,id[x],id[y]);
+		}
+	}
+	for(int i=0;i<=30;i++) {
+		if(flag1 && flag2) sum1[i]=mul(sum1[i],sum2[i]);
+		else if(flag2) sum1[i]=sum2[i];
+	}
+	int tmp=0;
+	for(int i=0;i<=30;i++) tmp=tmp+min(sum1[i].m[0][0],sum1[i].m[0][1]);
+	return tmp;
+}//树剖板子 
+
+signed main() {
+	read(n,m);
+	for(int i=1;i<=n;i++) read(w[i]);
+	for(int i=1;i<=m;i++) {
+		int x,y;
+		read(x,y);
+		q[x].push_back(y);
+		q[y].push_back(x);
+	} 
+
+	cnt=0;
+	dfs1(1,0);
+	dfs2(1,1);
+	for(int i=0;i<=30;i++) T[i].build(1,1,n,i);
+	for(int i=0;i<=30;i++) S[i].build(1,1,n,i);
+	
+	int Q;
+	read(Q);
+	while(Q--) {
+		int t,x,u,v;
+		read(t,x,u,v);
+		wt[id[t]]=x;
+		for(int i=0;i<=30;i++) T[i].update(1,1,n,id[t],id[t],i);
+		for(int i=0;i<=30;i++) S[i].update(1,1,n,id[t],id[t],i);
+		write(query(u,v));
+		putch('\n');
+	}
+	flush();
+	return 0;
+}
+/*
+8 7
+6 2 1 9 3 4 5 3
+1 2
+1 3
+1 4
+2 5
+2 6
+3 7
+3 8
+1
+1 5 6 4
+*/

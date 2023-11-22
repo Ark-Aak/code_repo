@@ -1,0 +1,15 @@
+def a,b int
+
+scan $a
+scan $b
+
+$a += $b
+
+if $a le $b
+	goto 13
+
+sprintln "1"
+goto 15
+sprintln "2"
+
+end

@@ -1,0 +1,16 @@
+def a,b int
+
+scan $a
+scan $b
+
+def zero int
+
+zero = 0
+final zero
+
+label loop
+
+if $b eq 
+
+label print
+println $a

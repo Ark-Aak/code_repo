@@ -1,0 +1,7 @@
+def a int
+defarray b 10
+
+scan $a
+
+def b int
+

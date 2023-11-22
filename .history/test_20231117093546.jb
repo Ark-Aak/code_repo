@@ -1,0 +1,16 @@
+def a int
+defarray b 10
+
+scan $a
+
+def c int
+
+$c = 10
+final $c
+
+put $c &b 7
+
+def tmp int
+get $tmp &b 7
+
+println $tmp

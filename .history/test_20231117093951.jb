@@ -1,0 +1,19 @@
+def a int
+defarray b 100
+
+scan $a
+
+def c int
+
+$c = 10
+final $c
+
+def pos int
+$pos = 7
+
+put $c &b $pos
+
+def tmp int
+get $tmp &b $pos
+
+println $tmp

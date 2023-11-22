@@ -164,6 +164,70 @@
   - [data.cpp](/2023-11-03/data.cpp)
   - [race.cpp](/2023-11-03/race.cpp)
   - [wave.cpp](/2023-11-03/wave.cpp)
+- **2023-11-04**
+  - [courage.cpp](/2023-11-04/courage.cpp)
+  - [karma.cpp](/2023-11-04/karma.cpp)
+- **2023-11-06**
+  - **count**
+  - [count.cpp](/2023-11-06/count.cpp)
+  - [data.cpp](/2023-11-06/data.cpp)
+  - **magic**
+  - [magic.cpp](/2023-11-06/magic.cpp)
+  - **match**
+  - [match.cpp](/2023-11-06/match.cpp)
+  - **sort**
+  - [sort.cpp](/2023-11-06/sort.cpp)
+  - [std.cpp](/2023-11-06/std.cpp)
+- **2023-11-08**
+  - [bracket.cpp](/2023-11-08/bracket.cpp)
+  - [data.cpp](/2023-11-08/data.cpp)
+  - [op.cpp](/2023-11-08/op.cpp)
+  - [path.cpp](/2023-11-08/path.cpp)
+  - [string.cpp](/2023-11-08/string.cpp)
+- **2023-11-10**
+  - [data.cpp](/2023-11-10/data.cpp)
+  - [dtree.cpp](/2023-11-10/dtree.cpp)
+  - [interval.cpp](/2023-11-10/interval.cpp)
+  - [score.cpp](/2023-11-10/score.cpp)
+  - [shuttle.cpp](/2023-11-10/shuttle.cpp)
+  - **std**
+    - [dtree.cpp](/2023-11-10/std/dtree.cpp)
+    - [interval.cpp](/2023-11-10/std/interval.cpp)
+    - [score.cpp](/2023-11-10/std/score.cpp)
+    - [shuttle.cpp](/2023-11-10/std/shuttle.cpp)
+  - [test.cpp](/2023-11-10/test.cpp)
+- **2023-11-12**
+  - [game.cpp](/2023-11-12/game.cpp)
+  - [seq.cpp](/2023-11-12/seq.cpp)
+  - [square.cpp](/2023-11-12/square.cpp)
+  - [xor.cpp](/2023-11-12/xor.cpp)
+- **2023-11-13**
+  - [diedmd.cpp](/2023-11-13/diedmd.cpp)
+  - [insects.cpp](/2023-11-13/insects.cpp)
+  - [problem.cpp](/2023-11-13/problem.cpp)
+  - [remember.cpp](/2023-11-13/remember.cpp)
+  - [report.txt](/2023-11-13/report.txt)
+  - [score.txt](/2023-11-13/score.txt)
+  - **std**
+    - [diedmd.cpp](/2023-11-13/std/diedmd.cpp)
+    - [insects.cpp](/2023-11-13/std/insects.cpp)
+    - [problem.cpp](/2023-11-13/std/problem.cpp)
+    - [remember.cpp](/2023-11-13/std/remember.cpp)
+- **2023-11-14**
+  - [dining.cpp](/2023-11-14/dining.cpp)
+  - [tree.cpp](/2023-11-14/tree.cpp)
+  - [two.cpp](/2023-11-14/two.cpp)
+  - [young.cpp](/2023-11-14/young.cpp)
+- **2023-11-15**
+  - [calc.cpp](/2023-11-15/calc.cpp)
+  - [clash.cpp](/2023-11-15/clash.cpp)
+  - [defence.cpp](/2023-11-15/defence.cpp)
+  - [fang.cpp](/2023-11-15/fang.cpp)
+  - [flower.cpp](/2023-11-15/flower.cpp)
+- **2023-11-16**
+  - [eatery.cpp](/2023-11-16/eatery.cpp)
+  - [flow.cpp](/2023-11-16/flow.cpp)
+  - [grimoire.cpp](/2023-11-16/grimoire.cpp)
 - **AtCoder**
   - [abc321a.cpp](/AtCoder/abc321a.cpp)
   - [abc321b.cpp](/AtCoder/abc321b.cpp)
@@ -189,6 +253,17 @@
   - [ABC326A.cpp](/AtCoder/ABC326A.cpp)
   - [ABC326B.cpp](/AtCoder/ABC326B.cpp)
   - [ABC326C.cpp](/AtCoder/ABC326C.cpp)
+  - [ABC327A.cpp](/AtCoder/ABC327A.cpp)
+  - [ABC327B.cpp](/AtCoder/ABC327B.cpp)
+  - [ABC327C.cpp](/AtCoder/ABC327C.cpp)
+  - [ABC327D.cpp](/AtCoder/ABC327D.cpp)
+  - [ABC327E.cpp](/AtCoder/ABC327E.cpp)
+  - [ABC327F.cpp](/AtCoder/ABC327F.cpp)
+  - [ABC328A.cpp](/AtCoder/ABC328A.cpp)
+  - [ABC328B.cpp](/AtCoder/ABC328B.cpp)
+  - [ABC328C.cpp](/AtCoder/ABC328C.cpp)
+  - [ABC328D.cpp](/AtCoder/ABC328D.cpp)
+  - [ABC328E.cpp](/AtCoder/ABC328E.cpp)
   - [ARC166A.cpp](/AtCoder/ARC166A.cpp)
   - [ARC166B-test.cpp](/AtCoder/ARC166B-test.cpp)
   - [ARC166B.cpp](/AtCoder/ARC166B.cpp)
@@ -219,17 +294,22 @@
   - [P2464.cpp](/Luogu/P2464.cpp)
   - [P3369.cpp](/Luogu/P3369.cpp)
   - [P3372.cpp](/Luogu/P3372.cpp)
+  - [P3380.cpp](/Luogu/P3380.cpp)
   - [P3792-ori.cpp](/Luogu/P3792-ori.cpp)
   - [P3792-zhl.cpp](/Luogu/P3792-zhl.cpp)
   - [P3792.cpp](/Luogu/P3792.cpp)
+  - [P3834.cpp](/Luogu/P3834.cpp)
   - [P3865.cpp](/Luogu/P3865.cpp)
+  - [P4213.cpp](/Luogu/P4213.cpp)
   - [P4284.cpp](/Luogu/P4284.cpp)
   - [P4779.cpp](/Luogu/P4779.cpp)
   - [P4929.cpp](/Luogu/P4929.cpp)
   - [P6086.cpp](/Luogu/P6086.cpp)
   - [pollardrho.cpp](/Luogu/pollardrho.cpp)
   - [SP26368.cpp](/Luogu/SP26368.cpp)
+  - [test.cpp](/Luogu/test.cpp)
   - [treechain.cpp](/Luogu/treechain.cpp)
+- [Luogu_P_5906.cpp](/Luogu_P_5906.cpp)
 - **PPT**
   - [11字符串算法.pptx](/PPT/11字符串算法.pptx)
   - [图论进阶.pptx](/PPT/图论进阶.pptx)
@@ -238,14 +318,186 @@
   - [树上问题的序列化.pptx](/PPT/树上问题的序列化.pptx)
   - [高级数据结构杂谈.pptx](/PPT/高级数据结构杂谈.pptx)
 - [README.md](/README.md)
+- **Results**
+  - **result0924_csp**
+    - **down**
+      - **act**
+      - **fight**
+      - **gen**
+      - **kel**
+  - **result0925_csp**
+    - **down**
+      - **game**
+      - **imp**
+      - **tree**
+    - **source**
+      - **CQYC_C1张锦轩**
+        - **game**
+  - **result0927_csp**
+    - **down**
+      - **envelope**
+      - **gaze**
+      - **path**
+    - **source**
+      - **王煜涛**
+        - **crazy**
+      - **草3钟昊霖**
+  - **result0928_csp**
+    - **down**
+      - **easiest**
+      - **graph**
+      - **milky**
+      - **trade**
+    - **source**
+      - **std**
+  - **result0930_csp**
+    - **down**
+      - **number**
+    - **source**
+      - **C3陈俊西**
+        - **greedy**
+        - **number**
+        - **path**
+  - **result1001**
+    - **down**
+      - **badge**
+      - **device**
+      - **grid**
+      - **triple**
+    - **source**
+      - **CQYC_G1yqn**
+  - **result1002_csp**
+    - **down**
+      - **car**
+      - **casio**
+      - **excellent**
+      - **robot**
+    - **source**
+      - **CQYCC3钟昊霖**
+      - **qz1z_wwh 2023.10.2**
+        - **casio**
+        - **excellent**
+      - **qz1z_zgc**
+        - **car**
+      - **牛子睿**
+        - **robot**
+      - **王煜涛**
+        - **robot**
+  - **result1003_csp**
+    - **down**
+      - **explorer**
+      - **flip**
+      - **jump**
+      - **lca**
+    - **source**
+      - **qz1z_wwh 2023.10.3**
+        - **explorer**
+        - **jump**
+  - **result1004_csp**
+    - **down**
+      - **cat**
+      - **chessboard**
+      - **magic**
+      - **random**
+    - **source**
+      - **qz1z_wwh 2023.10.4**
+        - **magic**
+      - **初三·曾奕翰**
+        - **chessboard**
+  - **result1005_csp**
+    - **down**
+      - **graph**
+      - **permutation**
+      - **travel**
+    - **source**
+      - **C2周琛乔**
+      - **C3钟昊霖**
+      - **cqyc3张勤浩105**
+        - **permutation**
+        - **reinforce**
+        - **travel**
+      - **CQYC_C3熊希睿**
+        - [permutation-96-2.5e6.in](/Results/result1005_csp/source/CQYC_C3熊希睿/permutation-96-2.5e6.in)
+        - [permutation-97-1.3e6.in](/Results/result1005_csp/source/CQYC_C3熊希睿/permutation-97-1.3e6.in)
+      - **CQYC_X6刘昱皓然**
+        - **permutation**
+      - **qz1z_wwh 34pts**
+        - **permutation**
+        - **reinforce**
+        - **travel**
+      - **刘津铭**
+        - **travel**
+  - **result1007_csp**
+    - **down**
+      - **double**
+      - **journey**
+      - **seal**
+      - **yo**
+    - **source**
+      - **C2 倪锐 2023.10.07**
+      - **C3 钟昊霖**
+        - **新文件夹**
+      - **CQYC_C3熊希睿**
+      - **qz1z_wwh 2023.10.7**
+        - **journey**
+      - **黄柱铭**
+        - **double**
+        - **journey**
+        - **seal**
+        - **yo**
+  - **result1008_csp**
+    - **down**
+      - **count**
+      - **increase**
+      - **network**
+      - **stone**
+    - **source**
+      - **CQYC_C3熊希睿**
+        - **count**
+      - **刘昱辰**
+        - **output**
+  - **result1009_csp**
+    - **down**
+      - **ak**
+      - **loser**
+      - **tower**
+    - **source**
+      - **c3_孙英迪**
+        - **tower**
+      - **CQYC_C3熊希睿**
+      - **刘昱辰**
+        - **output**
+  - **result1010_csp**
+    - **down**
+      - **elevator**
+      - **matrix**
+      - **mex**
+    - **source**
+      - **C3_胡杨**
+        - **elevator**
+      - **qz1z_wwh 2023.10.10**
+        - **elevator**
+        - **matrix**
+        - **wisdom**
+  - **result1011_csp**
+    - **down**
+      - **ds**
+      - **ring**
+      - **sequence**
+    - **source**
+      - **C3杜炎璋**
+        - **ave**
 - **Solution**
   - [sol-1.md](/Solution/sol-1.md)
   - [sol-2.md](/Solution/sol-2.md)
 - **SomethingFun**
   - [7z_2301-x64.cpp](/SomethingFun/7z_2301-x64.cpp)
   - [runner.cpp](/SomethingFun/runner.cpp)
+- [sort.cpp](/sort.cpp)
+- [test.cpp](/test.cpp)
 - **testlib**
   - [testlib.h](/testlib/testlib.h)
+- [tt.cpp](/tt.cpp)
 - **ttf**
   - [FiraCode-Bold.ttf](/ttf/FiraCode-Bold.ttf)
   - [FiraCode-Light.ttf](/ttf/FiraCode-Light.ttf)
