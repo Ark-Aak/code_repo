@@ -30,9 +30,40 @@ void print(_Tp x) {
 }
 
 const int MAXN = 200 + 5;
-int n, p[MAXN];
+int n, p[MAXN], ans;
 
-int f[MAXN][MAXN][MAXN];
+bitset <MAXN> vis;
+
+function <void (int)> dfs = [](int step) {
+	if (step > n) {
+		vector <int> a, b;
+		rep (i, 1, n) {
+			if (vis[i]) a.emplace_back(p[i]);
+			else b.emplace_back(p[i]);
+		}
+		int pmax[MAXN] = {0};
+		int pmin[MAXN] = {INT_MAX};
+		rep (i, 0, ((int) a.size()) - 1) {
+			pmax[i + 1] = max(pmax[i], a[i]);
+		}
+		rep (i, 0, ((int) b.size()) - 1) {
+			pmin[i + 1] = min(pmin[i], b[i]);
+		}
+		int cnt = 0;
+		rep (i, 1, (int) a.size()) {
+			if (pmax[i] != pmax[i - 1]) cnt++;
+		}
+		rep (i, 1,(int) b.size()) {
+			if (pmin[i] != pmin[i - 1]) cnt++;
+		}
+		ans = max(ans, cnt);
+		return;
+	}
+	vis[step] = 1;
+	dfs(step + 1);
+	vis[step] = 0;
+	dfs(step + 1);
+};
 
 int main() {
 #ifndef LOCAL
@@ -43,13 +74,7 @@ int main() {
 #endif
 	read(n);
 	rep (i, 1, n) read(p[i]);
-	rep (i, 1, n) {
-		rep (j, 1, n) {
-			rep (k, 1, n) {
-				f[i][j][k] = f[i - 1][j][k];
-			}
-		}
-		
-	}
+	dfs(1);
+	print(ans);
 	return 0;
 }

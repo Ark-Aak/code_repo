@@ -1,8 +1,0 @@
-def a,b int
-
-scan $a
-scan $b
-
-$a *= $b
-
-println $a

@@ -60,13 +60,6 @@ node *ltr[MAXN], *rtr[MAXN];
 
 #define mid ((L + R) >> 1)
 
-void build(node* &cur, int L, int R) {
-	if (!cur) cur = new node();
-	if (L == R) return;
-	build(cur -> ls, L, mid);
-	build(cur -> rs, mid + 1, R);
-}
-
 void update(node* &cur, int L, int R, int k, int val) {
 	if (!cur) cur = new node();
 	if (L == R) return (void) (cur -> sum += val);
@@ -110,30 +103,37 @@ int _rnk(int lcnt, int rcnt, int L, int R, int k) {
 }
 
 int lowbit(int x) {
-	return x & -x;
+	return x & (-x);
 }
 
 void add(int x, int val) {
 	if (!x) return;
-	int tx = x;
-	while (x <= n) {
-		update(root[x], 1, N, a[tx], val), x += lowbit(x);
+	for (int v = x; v <= n; v += lowbit(v)) {
+		update(root[v], 1, N, a[x], val);
 	}
 }
 
 int kth(int L, int R, int k) {
 	int lcnt = 0, rcnt = 0;
 	--L;
-	while (R) (root[R] == nullptr ? 0 : rtr[++rcnt] = root[R]), R -= lowbit(R);
-	while (L) (root[L] == nullptr ? 0 : ltr[++lcnt] = root[L]), L -= lowbit(L);
+	for (int v = R; v; v -= lowbit(v)) {
+		(root[v] == nullptr ? 0 : rtr[++rcnt] = root[v]);
+	}
+	for (int v = L; v; v -= lowbit(v)) {
+		(root[v] == nullptr ? 0 : ltr[++lcnt] = root[v]);
+	}
 	return _kth(lcnt, rcnt, 1, N, k);
 }
 
 int rnk(int L, int R, int k) {
 	int lcnt = 0, rcnt = 0;
 	--L;
-	while (R) (root[R] == nullptr ? 0 : rtr[++rcnt] = root[R]), R -= lowbit(R);
-	while (L) (root[L] == nullptr ? 0 : ltr[++lcnt] = root[L]), L -= lowbit(L);
+	for (int v = R; v; v -= lowbit(v)) {
+		(root[v] == nullptr ? 0 : rtr[++rcnt] = root[v]);
+	}
+	for (int v = L; v; v -= lowbit(v)) {
+		(root[v] == nullptr ? 0 : ltr[++lcnt] = root[v]);
+	}
 	return _rnk(lcnt, rcnt, 1, N, k) + 1;
 }
 
@@ -155,8 +155,8 @@ struct ops {
 } op[MAXN];
 
 signed main() {
-	freopen("P3380_1.in", "r", stdin);
-	freopen("P3380_1.out", "w", stdout);
+	freopen("test.in", "r", stdin);
+	//freopen("P3380_1.out", "w", stdout);
 	read(n), read(m);
 	rep (i, 1, n) {
 		read(a[i]);
@@ -173,8 +173,10 @@ signed main() {
 	init();
 	H[0] = (-2147483647);
 	H[N + 1] = (2147483647);
-	rep (i, 1, n) a[i] = find(a[i]), add(i, 1);
-	rep (i, 1, n) build(root[i], 1, n);
+	rep (i, 1, n) {
+		a[i] = find(a[i]);
+		add(i, 1);
+	}
 	rep (i, 1, m) if (op[i].op != 2) op[i].k = find(op[i].k);
 	rep (i, 1, m) {
 		int op, l, r, pos, k;

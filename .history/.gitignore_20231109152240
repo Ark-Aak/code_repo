@@ -1,6 +1,0 @@
-*.exe
-*.in
-*.out
-*.ans
-.\Hack\data
-.\.history
