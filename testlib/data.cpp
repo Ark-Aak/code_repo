@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include "data_graph.cpp"
 
 using namespace std;
 
@@ -36,57 +37,7 @@ pair <int, int> arr[1000005];
 void Gen(int x){
 	freopen(getInName(x).c_str(),"w",stdout);
 	//输出到 stdout 即可
-	int n, maxd, q = 100000;
-	bool chain = 0, flower = 0;
-	int tn = 0;
-	if (x <= 5) {
-		q = 10;
-		maxd = 10, n = rnd(5, 10);
-	}
-	else if (x <= 8) {
-		q = 1000;
-		maxd = 10, n = rnd(900, 1000);
-	}
-	else if (x <= 12) {
-		maxd = 3, n = rnd(9e4, 1e5);
-		chain = 1;
-	}
-	else if (x <= 18) {
-		maxd = 3, n = rnd(9e4, 1e5);
-		if (x >= 17) tn = floor(n / 4.0 * 3.0);
-	}
-	else {
-		maxd = 10, n = rnd(4e5, 5e5);
-		if (x >= 23) tn = floor(n / 4.0 * 3.0);
-	}
-	cout << n << '\n';
-	rep (i, 1, n) {
-		cout << rnd(1, maxd);
-		if (i != n) cout << ' ';
-		else cout << '\n';
-	}
-	if (flower) {
-		rep (i, 2, n) cout << 1 << ' ' << i << '\n';
-	}
-	else if (!chain) {
-		rep (i, 1, tn) arr[i].first = i, arr[i].second = i + 1;
-		rep (i, tn + 1, n - 1) arr[i].first = i + 1, arr[i].second = rnd(1, i);
-		shuffle(arr + 1, arr + n, _rnd);
-		rep (i, 1, n - 1) {
-			cout << arr[i].first << " " << arr[i].second;
-			cout << '\n';
-		}
-	}
-	else rep (i, 1, n - 1) cout << i << ' ' << i + 1 << '\n';
-	cout << q << '\n';
-	rep (i, 1, q) {
-		int t = rnd(1, n), x = rnd(1, maxd), u, v;
-		do {
-			u = rnd(1, n), v = rnd(1, n);
-		} while (u == v);
-		cout << t << ' ' << x << ' ' << u << ' ' << v;
-		if (i != q) cout << '\n';
-	}
+
 }
 
 int main(){
@@ -105,5 +56,3 @@ int main(){
 		if(i > dataNum) break;
 	}
 }
-
-

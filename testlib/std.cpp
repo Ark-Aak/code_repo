@@ -1,124 +1,159 @@
-#include<bits/stdc++.h>
-#define mid ((l+r)>>1)
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+
+#define rep(i, a, b) for(auto i = (a); i <= (b); i++)
+#define _rep(i, a, b) for(auto i = (a); i >= (b); i--)
+
 using namespace std;
-const int N=5e5+5,Mx=1e6;
-template <typename T> inline void read(T &x) {
-    x = 0; char ch = getchar();
-    while (!isdigit(ch)) ch = getchar();
-    while (isdigit(ch)) x = (x<<1)+(x<<3)+(ch^48), ch = getchar();
+using namespace __gnu_pbds;
+
+typedef long long ll;
+typedef pair <int, int> pii;
+
+template <typename _Tp>
+void read(_Tp& first) {
+	_Tp x = 0, f = 1; char c = getchar();
+	while (!isdigit(c)) {
+		if (c == '-') f = -1;
+		c = getchar();
+	}
+	while (isdigit(c)) {
+		x = (x << 3) + (x << 1) + (c ^ 48);
+		c = getchar();
+	}
+	first = x * f;
 }
-int head[N],to[N<<1],nxt[N<<1],tot;
-inline void add(int x,int y){
-	to[++tot]=y;
-	nxt[tot]=head[x];
-	head[x]=tot;
+
+template <typename _Tp>
+void print(_Tp x) {
+	if (x < 0) x = (~x + 1), putchar('-');
+	if (x > 9) print(x / 10);
+	putchar(x % 10 + '0');
 }
-int n,q,a[N],u,v;
-int f[N],top[N],sz[N],son[N],dep[N],idx,dfn[N],xl[N];
-void dfs1(int p,int fa){
-	sz[p]=1;
-	f[p]=fa;
-	dep[p]=dep[fa]+1;
-	for(int o=head[p];o;o=nxt[o]){
-		if(to[o]==fa) continue;
-		dfs1(to[o],p);
-		sz[p]+=sz[to[o]];
-		if(sz[to[o]]>sz[son[p]]) son[p]=to[o];
+
+const int MAXN = 1e6 + 5;
+
+int n, m;
+int val[MAXN];
+vector <int> G[MAXN];
+
+struct node {
+	int val, id;
+
+	bool operator < (const node &t) const {
+		return (val == t.val ? id < t.id : val < t.val);
+	}
+};
+
+tree <node, null_type,
+	 less <node>,
+	 rb_tree_tag,
+	 tree_order_statistics_node_update
+> tr[MAXN];
+
+#define lowbit(x) ((x) & -(x))
+
+namespace BIT {
+	int sum[MAXN];
+
+	void add(int x, int val) {
+		if (!x) return;
+		for (int j = x; j <= n; j += lowbit(j))
+			sum[j] += val;
+	}
+
+	int query(int x) {
+		int res = 0;
+		for (int j = x; j; j -= lowbit(j))
+			res += sum[j];
+		return res;
+	}
+
+	void modify(int l, int r, int val) {
+		add(l, val), add(r + 1, -val);
 	}
 }
-void dfs2(int p,int topf){
-	top[p]=topf;
-	dfn[p]=++idx;
-	xl[idx]=p;
-	if(!son[p]) return;
-	dfs2(son[p],topf);
-	for(int o=head[p];o;o=nxt[o])
-		if(to[o]^f[p]&&to[o]^son[p])
-			dfs2(to[o],to[o]);
-}
-struct MRX{int a[2][2];};
-inline MRX mul(MRX x,MRX y){
-	MRX ans;
-	ans.a[0][0]=x.a[0][0]+y.a[0][0];
-	ans.a[0][1]=min(min(x.a[0][0]+y.a[0][1],x.a[0][1]+y.a[1][1]),x.a[0][0]+y.a[1][1]);
-	ans.a[1][0]=min(min(x.a[1][0]+y.a[0][0],x.a[1][1]+y.a[1][0]),x.a[1][1]+y.a[0][0]);
-	ans.a[1][1]=x.a[1][1]+y.a[1][1];
-	return ans;
-}
-struct Tree{
-	MRX t[N*3];
-	void build(int p,int l,int r,int v){
-		if(l==r){
-			bool val=(a[xl[l]]>=v);
-			t[p]=(MRX){{{val,Mx},{Mx,!val}}};
-			return;
+
+namespace TCS {
+
+	int dfn[MAXN], hSon[MAXN], siz[MAXN];
+	int fa[MAXN], top[MAXN], cnt, dep[MAXN];
+
+	void getSiz(int step, int u, int fa) {
+		siz[u] = 1; TCS::fa[u] = fa;
+		dep[u] = step;
+		for (auto v : G[u]) {
+			if (v == fa) continue;
+			getSiz(step + 1, v, u);
+			siz[u] += siz[v];
+			if (siz[v] > siz[hSon[u]]) hSon[u] = v;
 		}
-		build(2*p,l,mid,v);
-		build(2*p+1,mid+1,r,v);
-		t[p]=mul(t[2*p],t[2*p+1]);
 	}
-	void change(int p,int l,int r,int x,int v){
-		if(l==r){
-			bool val=(a[xl[l]]>=v);
-			t[p]=(MRX){{{val,Mx},{Mx,!val}}};
-			return;
+
+	void getDFN(int u, int h) {
+		top[u] = h, dfn[u] = ++cnt;
+		BIT::modify(cnt, cnt, val[u]);
+		if (!hSon[u]) return;
+		getDFN(hSon[u], h);
+		for (auto v : G[u]) {
+			if (v == hSon[u] || v == fa[u]) continue;
+			getDFN(v, v);
+			tr[u].insert({val[v], v});
 		}
-		if(x<=mid) change(2*p,l,mid,x,v);
-		else change(2*p+1,mid+1,r,x,v);
-		t[p]=mul(t[2*p],t[2*p+1]);
 	}
-	MRX query(int p,int l,int r,int lt,int rt){
-		if(lt<=l&&r<=rt) return t[p];
-		if(lt<=mid&&mid+1<=rt)
-			return mul(query(2*p,l,mid,lt,rt),query(2*p+1,mid+1,r,lt,rt));
-		return lt<=mid?query(2*p,l,mid,lt,rt):query(2*p+1,mid+1,r,lt,rt);
-	}
-}T[11];
-MRX ans[2][11];
-inline int query_up(int x,int y){
-	memset(ans,0,sizeof(ans));
-	bool xs=0;
-	while(top[x]^top[y]){
-		if(dep[top[x]]<dep[top[y]]) swap(x,y),xs^=1;
-		for(int i=1;i<=10;++i){
-			MRX qq=T[i].query(1,1,n,dfn[top[x]],dfn[x]);
-			ans[xs][i]=mul(qq,ans[xs][i]);
+
+	void modify(int x, int y, int k) {
+		while (top[x] != top[y]) {
+			if (dep[top[x]] < dep[top[y]]) swap(x, y);
+			int tp = top[x];
+			tr[fa[tp]].erase({val[tp], tp});
+			BIT::modify(dfn[tp], dfn[x], k);
+			val[tp] = BIT::query(dfn[tp]);
+			tr[fa[tp]].insert({val[tp], tp});
+			x = fa[tp];
 		}
-		x=f[top[x]];
+		if (dep[x] > dep[y]) swap(x, y);
+		BIT::modify(dfn[x], dfn[y], k);
+		if (!fa[x] || dep[x] != dep[top[x]]) return;
+		tr[fa[x]].erase({val[x], x});
+		val[x] = BIT::query(dfn[x]), tr[fa[x]].insert({val[x], x});
 	}
-	if(dep[x]>dep[y]) swap(x,y),xs^=1;
-	for(int i=1;i<=10;++i)
-		ans[!xs][i]=mul(T[i].query(1,1,n,dfn[x],dfn[y]),ans[!xs][i]);
-	int sum=0,ans1,ans2;
-	for(int i=1;i<=10;++i){
-		ans1=min(ans[0][i].a[0][0]+ans[1][i].a[0][0],ans[0][i].a[1][1]+ans[1][i].a[1][1]);
-		ans2=min(min(ans[0][i].a[0][0]+ans[1][i].a[0][1],ans[0][i].a[1][0]+ans[1][i].a[1][1]),ans[0][i].a[0][0]+ans[1][i].a[1][1]);
-		sum+=min(ans1,ans2);
-	}
-	return sum;
 }
-void print(int x){
-	if(x>9) print(x/10);
-	putchar(48+x%10);
+
+void insert(int x, int y) {
+	if (!y) return;
+	tr[x].insert({BIT::query(TCS::dfn[y]), y});
 }
-int main(){
-	read(n);
-	for(int i=1;i<=n;++i) read(a[i]);
-	for(int i=1;i<n;++i){
-		read(u),read(v);
-		add(u,v);
-		add(v,u);
+
+void remove(int x, int y) {
+	if (!y) return;
+	tr[x].erase({BIT::query(TCS::dfn[y]), y});
+}
+
+int main() {
+	read(n), read(m);
+	rep (i, 1, n) read(val[i]);
+	rep (i, 1, n - 1) {
+		int u, v;
+		read(u), read(v);
+		G[u].emplace_back(v);
+		G[v].emplace_back(u);
 	}
-	dfs1(1,0);
-	dfs2(1,1);
-	for(int i=1;i<=10;++i) T[i].build(1,1,n,i);
-	read(q);
-	while(q--){
-		read(u);read(a[u]);
-		for(int i=1;i<=10;++i) T[i].change(1,1,n,dfn[u],i);
-		read(u),read(v);
-		print(query_up(u,v));
-		if (q != 0) putchar('\n');
+	TCS::getSiz(1, 1, 0);
+	TCS::getDFN(1, 1);
+	while (m --> 0) {
+		int op, x, y, k;
+		read(op);
+		read(x), read(y);
+		if (op == 1) {
+			read(k);
+			TCS::modify(x, y, k);
+			continue;
+		}
+		insert(x, x), insert(x, TCS::hSon[x]), insert(x, TCS::fa[x]);
+		print(tr[x].find_by_order(y - 1) -> val), putchar(10);
+		remove(x, x), remove(x, TCS::hSon[x]), remove(x, TCS::fa[x]);
 	}
 	return 0;
-} 
+}

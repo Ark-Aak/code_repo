@@ -71,34 +71,43 @@ void update(node* &cur, int L, int R, int k, int val) {
 }
 
 int _kth(int lcnt, int rcnt, int L, int R, int k) {
-	if (L == R) return L;
-	int x = 0;
-	rep (i, 1, rcnt) if (rtr[i] && rtr[i] -> ls) x += rtr[i] -> ls -> sum;
-	rep (i, 1, lcnt) if (ltr[i] && ltr[i] -> ls) x -= ltr[i] -> ls -> sum;
-	if (k <= x) {
-		rep (i, 1, lcnt) if (ltr[i]) ltr[i] = ltr[i] -> ls;
-		rep (i, 1, rcnt) if (rtr[i]) rtr[i] = rtr[i] -> ls;
-		return _kth(lcnt, rcnt, L, mid, k);
+	if(L==R) {
+		return l;
 	}
-	else {
-		rep (i, 1, lcnt) if (ltr[i]) ltr[i] = ltr[i] -> rs;
-		rep (i, 1, rcnt) if (rtr[i]) rtr[i] = rtr[i] -> rs;
-		return _kth(lcnt, rcnt, mid + 1, R, k - x);
+	int sum=0;
+	for(int i=1;i<=rcnt;i++) sum+=t[t[tem[i]].ls].v;
+	for(int i=1;i<=lcnt;i++) sum-=t[t[tmp[i]].ls].v;
+   	//同主席树，所有有节点的树减去所有左节点的树
+	if(k<=sum){
+		for(int i=1;i<=cnt;i++) tem[i]=t[tem[i]].ls;
+		for(int i=1;i<=num;i++) tmp[i]=t[tmp[i]].ls;
+		return _kth(L,mid,k);
+	}
+	else{
+		for(int i=1;i<=cnt;i++) tem[i]=t[tem[i]].rs;
+		for(int i=1;i<=num;i++) tmp[i]=t[tmp[i]].rs;
+		return _kth(mid+1,R,k-sum);
 	}
 }
 
 int _rnk(int lcnt, int rcnt, int L, int R, int k) {
-	if (L == R) return 0;
-	int x = 0;
-	if (k <= mid) {
-		rep (i, 1, lcnt) if (ltr[i]) ltr[i] = ltr[i] -> ls;
-		rep (i, 1, rcnt) if (rtr[i]) rtr[i] = rtr[i] -> ls;
-		return _rnk(lcnt, rcnt, L, mid, k);
+	if(L==R) {
+		return 0;//注意这里要return 0，因为等于k是不能算进去的
 	}
-	else {
-		rep (i, 1, rcnt) if (rtr[i] && rtr[i] -> ls) x += rtr[i] -> ls -> sum, rtr[i] = rtr[i] -> rs;
-		rep (i, 1, lcnt) if (ltr[i] && ltr[i] -> ls) x -= ltr[i] -> ls -> sum, ltr[i] = ltr[i] -> rs;
-		return x + _rnk(lcnt, rcnt, mid + 1, R, k);
+	int sum=0;
+	if(k<=mid){
+		for(int i=1;i<=rcnt;i++) if (rtr[i]) rtr[i]=rtr[i]->ls;
+		for(int i=1;i<=lcnt;i++) if (ltr[i]) ltr[i]=ltr[i]->ls;
+		return _rnk(lcnt, rcnt, L,mid,k);
+	}
+	else{
+		for(int i=1;i<=rcnt;i++) {
+			if (rtr[i] && rtr[i] -> ls)	sum+=rtr[i]->ls->sum,rtr[i]=rtr[i]->rs;
+		}
+		for(int i=1;i<=lcnt;i++) {
+			if (ltr[i] && ltr[i] -> ls) sum-=ltr[i] -> ls -> sum,ltr[i] = ltr[i]->rs;
+		}
+		return sum+_rnk(lcnt, rcnt, mid+1,R,k);
 	}
 }
 
@@ -115,11 +124,10 @@ void add(int x, int val) {
 
 int kth(int L, int R, int k) {
 	int lcnt = 0, rcnt = 0;
-	--L;
 	for (int v = R; v; v -= lowbit(v)) {
 		(root[v] == nullptr ? 0 : rtr[++rcnt] = root[v]);
 	}
-	for (int v = L; v; v -= lowbit(v)) {
+	for (int v = L - 1; v; v -= lowbit(v)) {
 		(root[v] == nullptr ? 0 : ltr[++lcnt] = root[v]);
 	}
 	return _kth(lcnt, rcnt, 1, N, k);
@@ -127,11 +135,10 @@ int kth(int L, int R, int k) {
 
 int rnk(int L, int R, int k) {
 	int lcnt = 0, rcnt = 0;
-	--L;
 	for (int v = R; v; v -= lowbit(v)) {
 		(root[v] == nullptr ? 0 : rtr[++rcnt] = root[v]);
 	}
-	for (int v = L; v; v -= lowbit(v)) {
+	for (int v = L - 1; v; v -= lowbit(v)) {
 		(root[v] == nullptr ? 0 : ltr[++lcnt] = root[v]);
 	}
 	return _rnk(lcnt, rcnt, 1, N, k) + 1;
@@ -155,8 +162,6 @@ struct ops {
 } op[MAXN];
 
 signed main() {
-	freopen("test.in", "r", stdin);
-	//freopen("P3380_1.out", "w", stdout);
 	read(n), read(m);
 	rep (i, 1, n) {
 		read(a[i]);
@@ -164,7 +169,7 @@ signed main() {
 	}
 	rep (i, 1, m) {
 		read(op[i].op);
-		if (op[i].op == 1) read(op[i].l), read(op[i].r), read(op[i].k), H[++N] = op[i].k;
+		if (op[i].op == 1) read(op[i].l), read(op[i].r), read(op[i].k);
 		if (op[i].op == 2) read(op[i].l), read(op[i].r), read(op[i].k);
 		if (op[i].op == 3) read(op[i].pos), read(op[i].k), H[++N] = op[i].k;
 		if (op[i].op == 4) read(op[i].l), read(op[i].r), read(op[i].k), H[++N] = op[i].k;

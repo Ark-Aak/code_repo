@@ -19,6 +19,28 @@
 				"$gcc"
 			],
 			"group": "build"
+		},
+		{
+			"type": "cppbuild",
+			"label": "Compile for gdb",
+			"command": "D:\\Mingw-w64\\mingw64\\bin\\g++.exe",
+			"args": [
+				"-fdiagnostics-color=always",
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}\\${fileBasenameNoExtension}.exe",
+				"-O0",
+				"-DLOCAL"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build",
+			"detail": "编译器: D:\\Mingw-w64\\mingw64\\bin\\g++.exe"
 		}
 	]
 }
