@@ -40,7 +40,8 @@
 		"tuple": "cpp",
 		"type_traits": "cpp",
 		"utility": "cpp",
-		"typeindex": "cpp"
+		"typeindex": "cpp",
+		"span": "cpp"
 	},
 	"cph.general.saveLocation": "",
 	"C_Cpp.errorSquiggles": "enabled"

@@ -10,7 +10,10 @@
 				"-g",
 				"${file}",
 				"-o",
-				"${fileDirname}\\${fileBasenameNoExtension}.exe"
+				"${fileDirname}\\${fileBasenameNoExtension}.exe",
+				"-O2",
+				"-std=c++14",
+				"-Wl,--stack=51200000000"
 			],
 			"options": {
 				"cwd": "${fileDirname}"
@@ -31,7 +34,9 @@
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe",
 				"-O0",
-				"-DLOCAL"
+				"-DLOCAL",
+				"-std=c++17",
+				"-Wl,--stack=51200000000"
 			],
 			"options": {
 				"cwd": "${fileDirname}"

@@ -263,6 +263,73 @@
   - [avidity.cpp](/2023-12-01/avidity.cpp)
   - [color.cpp](/2023-12-01/color.cpp)
   - [order.cpp](/2023-12-01/order.cpp)
+- **2023-12-03**
+  - [derby.cpp](/2023-12-03/derby.cpp)
+  - [tree.cpp](/2023-12-03/tree.cpp)
+  - [walpurgis.cpp](/2023-12-03/walpurgis.cpp)
+  - [winter.cpp](/2023-12-03/winter.cpp)
+- **2023-12-04**
+  - [ball.cpp](/2023-12-04/ball.cpp)
+  - [seq-2.cpp](/2023-12-04/seq-2.cpp)
+  - [seq-3.cpp](/2023-12-04/seq-3.cpp)
+  - [seq.cpp](/2023-12-04/seq.cpp)
+- **2023-12-06**
+  - [noa.cpp](/2023-12-06/noa.cpp)
+  - [report.md](/2023-12-06/report.md)
+  - [tree.cpp](/2023-12-06/tree.cpp)
+- **2023-12-10**
+  - [a.cpp](/2023-12-10/a.cpp)
+  - [b.cpp](/2023-12-10/b.cpp)
+  - [c.cpp](/2023-12-10/c.cpp)
+- **2023-12-11**
+  - [additional_file_215_1.zip](/2023-12-11/additional_file_215_1.zip)
+  - [additional_file_215_2.zip](/2023-12-11/additional_file_215_2.zip)
+  - [additional_file_215_3.zip](/2023-12-11/additional_file_215_3.zip)
+  - **chaos**
+  - [chaos.cpp](/2023-12-11/chaos.cpp)
+  - **qgygd**
+  - [qgygd.cpp](/2023-12-11/qgygd.cpp)
+  - [std.cpp](/2023-12-11/std.cpp)
+  - **string**
+  - [string.cpp](/2023-12-11/string.cpp)
+  - [test.txt](/2023-12-11/test.txt)
+- **2023-12-14**
+  - [additional_file_217_1.zip](/2023-12-14/additional_file_217_1.zip)
+  - [dnspring.cpp](/2023-12-14/dnspring.cpp)
+  - [std.cpp](/2023-12-14/std.cpp)
+  - [string.cpp](/2023-12-14/string.cpp)
+  - [tmp.cpp](/2023-12-14/tmp.cpp)
+- **2023-12-17**
+  - [checker.cpp](/2023-12-17/checker.cpp)
+  - [game.cpp](/2023-12-17/game.cpp)
+  - [kaxdd.cpp](/2023-12-17/kaxdd.cpp)
+  - [spring.cpp](/2023-12-17/spring.cpp)
+  - [std.cpp](/2023-12-17/std.cpp)
+  - [stone.cpp](/2023-12-17/stone.cpp)
+  - [testlib.h](/2023-12-17/testlib.h)
+- **2023-12-21**
+  - [4913](/2023-12-21/4913)
+  - [city.cpp](/2023-12-21/city.cpp)
+  - [city.s](/2023-12-21/city.s)
+  - [forest.cpp](/2023-12-21/forest.cpp)
+  - [queue.cpp](/2023-12-21/queue.cpp)
+- **2023-12-24**
+  - [mat.cpp](/2023-12-24/mat.cpp)
+  - [similar.cpp](/2023-12-24/similar.cpp)
+  - [sunset.cpp](/2023-12-24/sunset.cpp)
+- **2023-12-27**
+  - [bubble.cpp](/2023-12-27/bubble.cpp)
+  - [lis.cpp](/2023-12-27/lis.cpp)
+  - [report.md](/2023-12-27/report.md)
+  - [subway.cpp](/2023-12-27/subway.cpp)
+- **2023-12-30**
+  - [gen.cpp](/2023-12-30/gen.cpp)
+  - **num**
+  - [num.cpp](/2023-12-30/num.cpp)
+  - **scc**
+  - [scc.cpp](/2023-12-30/scc.cpp)
+  - **shoe**
+  - [shoe.cpp](/2023-12-30/shoe.cpp)
 - **AtCoder**
   - [abc321a.cpp](/AtCoder/abc321a.cpp)
   - [abc321b.cpp](/AtCoder/abc321b.cpp)
@@ -299,6 +366,28 @@
   - [ABC328C.cpp](/AtCoder/ABC328C.cpp)
   - [ABC328D.cpp](/AtCoder/ABC328D.cpp)
   - [ABC328E.cpp](/AtCoder/ABC328E.cpp)
+  - [ABC331A.cpp](/AtCoder/ABC331A.cpp)
+  - [ABC331B.cpp](/AtCoder/ABC331B.cpp)
+  - [ABC331C.cpp](/AtCoder/ABC331C.cpp)
+  - [ABC331D.cpp](/AtCoder/ABC331D.cpp)
+  - [ABC331E.cpp](/AtCoder/ABC331E.cpp)
+  - [ABC331F.cpp](/AtCoder/ABC331F.cpp)
+  - [ABC332A.cpp](/AtCoder/ABC332A.cpp)
+  - [ABC332B.cpp](/AtCoder/ABC332B.cpp)
+  - [ABC332C.cpp](/AtCoder/ABC332C.cpp)
+  - [ABC332D.cpp](/AtCoder/ABC332D.cpp)
+  - [ABC332E.cpp](/AtCoder/ABC332E.cpp)
+  - [ABC333A.cpp](/AtCoder/ABC333A.cpp)
+  - [ABC333B.cpp](/AtCoder/ABC333B.cpp)
+  - [ABC333C.cpp](/AtCoder/ABC333C.cpp)
+  - [ABC333D.cpp](/AtCoder/ABC333D.cpp)
+  - [ABC333E.cpp](/AtCoder/ABC333E.cpp)
+  - [ABC334A.cpp](/AtCoder/ABC334A.cpp)
+  - [ABC334B.cpp](/AtCoder/ABC334B.cpp)
+  - [ABC334C.cpp](/AtCoder/ABC334C.cpp)
+  - [ABC334D.cpp](/AtCoder/ABC334D.cpp)
+  - [AGC065A.cpp](/AtCoder/AGC065A.cpp)
+  - [ARC121D.cpp](/AtCoder/ARC121D.cpp)
   - [ARC166A.cpp](/AtCoder/ARC166A.cpp)
   - [ARC166B-test.cpp](/AtCoder/ARC166B-test.cpp)
   - [ARC166B.cpp](/AtCoder/ARC166B.cpp)
@@ -315,7 +404,6 @@
   - [prob.cpp](/Hack/prob.cpp)
   - [std.cpp](/Hack/std.cpp)
 - [jaba.cpp](/jaba.cpp)
-- [jaba.exe.stackdump](/jaba.exe.stackdump)
 - **lib**
   - [modint.hpp](/lib/modint.hpp)
 - **LOJ**
@@ -328,12 +416,22 @@
   - [cdq.cpp](/Luogu/cdq.cpp)
   - [CF21D.cpp](/Luogu/CF21D.cpp)
   - [CF36E.cpp](/Luogu/CF36E.cpp)
+  - [CF600E.cpp](/Luogu/CF600E.cpp)
+  - [CF741D.cpp](/Luogu/CF741D.cpp)
   - [data.cpp](/Luogu/data.cpp)
+  - [lct.cpp](/Luogu/lct.cpp)
+  - [oi-wiki.cpp](/Luogu/oi-wiki.cpp)
+  - [P1527.cpp](/Luogu/P1527.cpp)
   - [P1829.cpp](/Luogu/P1829.cpp)
   - [P2464.cpp](/Luogu/P2464.cpp)
+  - [P2495.cpp](/Luogu/P2495.cpp)
+  - [P2617.cpp](/Luogu/P2617.cpp)
+  - [P3157.cpp](/Luogu/P3157.cpp)
   - [P3369.cpp](/Luogu/P3369.cpp)
+  - [P3369_splay.cpp](/Luogu/P3369_splay.cpp)
   - [P3372.cpp](/Luogu/P3372.cpp)
   - [P3380.cpp](/Luogu/P3380.cpp)
+  - [P3396.cpp](/Luogu/P3396.cpp)
   - [P3792-ori.cpp](/Luogu/P3792-ori.cpp)
   - [P3792-zhl.cpp](/Luogu/P3792-zhl.cpp)
   - [P3792.cpp](/Luogu/P3792.cpp)
@@ -341,19 +439,29 @@
   - [P3834.cpp](/Luogu/P3834.cpp)
   - [P3865.cpp](/Luogu/P3865.cpp)
   - [P4097.cpp](/Luogu/P4097.cpp)
+  - [P4145.cpp](/Luogu/P4145.cpp)
+  - [P4178.cpp](/Luogu/P4178.cpp)
   - [P4213.cpp](/Luogu/P4213.cpp)
   - [P4284.cpp](/Luogu/P4284.cpp)
   - [P4556.cpp](/Luogu/P4556.cpp)
+  - [P4688.cpp](/Luogu/P4688.cpp)
+  - [P4768.cpp](/Luogu/P4768.cpp)
   - [P4779.cpp](/Luogu/P4779.cpp)
   - [P4929.cpp](/Luogu/P4929.cpp)
   - [P5170.cpp](/Luogu/P5170.cpp)
+  - [P5314.cpp](/Luogu/P5314.cpp)
   - [P5494.cpp](/Luogu/P5494.cpp)
   - [P6086.cpp](/Luogu/P6086.cpp)
   - [pollardrho.cpp](/Luogu/pollardrho.cpp)
+  - [SP1043.cpp](/Luogu/SP1043.cpp)
+  - [SP1557.cpp](/Luogu/SP1557.cpp)
   - [SP26368.cpp](/Luogu/SP26368.cpp)
+  - [SP2713.cpp](/Luogu/SP2713.cpp)
   - [std.cpp](/Luogu/std.cpp)
   - [T329813.cpp](/Luogu/T329813.cpp)
+  - [test.cpp](/Luogu/test.cpp)
   - [treechain.cpp](/Luogu/treechain.cpp)
+  - [ys.cpp](/Luogu/ys.cpp)
 - **PPT**
   - [11字符串算法.pptx](/PPT/11字符串算法.pptx)
   - [图论进阶.pptx](/PPT/图论进阶.pptx)
@@ -531,6 +639,8 @@
     - **source**
       - **C3杜炎璋**
         - **ave**
+- **script**
+  - [autoshowlevel.js](/script/autoshowlevel.js)
 - **Solution**
   - [sol-1.md](/Solution/sol-1.md)
   - [sol-2.md](/Solution/sol-2.md)
@@ -538,15 +648,36 @@
   - [7z_2301-x64.cpp](/SomethingFun/7z_2301-x64.cpp)
   - [runner.cpp](/SomethingFun/runner.cpp)
 - [sort.cpp](/sort.cpp)
+- **test**
+  - [1.cpp](/test/1.cpp)
+  - [2.cpp](/test/2.cpp)
+  - [3.cpp](/test/3.cpp)
+  - [sb-test.c](/test/sb-test.c)
+  - [sb-test.s](/test/sb-test.s)
+  - [sb.c](/test/sb.c)
+  - [sb.o](/test/sb.o)
 - [test.cpp](/test.cpp)
 - [test.jb](/test.jb)
 - **testlib**
   - [check.cpp](/testlib/check.cpp)
   - [checker.cpp](/testlib/checker.cpp)
+  - [compare.cpp](/testlib/compare.cpp)
   - **data**
-    - [data_11.zip](/testlib/data/data_11.zip)
+    - [data.zip](/testlib/data/data.zip)
   - [data.cpp](/testlib/data.cpp)
-  - [data_graph.cpp](/testlib/data_graph.cpp)
+  - **hack**
+    - **hack_dyz_sub1**
+    - **hack_dyz_sub2**
+    - **hack_dyz_sub3**
+    - **hack_dyz_sub4**
+    - **hack_dyz_sub5**
+    - **hack_ljh_sub1**
+    - **hack_ljh_sub2**
+    - **hack_ljh_sub3**
+    - **hack_ljh_sub4**
+    - **hack_ljh_sub5**
+  - **lib**
+    - [graph.hpp](/testlib/lib/graph.hpp)
   - [std.cpp](/testlib/std.cpp)
   - [testlib.h](/testlib/testlib.h)
 - **ttf**
@@ -574,3 +705,15 @@
   - [FiraCodeNerdFontPropo-Regular.ttf](/ttf/FiraCodeNerdFontPropo-Regular.ttf)
   - [FiraCodeNerdFontPropo-Retina.ttf](/ttf/FiraCodeNerdFontPropo-Retina.ttf)
   - [FiraCodeNerdFontPropo-SemiBold.ttf](/ttf/FiraCodeNerdFontPropo-SemiBold.ttf)
+- **usaco**
+  - [a.cpp](/usaco/a.cpp)
+  - [ag1.cpp](/usaco/ag1.cpp)
+  - [ag2.cpp](/usaco/ag2.cpp)
+  - [ag3.cpp](/usaco/ag3.cpp)
+  - [b.cpp](/usaco/b.cpp)
+  - [c.cpp](/usaco/c.cpp)
+  - [d.cpp](/usaco/d.cpp)
+  - [f.cpp](/usaco/f.cpp)
+  - [gen.cpp](/usaco/gen.cpp)
+  - [sb.cpp](/usaco/sb.cpp)
+  - [usaco_bronze.7z](/usaco/usaco_bronze.7z)

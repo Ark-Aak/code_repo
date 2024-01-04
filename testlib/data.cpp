@@ -1,15 +1,18 @@
 #include <bits/stdc++.h>
-#include "data_graph.cpp"
 
 using namespace std;
+
+#define int long long
 
 #define _rep(i,a,b) for(int i=(a);i>=(b);i--)
 #define rep(i,a,b) for(int i=(a);i<=(b);i++)
 
-const string stdFileName="std.exe";//std可执行文件
+const string stdFileName="std";//std文件名
 const string probId="data";//题目Id
-const int dataNum=24;//数据组数
+const int dataNum=10;//数据组数
 //输入输出数据形如data_1.in/data_1.out
+
+#define __OPTION_NO_REDIRECT
 
 //拼合输入文件名，勿动
 string getInName(int x){
@@ -25,27 +28,31 @@ string getOutName(int x){
 	return name.str();
 }
 
-mt19937 _rnd(time(0));
+mt19937_64 _rnd(time(0));
 
 int rnd(int l, int r) {
 	return abs((int) _rnd()) % (r - l + 1) + l;
 }
 
-pair <int, int> arr[1000005];
-
 //生成数据，x为数据编号
 void Gen(int x){
-	freopen(getInName(x).c_str(),"w",stdout);
+	freopen(getInName(x).c_str(),"wb",stdout);
 	//输出到 stdout 即可
 
 }
 
-int main(){
+signed main(){
 	//拼合管道命令，勿动
+	system(("g++ " + stdFileName + ".cpp -o " + stdFileName + " -O2 -std=c++17 -Wl,--stack=51200000000").c_str());
+	system("mkdir data > nul");
 	int i = 1, Start, End;
 	while(1){
-		cerr << "Generating Data " << i << endl;Gen(i);
-		string command = stdFileName+" < " + getInName(i) + " > " + getOutName(i);
+		cerr << "Generating Data " << i << endl; Gen(i);
+#ifdef __OPTION_NO_REDIRECT
+		string command = stdFileName + " " + getInName(i) + " " + getOutName(i);
+#else
+		string command = stdFileName + " < " + getInName(i) + " > " + getOutName(i);
+#endif
 		cerr << "Executing command: " << command << endl;
 		Start = clock();
 		system(command.c_str());
