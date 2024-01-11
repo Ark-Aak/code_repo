@@ -31,8 +31,7 @@ void print(_Tp x) {
 }
 
 const int MAXN = 5e3 + 5;
-int T, n, m, k;
-int f[MAXN][MAXN];
+int T, n, m, k, s[MAXN], now;
 
 int qpow(int a, int b, int p) {
 	int res = 1;
@@ -43,6 +42,60 @@ int qpow(int a, int b, int p) {
 
 const int MOD = 998244353;
 
+struct val {
+	int fac_n, fac_m, inv, n, m, k, id, ans;
+} q[MAXN];
+
+void init() {
+	int sum = 1, now = 1;
+	sort(q + 1, q + T + 1, [](val a, val b) { return a.n < b.n; });
+	rep (i, 1, 1e7 + 5e3) {
+		sum = sum * i % MOD;
+		while (now <= T && q[now].n == i) {
+			q[now].fac_n = sum;
+			now++;
+		}
+	}
+	now = 1;
+	sum = 1;
+	sort(q + 1, q + T + 1, [](val a, val b) { return a.m < b.m; });
+	while (now <= T && q[now].m - 1 == 0) q[now++].fac_m = sum;
+	rep (i, 1, 1e7 + 5e3) {
+		sum = sum * i % MOD;
+		while (now <= T && q[now].m - 1 == i) {
+			q[now].fac_m = sum;
+			now++;
+		}
+	}
+	sort(q + 1, q + T + 1, [](val a, val b) { return a.m + a.k > b.m + b.k; });
+	sum = (int) (1e7 + 5e3 + 1) * sum % MOD;
+	now = 1, sum = qpow(sum, MOD - 2, MOD);
+	_rep (i, 1e7 + 5e3, 0) {
+		sum = (i + 1) % MOD * sum % MOD;
+		while (now <= T && q[now].m + q[now].k == i) {
+			q[now].inv = sum;
+			now++;
+		}
+	}
+}
+
+int inv[MAXN];
+
+int solve(int n, int m, int k, int s1, int s2, int s3) {
+	if (k == 0) return 1;
+	int S1 = qpow(s1, MOD - 2, MOD);
+	inv[k] = s3;
+	_rep (i, k - 1, 0) inv[i] = inv[i + 1] * (m + i + 1) % MOD;
+	int ans = 0;
+	rep (i, 0, k) {
+		if ((k - i) & 1) ans = (ans + MOD - s[i] * inv[i] % MOD * s1 % MOD * s2 % MOD) % MOD;
+		else ans = (ans + s[i] * inv[i] % MOD * s1 % MOD * s2 % MOD) % MOD;
+		s1 = s1 * (n + i + 1) % MOD;
+		s2 = s2 * (m + i) % MOD;
+	}
+	return S1 * m % MOD * ans % MOD;
+}
+
 signed main() {
 #ifndef LOCAL
 #ifndef ONLINE_JUDGE
@@ -50,27 +103,23 @@ signed main() {
 	freopen("gull.out", "w", stdout);
 #endif
 #endif
+	s[0] = 1;
 	T = read();
-	while (T --> 0) {
-		n = read(), m = read(), k = read();
-		if (k == 0) {
-			puts("1");
-			continue;
-		}
-		memset(f, 0, sizeof f);
-		f[0][0] = 1;
-		rep (i, 1, n) {
-			rep (j, 1, min(i, m)) {
-				rep (k, 1, i) {
-					f[i][j] += f[k - 1][j - 1];
-					f[i][j] %= MOD;
-				}
-			}
-		}
-		int sum = 0, ans = 0;
-		rep (i, 1, n) sum += f[i][m], sum %= MOD;
-		rep (i, 1, n) ans = (ans + qpow(i, k, MOD) * f[i][m] % MOD) % MOD;
-		print(ans * qpow(sum, MOD - 2, MOD) % MOD); putchar(10);
+	rep (i, 1, T) {
+		q[i].n = read(), q[i].m = read(), q[i].k = read();
+		q[i].id = i;
 	}
+	init();
+	sort(q + 1, q + T + 1, [](val a, val b) { return a.k < b.k; });
+	rep (i, 1, T) {
+		while (now < q[i].k) {
+			now++;
+			_rep (i, now, 1) s[i] = (s[i] * i % MOD + s[i - 1]) % MOD;
+			s[0] = 0;
+		}
+		q[i].ans = solve(q[i].n, q[i].m, q[i].k, q[i].fac_n, q[i].fac_m, q[i].inv);
+	}
+	sort(q + 1, q + T + 1, [](val a, val b) { return a.id < b.id; });
+	rep (i, 1, T) print(q[i].ans), putchar(10);
 	return 0;
 }
