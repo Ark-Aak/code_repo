@@ -104,8 +104,6 @@ int u[MAXN], v[MAXN];
 stack <int> stk;
 
 int main() {
-	freopen("P4172_2.in", "r", stdin);
-	freopen("P4172_2.out", "w", stdout);
 	n = read(), m = read(), q = read();
 	rep (i, 1, m) {
 		int u = read(), v = read(), t = read();
@@ -131,29 +129,28 @@ int main() {
 			LCT::link(v, n + id);
 		}
 	}
+	sort(edges.begin(), edges.end(), [](tuple <int, int, int, int> a, tuple <int, int, int, int> b) {
+		return get<3>(a) < get<3>(b);
+	});
 	_rep (i, q, 1) {
 		int k = Q[i].k, u = Q[i].u, v = Q[i].v;
 		if (k == 1) {
-			cerr << i << endl;
 			assert(LCT::find(u) == LCT::find(v));
 			LCT::split(u, v);
 			stk.push(LCT::val[LCT::mx[v]]);
 		}
 		else {
+			LCT::split(u, v);
 			int id = ::id[make_pair(u, v)];
 			int t = get<2>(edges[id - 1]);
-			if (LCT::find(u) != LCT::find(v)) {
+			assert(get<3>(edges[id - 1]) == id);
+			int x = LCT::mx[v];
+			assert(x);
+			if (LCT::val[x] > t) {
+				LCT::cut(x, ::u[x]);
+				LCT::cut(x, ::v[x]);
 				LCT::link(u, n + id);
 				LCT::link(v, n + id);
-			}
-			else {
-				int x = LCT::mx[v];
-				if (LCT::val[x] > t) {
-					LCT::cut(x, ::u[x]);
-					LCT::cut(x, ::v[x]);
-					LCT::link(u, n + id);
-					LCT::link(v, n + id);
-				}
 			}
 		}
 	}
@@ -161,6 +158,5 @@ int main() {
 		print(stk.top()), putchar(10);
 		stk.pop();
 	}
-	cerr << system("fc P4172_2.out P4172_2.ans > nul");
 	return 0;
 }

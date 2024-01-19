@@ -112,32 +112,30 @@ int kth(int x) {
 	}
 }
 
-void toRoot(int x) {
+int toRoot(int x) {
 	int cur = rt;
 	while (1) {
 		if (x < val[cur]) cur = ls(cur);
 		else {
-			if (x == val[cur]) return splay(cur);
-			if (!rs(cur)) return;
+			if (x == val[cur]) return splay(cur), cur;
+			if (!rs(cur)) {
+				if (cur) splay(cur);
+				return cur;
+			}
 			cur = rs(cur);
 		}
 	}
-}
-
-int pre() {
-	int cur = ls(rt);
-	if (!cur) return cur;
-	while (rs(cur)) cur = rs(cur);
-	splay(cur);
 	return cur;
 }
 
-int nxt() {
-	int cur = rs(rt);
-	if (!cur) return cur;
-	while (ls(cur)) cur = ls(cur);
-	splay(cur);
-	return cur;
+int merge(int x, int y) {
+	if (!x || !y) return x + y;
+	int cur = x, mx = val[x];
+	while (rs(cur)) cur = rs(cur), mx = max(val[cur], mx);
+	int rt = toRoot(mx);
+	rs(rt) = y, fa[y] = rt;
+	pushup(rt);
+	return rt;
 }
 
 void del(int x) {
@@ -164,10 +162,29 @@ void del(int x) {
 		clear(cur);
 		return;
 	}
-	int cur = rt, t = pre();
-	fa[rs(cur)] = t;
-	rs(t) = rs(cur);
-	clear(cur), pushup(rt);
+	int tmp = rt;
+	rt = merge(ls(rt), rs(rt));
+	clear(tmp);
+}
+
+int pre(int x) {
+	insert(x);
+	int cur = ls(rt);
+	if (!cur) return cur;
+	while (rs(cur)) cur = rs(cur);
+	splay(cur);
+	del(x);
+	return cur;
+}
+
+int nxt(int x) {
+	insert(x);
+	int cur = rs(rt);
+	if (!cur) return cur;
+	while (ls(cur)) cur = ls(cur);
+	splay(cur);
+	del(x);
+	return cur;
 }
 
 int main() {
@@ -178,8 +195,8 @@ int main() {
 		else if (opt == 2) del(x);
 		else if (opt == 3) printf("%d\n", rnk(x));
 		else if (opt == 4) printf("%d\n", kth(x));
-		else if (opt == 5) insert(x), printf("%d\n", val[pre()]), del(x);
-		else insert(x), printf("%d\n", val[nxt()]), del(x);
+		else if (opt == 5) printf("%d\n", val[pre(x)]);
+		else printf("%d\n", val[nxt(x)]);
 	}
 	return 0;
 }

@@ -1,18 +1,18 @@
-#include "testlib.h"
-#include <bits/stdc++.h>
-
+# include "testlib.h"
+# include <bits/stdc++.h>
 using namespace std;
-
-int main(int argc, char* argv[]) {
-    registerTestlibCmd(argc, argv);
-	string ansString = ouf.readLine();
-	for (auto &c : ansString) {
-		c = tolower(c);
-	}
-	if (ansString.find("lmx") != string::npos && ansString.find("zqh") != string::npos) {
-		quitf(_ok, "OK, link is https://lanzouw.com/iba8T1k0v3gh");
-	}
-	else quitf(_wa, "WA, your string is %s", ansString.c_str());
-    return 0;
-
+const int mod=1e9+7;
+int main(int argc,char *argv[])
+{
+	registerTestlibCmd(argc,argv);
+	int ans_sz=ans.readInt(),out_sz=ouf.readInt();
+	if(ans_sz!=out_sz) quitf(_wa,"Expected %d elements, but %d found.",ans_sz,out_sz);
+	vector<int> ja(ans_sz),pa(out_sz);
+	for(int &i:ja) i=ans.readInt(0,mod-1);
+	for(int &i:pa) i=ouf.readInt(0,mod-1);
+	sort(ja.begin(),ja.end());
+	sort(pa.begin(),pa.end());
+	if(ja!=pa) quitf(_wa,"Expected multiset and output are different.");
+	else quitf(_ok,"Correct answer!");
+	return 0;
 }

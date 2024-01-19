@@ -1,16 +1,15 @@
 #include <bits/stdc++.h>
 
-#define rep(i, a, b) for(auto i = (a); i <= (b); i++)
-#define _rep(i, a, b) for(auto i = (a); i >= (b); i--)
+#define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
+#define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
 
 using namespace std;
 
 typedef long long ll;
 typedef pair <int, int> pii;
 
-template <typename _Tp>
-void read(_Tp& first) {
-	_Tp x = 0, f = 1; char c = getchar();
+int read() {
+	int x = 0, f = 1; char c = getchar();
 	while (!isdigit(c)) {
 		if (c == '-') f = -1;
 		c = getchar();
@@ -19,7 +18,7 @@ void read(_Tp& first) {
 		x = (x << 3) + (x << 1) + (c ^ 48);
 		c = getchar();
 	}
-	first = x * f;
+	return x * f;
 }
 
 template <typename _Tp>
@@ -38,8 +37,7 @@ int a[MAXN];
 struct node {
 	node *ls, *rs;
 	int sum;
-
-	node() {ls = nullptr, rs = nullptr, sum = 0;}
+	node() { ls = nullptr, rs = nullptr, sum = 0; }
 };
 
 node* null = new node();
@@ -81,36 +79,26 @@ int _rnk(int lcnt, int rcnt, int L, int R, int k) {
 	}
 }
 
-int lowbit(int x) {
-	return x & (-x);
-}
+int lowbit(int x) { return x & (-x); }
 
 void add(int x, int val) {
 	if (!x) return;
-	for (int v = x; v <= n; v += lowbit(v)) {
+	for (int v = x; v <= n; v += lowbit(v))
 		update(root[v], 1, n, a[x], val);
-	}
 }
 
 int rnk(int L, int R, int k) {
 	int lcnt = 0, rcnt = 0;
-	for (int v = R; v; v -= lowbit(v)) {
-		rtr[++rcnt] = root[v];
-	}
-	for (int v = L - 1; v; v -= lowbit(v)) {
-		ltr[++lcnt] = root[v];
-	}
+	for (int v = R; v; v -= lowbit(v)) rtr[++rcnt] = root[v];
+	for (int v = L - 1; v; v -= lowbit(v)) ltr[++lcnt] = root[v];
 	return _rnk(lcnt, rcnt, 1, n, k) + 1;
 }
 
 signed main() {
     null -> ls = null;
     null -> rs = null;
-	read(n), read(m);
-	rep (i, 1, n) {
-		read(a[i]);
-
-	}
+	n = read(), m = read();
+	rep (i, 1, n) a[i] = read(), add(i, a[i]);
 
 	return 0;
 }
