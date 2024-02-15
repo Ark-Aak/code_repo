@@ -40,7 +40,7 @@
 			"cwd": "${fileDirname}",
 			"preLaunchTask": "Compile",
 			"environment": [],
-			"console": "externalTerminal"
+			"console": "integratedTerminal"
 		}
 	]
 }

@@ -134,7 +134,6 @@
     - [steiner.cpp](/2023-10-17/steiner/steiner.cpp)
   - [steiner-kruskal.cpp](/2023-10-17/steiner-kruskal.cpp)
   - [steiner.cpp](/2023-10-17/steiner.cpp)
-  - [我他妈真的自卑了.zip](/2023-10-17/我他妈真的自卑了.zip)
   - [自卑了.cpp](/2023-10-17/自卑了.cpp)
 - **2023-10-18**
   - [journey.cpp](/2023-10-18/journey.cpp)
@@ -282,9 +281,6 @@
   - [b.cpp](/2023-12-10/b.cpp)
   - [c.cpp](/2023-12-10/c.cpp)
 - **2023-12-11**
-  - [additional_file_215_1.zip](/2023-12-11/additional_file_215_1.zip)
-  - [additional_file_215_2.zip](/2023-12-11/additional_file_215_2.zip)
-  - [additional_file_215_3.zip](/2023-12-11/additional_file_215_3.zip)
   - **chaos**
   - [chaos.cpp](/2023-12-11/chaos.cpp)
   - **qgygd**
@@ -294,7 +290,6 @@
   - [string.cpp](/2023-12-11/string.cpp)
   - [test.txt](/2023-12-11/test.txt)
 - **2023-12-14**
-  - [additional_file_217_1.zip](/2023-12-14/additional_file_217_1.zip)
   - [dnspring.cpp](/2023-12-14/dnspring.cpp)
   - [std.cpp](/2023-12-14/std.cpp)
   - [string.cpp](/2023-12-14/string.cpp)
@@ -326,10 +321,92 @@
   - [gen.cpp](/2023-12-30/gen.cpp)
   - **num**
   - [num.cpp](/2023-12-30/num.cpp)
+  - [report.md](/2023-12-30/report.md)
   - **scc**
   - [scc.cpp](/2023-12-30/scc.cpp)
   - **shoe**
   - [shoe.cpp](/2023-12-30/shoe.cpp)
+- **2024-01-02**
+  - [race.cpp](/2024-01-02/race.cpp)
+  - [sorrow.cpp](/2024-01-02/sorrow.cpp)
+  - **std**
+    - [race.cpp](/2024-01-02/std/race.cpp)
+    - [sorrow.cpp](/2024-01-02/std/sorrow.cpp)
+    - [tree.cpp](/2024-01-02/std/tree.cpp)
+  - [tree.cpp](/2024-01-02/tree.cpp)
+- **2024-01-04**
+  - [card.cpp](/2024-01-04/card.cpp)
+  - [gull.cpp](/2024-01-04/gull.cpp)
+  - **std**
+    - [card.cpp](/2024-01-04/std/card.cpp)
+    - [gull.cpp](/2024-01-04/std/gull.cpp)
+    - [telpher.cpp](/2024-01-04/std/telpher.cpp)
+  - [telpher.cpp](/2024-01-04/telpher.cpp)
+  - [ts.cpp](/2024-01-04/ts.cpp)
+- **2024-01-08**
+  - [again.cpp](/2024-01-08/again.cpp)
+  - [hash.cpp](/2024-01-08/hash.cpp)
+  - [or.cpp](/2024-01-08/or.cpp)
+  - [test.cpp](/2024-01-08/test.cpp)
+- **2024-01-10**
+  - [gauss.cpp](/2024-01-10/gauss.cpp)
+  - [pi.cpp](/2024-01-10/pi.cpp)
+  - [plasticmemories.cpp](/2024-01-10/plasticmemories.cpp)
+- **2024-01-15**
+  - [data.cpp](/2024-01-15/data.cpp)
+  - [fft.cpp](/2024-01-15/fft.cpp)
+  - [memory.cpp](/2024-01-15/memory.cpp)
+  - [qwq.cpp](/2024-01-15/qwq.cpp)
+  - [report.md](/2024-01-15/report.md)
+  - [std.cpp](/2024-01-15/std.cpp)
+- **2024-01-17**
+  - [factor.cpp](/2024-01-17/factor.cpp)
+  - [lot.cpp](/2024-01-17/lot.cpp)
+  - [roguetrader](/2024-01-17/roguetrader)
+  - [roguetrader.cpp](/2024-01-17/roguetrader.cpp)
+  - **std**
+    - [factor.cpp](/2024-01-17/std/factor.cpp)
+    - [lot.cpp](/2024-01-17/std/lot.cpp)
+    - [roguetrader.cpp](/2024-01-17/std/roguetrader.cpp)
+- **2024-01-19**
+  - [codechef.cpp](/2024-01-19/codechef.cpp)
+  - [intestine.cpp](/2024-01-19/intestine.cpp)
+  - [snow.cpp](/2024-01-19/snow.cpp)
+  - **std**
+    - [codechef.cpp](/2024-01-19/std/codechef.cpp)
+    - [intestine.cpp](/2024-01-19/std/intestine.cpp)
+    - [snow.cpp](/2024-01-19/std/snow.cpp)
+- **2024-01-21**
+  - [dazzling.cpp](/2024-01-21/dazzling.cpp)
+  - [outing.cpp](/2024-01-21/outing.cpp)
+  - [snowball.cpp](/2024-01-21/snowball.cpp)
+- **2024-01-22**
+  - [blur](/2024-01-22/blur)
+  - [blur.cpp](/2024-01-22/blur.cpp)
+  - [checker](/2024-01-22/checker)
+  - [checker.cpp](/2024-01-22/checker.cpp)
+  - [line](/2024-01-22/line)
+  - [line.cpp](/2024-01-22/line.cpp)
+  - [pulse](/2024-01-22/pulse)
+  - [pulse.cpp](/2024-01-22/pulse.cpp)
+- **2024-01-24**
+  - [sakura.cpp](/2024-01-24/sakura.cpp)
+  - [secret.cpp](/2024-01-24/secret.cpp)
+  - [separate.cpp](/2024-01-24/separate.cpp)
+  - **std**
+    - **sakura**
+      - [sakura.cpp](/2024-01-24/std/sakura/sakura.cpp)
+    - [sakura.cpp](/2024-01-24/std/sakura.cpp)
+    - **secret**
+      - [secret.cpp](/2024-01-24/std/secret/secret.cpp)
+    - [secret.cpp](/2024-01-24/std/secret.cpp)
+    - **separate**
+      - [separate.cpp](/2024-01-24/std/separate/separate.cpp)
+    - [separate.cpp](/2024-01-24/std/separate.cpp)
+- **2024-01-28**
+  - [A.cpp](/2024-01-28/A.cpp)
+  - [B.cpp](/2024-01-28/B.cpp)
+  - [C.cpp](/2024-01-28/C.cpp)
 - **AtCoder**
   - [abc321a.cpp](/AtCoder/abc321a.cpp)
   - [abc321b.cpp](/AtCoder/abc321b.cpp)
@@ -386,6 +463,12 @@
   - [ABC334B.cpp](/AtCoder/ABC334B.cpp)
   - [ABC334C.cpp](/AtCoder/ABC334C.cpp)
   - [ABC334D.cpp](/AtCoder/ABC334D.cpp)
+  - [ABC335A.cpp](/AtCoder/ABC335A.cpp)
+  - [ABC335B.cpp](/AtCoder/ABC335B.cpp)
+  - [ABC335C.cpp](/AtCoder/ABC335C.cpp)
+  - [ABC335D.cpp](/AtCoder/ABC335D.cpp)
+  - [ABC335E.cpp](/AtCoder/ABC335E.cpp)
+  - [ABC335F.cpp](/AtCoder/ABC335F.cpp)
   - [AGC065A.cpp](/AtCoder/AGC065A.cpp)
   - [ARC121D.cpp](/AtCoder/ARC121D.cpp)
   - [ARC166A.cpp](/AtCoder/ARC166A.cpp)
@@ -393,11 +476,13 @@
   - [ARC166B.cpp](/AtCoder/ARC166B.cpp)
   - [ARC167A.cpp](/AtCoder/ARC167A.cpp)
   - [ARC167B.cpp](/AtCoder/ARC167B.cpp)
+  - [ARC170A.cpp](/AtCoder/ARC170A.cpp)
   - [ljh.cpp](/AtCoder/ljh.cpp)
 - [foo.cpp](/foo.cpp)
 - [generateFileList.cpp](/generateFileList.cpp)
 - **Hack**
   - [compare.cpp](/Hack/compare.cpp)
+  - **data**
   - [datalib.h](/Hack/datalib.h)
   - [genData.cpp](/Hack/genData.cpp)
   - [generator.cpp](/Hack/generator.cpp)
@@ -410,45 +495,56 @@
   - [113.cpp](/LOJ/113.cpp)
   - [114.cpp](/LOJ/114.cpp)
   - [6280.cpp](/LOJ/6280.cpp)
+  - [6440.cpp](/LOJ/6440.cpp)
 - **Luogu**
   - [AT_joisc2014_c.cpp](/Luogu/AT_joisc2014_c.cpp)
   - [B3647.cpp](/Luogu/B3647.cpp)
   - [cdq.cpp](/Luogu/cdq.cpp)
   - [CF21D.cpp](/Luogu/CF21D.cpp)
+  - [CF294C.cpp](/Luogu/CF294C.cpp)
   - [CF36E.cpp](/Luogu/CF36E.cpp)
   - [CF600E.cpp](/Luogu/CF600E.cpp)
   - [CF741D.cpp](/Luogu/CF741D.cpp)
   - [data.cpp](/Luogu/data.cpp)
   - [lct.cpp](/Luogu/lct.cpp)
   - [oi-wiki.cpp](/Luogu/oi-wiki.cpp)
+  - [ovtree.cpp](/Luogu/ovtree.cpp)
+  - [P1345.cpp](/Luogu/P1345.cpp)
   - [P1527.cpp](/Luogu/P1527.cpp)
   - [P1829.cpp](/Luogu/P1829.cpp)
   - [P2464.cpp](/Luogu/P2464.cpp)
   - [P2495.cpp](/Luogu/P2495.cpp)
   - [P2617.cpp](/Luogu/P2617.cpp)
+  - [P2762.cpp](/Luogu/P2762.cpp)
   - [P3157.cpp](/Luogu/P3157.cpp)
   - [P3369.cpp](/Luogu/P3369.cpp)
   - [P3369_splay.cpp](/Luogu/P3369_splay.cpp)
   - [P3372.cpp](/Luogu/P3372.cpp)
   - [P3380.cpp](/Luogu/P3380.cpp)
   - [P3396.cpp](/Luogu/P3396.cpp)
+  - [P3690.cpp](/Luogu/P3690.cpp)
   - [P3792-ori.cpp](/Luogu/P3792-ori.cpp)
   - [P3792-zhl.cpp](/Luogu/P3792-zhl.cpp)
   - [P3792.cpp](/Luogu/P3792.cpp)
   - [P3806.cpp](/Luogu/P3806.cpp)
   - [P3834.cpp](/Luogu/P3834.cpp)
   - [P3865.cpp](/Luogu/P3865.cpp)
+  - [P3934.cpp](/Luogu/P3934.cpp)
+  - [P4043.cpp](/Luogu/P4043.cpp)
   - [P4097.cpp](/Luogu/P4097.cpp)
   - [P4145.cpp](/Luogu/P4145.cpp)
+  - [P4172.cpp](/Luogu/P4172.cpp)
   - [P4178.cpp](/Luogu/P4178.cpp)
   - [P4213.cpp](/Luogu/P4213.cpp)
   - [P4284.cpp](/Luogu/P4284.cpp)
+  - [P4313.cpp](/Luogu/P4313.cpp)
   - [P4556.cpp](/Luogu/P4556.cpp)
   - [P4688.cpp](/Luogu/P4688.cpp)
   - [P4768.cpp](/Luogu/P4768.cpp)
   - [P4779.cpp](/Luogu/P4779.cpp)
   - [P4929.cpp](/Luogu/P4929.cpp)
   - [P5170.cpp](/Luogu/P5170.cpp)
+  - [P5192.cpp](/Luogu/P5192.cpp)
   - [P5314.cpp](/Luogu/P5314.cpp)
   - [P5494.cpp](/Luogu/P5494.cpp)
   - [P6086.cpp](/Luogu/P6086.cpp)
@@ -461,7 +557,6 @@
   - [T329813.cpp](/Luogu/T329813.cpp)
   - [test.cpp](/Luogu/test.cpp)
   - [treechain.cpp](/Luogu/treechain.cpp)
-  - [ys.cpp](/Luogu/ys.cpp)
 - **PPT**
   - [11字符串算法.pptx](/PPT/11字符串算法.pptx)
   - [图论进阶.pptx](/PPT/图论进阶.pptx)
@@ -470,202 +565,25 @@
   - [树上问题的序列化.pptx](/PPT/树上问题的序列化.pptx)
   - [高级数据结构杂谈.pptx](/PPT/高级数据结构杂谈.pptx)
 - [README.md](/README.md)
-- **Results**
-  - **result0924_csp**
-    - **down**
-      - **act**
-      - **fight**
-      - **gen**
-      - **kel**
-  - **result0925_csp**
-    - **down**
-      - **game**
-      - **imp**
-      - **tree**
-    - **source**
-      - **CQYC_C1张锦轩**
-        - **game**
-  - **result0927_csp**
-    - **down**
-      - **envelope**
-      - **gaze**
-      - **path**
-    - **source**
-      - **王煜涛**
-        - **crazy**
-      - **草3钟昊霖**
-  - **result0928_csp**
-    - **down**
-      - **easiest**
-      - **graph**
-      - **milky**
-      - **trade**
-    - **source**
-      - **std**
-  - **result0930_csp**
-    - **down**
-      - **number**
-    - **source**
-      - **C3陈俊西**
-        - **greedy**
-        - **number**
-        - **path**
-  - **result1001**
-    - **down**
-      - **badge**
-      - **device**
-      - **grid**
-      - **triple**
-    - **source**
-      - **CQYC_G1yqn**
-  - **result1002_csp**
-    - **down**
-      - **car**
-      - **casio**
-      - **excellent**
-      - **robot**
-    - **source**
-      - **CQYCC3钟昊霖**
-      - **qz1z_wwh 2023.10.2**
-        - **casio**
-        - **excellent**
-      - **qz1z_zgc**
-        - **car**
-      - **牛子睿**
-        - **robot**
-      - **王煜涛**
-        - **robot**
-  - **result1003_csp**
-    - **down**
-      - **explorer**
-      - **flip**
-      - **jump**
-      - **lca**
-    - **source**
-      - **qz1z_wwh 2023.10.3**
-        - **explorer**
-        - **jump**
-  - **result1004_csp**
-    - **down**
-      - **cat**
-      - **chessboard**
-      - **magic**
-      - **random**
-    - **source**
-      - **qz1z_wwh 2023.10.4**
-        - **magic**
-      - **初三·曾奕翰**
-        - **chessboard**
-  - **result1005_csp**
-    - **down**
-      - **graph**
-      - **permutation**
-      - **travel**
-    - **source**
-      - **C2周琛乔**
-      - **C3钟昊霖**
-      - **cqyc3张勤浩105**
-        - **permutation**
-        - **reinforce**
-        - **travel**
-      - **CQYC_C3熊希睿**
-        - [permutation-96-2.5e6.in](/Results/result1005_csp/source/CQYC_C3熊希睿/permutation-96-2.5e6.in)
-        - [permutation-97-1.3e6.in](/Results/result1005_csp/source/CQYC_C3熊希睿/permutation-97-1.3e6.in)
-      - **CQYC_X6刘昱皓然**
-        - **permutation**
-      - **qz1z_wwh 34pts**
-        - **permutation**
-        - **reinforce**
-        - **travel**
-      - **刘津铭**
-        - **travel**
-  - **result1007_csp**
-    - **down**
-      - **double**
-      - **journey**
-      - **seal**
-      - **yo**
-    - **source**
-      - **C2 倪锐 2023.10.07**
-      - **C3 钟昊霖**
-        - **新文件夹**
-      - **CQYC_C3熊希睿**
-      - **qz1z_wwh 2023.10.7**
-        - **journey**
-      - **黄柱铭**
-        - **double**
-        - **journey**
-        - **seal**
-        - **yo**
-  - **result1008_csp**
-    - **down**
-      - **count**
-      - **increase**
-      - **network**
-      - **stone**
-    - **source**
-      - **CQYC_C3熊希睿**
-        - **count**
-      - **刘昱辰**
-        - **output**
-  - **result1009_csp**
-    - **down**
-      - **ak**
-      - **loser**
-      - **tower**
-    - **source**
-      - **c3_孙英迪**
-        - **tower**
-      - **CQYC_C3熊希睿**
-      - **刘昱辰**
-        - **output**
-  - **result1010_csp**
-    - **down**
-      - **elevator**
-      - **matrix**
-      - **mex**
-    - **source**
-      - **C3_胡杨**
-        - **elevator**
-      - **qz1z_wwh 2023.10.10**
-        - **elevator**
-        - **matrix**
-        - **wisdom**
-  - **result1011_csp**
-    - **down**
-      - **ds**
-      - **ring**
-      - **sequence**
-    - **source**
-      - **C3杜炎璋**
-        - **ave**
-- **script**
-  - [autoshowlevel.js](/script/autoshowlevel.js)
 - **Solution**
   - [sol-1.md](/Solution/sol-1.md)
   - [sol-2.md](/Solution/sol-2.md)
-- **SomethingFun**
-  - [7z_2301-x64.cpp](/SomethingFun/7z_2301-x64.cpp)
-  - [runner.cpp](/SomethingFun/runner.cpp)
 - [sort.cpp](/sort.cpp)
+- [stl&pbds.md](/stl&pbds.md)
 - **test**
-  - [1.cpp](/test/1.cpp)
-  - [2.cpp](/test/2.cpp)
-  - [3.cpp](/test/3.cpp)
-  - [sb-test.c](/test/sb-test.c)
-  - [sb-test.s](/test/sb-test.s)
-  - [sb.c](/test/sb.c)
-  - [sb.o](/test/sb.o)
 - [test.cpp](/test.cpp)
 - [test.jb](/test.jb)
 - **testlib**
-  - [check.cpp](/testlib/check.cpp)
   - [checker.cpp](/testlib/checker.cpp)
   - [compare.cpp](/testlib/compare.cpp)
-  - **data**
-    - [data.zip](/testlib/data/data.zip)
+  - [config.yml](/testlib/config.yml)
   - [data.cpp](/testlib/data.cpp)
-  - **hack**
+  - [data_dreamer.cpp](/testlib/data_dreamer.cpp)
+  - [data_impacter.cpp](/testlib/data_impacter.cpp)
+  - [data_planner.cpp](/testlib/data_planner.cpp)
+  - [dreamer.cpp](/testlib/dreamer.cpp)
+  - **hack_scc**
+  - **hack_subway**
     - **hack_dyz_sub1**
     - **hack_dyz_sub2**
     - **hack_dyz_sub3**
@@ -676,9 +594,11 @@
     - **hack_ljh_sub3**
     - **hack_ljh_sub4**
     - **hack_ljh_sub5**
+  - [impacter.cpp](/testlib/impacter.cpp)
   - **lib**
     - [graph.hpp](/testlib/lib/graph.hpp)
-  - [std.cpp](/testlib/std.cpp)
+    - [pollardrho.hpp](/testlib/lib/pollardrho.hpp)
+  - [planner.cpp](/testlib/planner.cpp)
   - [testlib.h](/testlib/testlib.h)
 - **ttf**
   - [FiraCode-Bold.ttf](/ttf/FiraCode-Bold.ttf)

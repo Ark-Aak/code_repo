@@ -1,17 +1,20 @@
+#pragma GCC optimize(3)
+#pragma GCC optimize("Ofast")
+#pragma GCC target("avx,sse2,sse3,sse4")
+
 #include <bits/stdc++.h>
 
-#define int ll
-
-#define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
-#define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
+#define rep(i, a, b) for (int i = (a), i##end = (b); i <= i##end; i++)
+#define _rep(i, a, b) for (int i = (a), i##end = (b); i >= i##end; i--)
 
 using namespace std;
 
 typedef long long ll;
-typedef pair <int, int> pii;
+typedef pair<int, int> pii;
 
-int read() {
-	int x = 0, f = 1; char c = getchar();
+ll read() {
+	ll x = 0, f = 1;
+	char c = getchar();
 	while (!isdigit(c)) {
 		if (c == '-') f = -1;
 		c = getchar();
@@ -25,66 +28,73 @@ int read() {
 
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) x = (~x + 1), putchar('-');
-	if (x > 9) print(x / 10);
+	if (x < 0)
+		x = (~x + 1), putchar('-');
+	if (x > 9)
+		print(x / 10);
 	putchar(x % 10 + '0');
 }
 
-const int MAXN = 1005;
-const int B = 250;
-int n, a[MAXN][3];
-int f[3][B + 5][B + 5], g[3][B + 5][B + 5];
-int T;
+const int MAXN = 1010;
+const int MAXM = 210;
 
-void cmax(int &x, int y) { if (x < y) x = y; }
+int T, n, ans, m;
+int a[MAXN], b[MAXN], c[MAXN];
+int f[MAXN][MAXM][MAXM];
+int g[MAXN][MAXM][MAXM], h[MAXN][MAXM][MAXM];
+
+inline void upd(int &x, int y) {
+	if (y > x) x = y;
+}
+
+inline int Min(int x, int y) {
+	return x < y ? x : y;
+}
 
 void solve() {
+	memset(a, 0, sizeof(a));
+	memset(b, 0, sizeof(b));
+	memset(c, 0, sizeof(c));
+	memset(f, 0, sizeof(f));
+	memset(g, 0, sizeof(g));
+	memset(h, 0, sizeof(h));
 	n = read();
-	const int TB = min(n, B);
-	rep (i, 1, n) a[i][0] = read(), a[i][1] = read(), a[i][2] = read();
-	rep (i, 1, n) {
-		memcpy(g, f, sizeof f);
-		memset(f, 0, sizeof f);
-		rep (j, max(0ll, i - TB), i) rep (k, max(0ll, i - TB), i) {
-			int u = i - j ? i - j + 1 : 0, v = i - k ? i - k + 1 : 0;
-			cmax(f[0][u][v], g[0][i - j][i - k] + a[i][0]);
-			cmax(f[1][1][v], g[0][i - j][i - k] + a[i][1]);
-			cmax(f[2][1][u], g[0][i - j][i - k] + a[i][2]);
-			cmax(f[0][1][v], g[1][i - j][i - k] + a[i][0]);
-			cmax(f[1][u][v], g[1][i - j][i - k] + a[i][1]);
-			cmax(f[2][u][1], g[1][i - j][i - k] + a[i][2]);
-			cmax(f[0][v][1], g[2][i - j][i - k] + a[i][0]);
-			cmax(f[1][u][1], g[2][i - j][i - k] + a[i][1]);
-			cmax(f[2][u][v], g[2][i - j][i - k] + a[i][2]);
-		}
-		rep (j, 0, 2) {
-			rep (k, 0, TB) {
-				rep (l, 0, TB) {
-					f[j][k][l] -= k + l;
-				}
+	m = Min(sqrt(10000) * 2 + 5, n);
+	for (int i = 1; i <= n; i++) {
+		a[i] = read();
+		b[i] = read();
+		c[i] = read();
+	}
+	ans = 0;
+	f[1][0][0] = a[1];
+	g[1][0][0] = b[1];
+	h[1][0][0] = c[1];
+	rep(i, 1, n - 1) {
+		rep(j, 0, m) {
+			rep(k, 0, m) {
+				int nj = j == 0 ? 0 : j + 1, nk = k == 0 ? 0 : k + 1;
+				upd(f[i + 1][nj][nk], f[i][j][k] + a[i + 1] - nj - nk);
+				upd(g[i + 1][1][nk], f[i][j][k] + b[i + 1] - 1 - nk);
+				upd(h[i + 1][1][nj], f[i][j][k] + c[i + 1] - 1 - nj);
+				upd(f[i + 1][1][nk], g[i][j][k] + a[i + 1] - 1 - nk);
+				upd(g[i + 1][nj][nk], g[i][j][k] + b[i + 1] - nj - nk);
+				upd(h[i + 1][nj][1], g[i][j][k] + c[i + 1] - nj - 1);
+				upd(f[i + 1][nk][1], h[i][j][k] + a[i + 1] - nk - 1);
+				upd(g[i + 1][nj][1], h[i][j][k] + b[i + 1] - nj - 1);
+				upd(h[i + 1][nj][nk], h[i][j][k] + c[i + 1] - nj - nk);
 			}
 		}
 	}
-	int ans = 0;
-	rep (j, 0, 2) {
-		rep (k, 0, TB) {
-			rep (l, 0, TB) {
-				ans = max(ans, f[j][k][l]);
-			}
+	rep(j, 0, m) {
+		rep(k, 0, m) {
+			ans = max(ans, max(f[n][j][k], max(g[n][j][k], h[n][j][k])));
 		}
 	}
-	print(ans), putchar(10);
-	memset(f, 0, sizeof f);
+	print(ans); putchar(10);
 }
 
 signed main() {
-#ifndef LOCAL
-#ifndef ONLINE_JUDGE
-	freopen("codechef.in", "r", stdin);
-	freopen("codechef.out", "w", stdout);
-#endif
-#endif
 	T = read();
-	while (T --> 0) solve();
+	while (T--) solve();
 	return 0;
 }

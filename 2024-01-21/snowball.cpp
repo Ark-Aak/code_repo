@@ -60,7 +60,7 @@ signed main() {
 	while (T --> 0) {
 		n = read(), m = read(), k = read();
 		rep (i, 1, k) a[i] = read(), b[i] = read();
-		if (k > 1) {
+		if (1) {
 			memset(f, 0x3f, sizeof f);
 			rep (i, 1, k) {
 				rep (j, 1, n) {
@@ -85,53 +85,6 @@ signed main() {
 				if (!flg) ans++;
 			} while(next_permutation(order + 1, order + 1 + n * m));
 			print(ans * qpow(fac[n * m]) % MOD), putchar(10);
-		}
-		else {
-			queue <pair <int, int> > q;
-			q.push({a[1], b[1]});
-			rep (i, 1, n) mp[i].clear();
-			memset(cnt, 0, sizeof cnt);
-			while (q.size()) {
-				auto u = q.front(); q.pop();
-				int x = u.first, y = u.second;
-				int val = mp[x][y];
-				if (x > 1) {
-					if (mp[x - 1][y] == 0 && (x - 1 != a[1] || y != b[1])) {
-						q.push({x - 1, y});
-						mp[x - 1][y] = val + 1;
-					}
-				}
-				if (x < n) {
-					if (mp[x + 1][y] == 0 && (x + 1 != a[1] || y != b[1])) {
-						q.push({x + 1, y});
-						mp[x + 1][y] = val + 1;
-					}
-				}
-				if (y > 1) {
-					if (mp[x][y - 1] == 0 && (x != a[1] || y - 1 != b[1])) {
-						q.push({x, y - 1});
-						mp[x][y - 1] = val + 1;
-					}
-				}
-				if (y < n) {
-					if (mp[x][y + 1] == 0 && (x != a[1] || y + 1 != b[1])) {
-						q.push({x, y + 1});
-						mp[x][y + 1] = val + 1;
-					}
-				}
-			}
-			rep (i, 1, n) {
-				rep (j, 1, m) {
-					cnt[mp[i][j]]++;
-				}
-			}
-			rep (i, 1, n * m - 1) cnt[i] += cnt[i - 1], cnt[i] %= MOD;
-			int ans = 1;
-			rep (i, 0, n * m - 1) {
-				ans = ans * (cnt[i] - i) % MOD;
-			}
-			ans = ans * qpow(fac[n * m]) % MOD;
-			print(ans);
 		}
 	}
 	return 0;
