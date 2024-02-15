@@ -4,3 +4,4 @@
 *.ans
 .\testlib\data
 .history
+*.prob

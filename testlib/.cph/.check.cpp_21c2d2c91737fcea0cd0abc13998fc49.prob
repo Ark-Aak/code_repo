@@ -1,1 +1,0 @@
-{"name":"Local: check","url":"f:\\Code\\testlib\\check.cpp","tests":[{"id":1700554290871,"input":"5 2","output":"23"},{"id":1700554296754,"input":"1000000 1000000","output":"663962717"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"f:\\Code\\testlib\\check.cpp","group":"local","local":true}
