@@ -1,9 +1,11 @@
 #include <bits/stdc++.h>
 
-#define int ll
-
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
+#define ec first
+#define fb second
+#define dl make_pair
+#define dk(...) make_tuple(__VA_ARGS__)
 
 using namespace std;
 

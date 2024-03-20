@@ -2,6 +2,10 @@
 
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
+#define ec first
+#define fb second
+#define dl make_pair
+#define dk(...) make_tuple(__VA_ARGS__)
 
 using namespace std;
 
@@ -28,23 +32,9 @@ void print(_Tp x) {
 	putchar(x % 10 + '0');
 }
 
-int main() {
-#ifndef LOCAL
-#ifndef ONLINE_JUDGE
 
-#endif
-#endif
-	set <int> s;
-	s.insert(1);
-	s.insert(2);
-	s.insert(3);
-	s.insert(4);
-	s.insert(5);
-	s.insert(6);
-	s.insert(7);
-	s.insert(8);
-	auto it = s.begin();
-	it = next(it, 2);
-	print(*it);
+
+signed main() {
+
 	return 0;
 }

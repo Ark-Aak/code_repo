@@ -4,16 +4,17 @@
 		{
 			"type": "cppbuild",
 			"label": "Compile",
-			"command": "D:\\Mingw-w64\\mingw64\\bin\\g++.exe",
+			//"command": "D:\\Mingw-w64\\mingw64\\bin\\g++.exe",
+			"command": "/usr/bin/g++",
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
 				"${file}",
 				"-o",
-				"${fileDirname}\\${fileBasenameNoExtension}.exe",
+				"${fileDirname}/${fileBasenameNoExtension}",
 				"-O2",
 				"-std=c++14",
-				"-Wl,--stack=51200000000"
+				"-Wl,-z stack-size=51200000000"
 			],
 			"options": {
 				"cwd": "${fileDirname}"
@@ -22,30 +23,6 @@
 				"$gcc"
 			],
 			"group": "build"
-		},
-		{
-			"type": "cppbuild",
-			"label": "Compile for gdb",
-			"command": "D:\\Mingw-w64\\mingw64\\bin\\g++.exe",
-			"args": [
-				"-fdiagnostics-color=always",
-				"-g",
-				"${file}",
-				"-o",
-				"${fileDirname}\\${fileBasenameNoExtension}.exe",
-				"-O0",
-				"-DLOCAL",
-				"-std=c++17",
-				"-Wl,--stack=51200000000"
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": "build",
-			"detail": "编译器: D:\\Mingw-w64\\mingw64\\bin\\g++.exe"
 		}
 	]
 }

@@ -61,7 +61,7 @@ bool Miller_Rabin(int n, int p) {
 	if(z==1)return true;
 	rep(i,1,r){
 	    if(z==n-1)return true;
-	    z = mul(z, z, n); 
+	    z = mul(z, z, n);
 	}
 	return false;
 }

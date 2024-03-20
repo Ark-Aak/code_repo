@@ -3,7 +3,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/usr/include/wine/windows"
             ],
             "defines": [
                 "_DEBUG",
@@ -12,8 +13,8 @@
             ],
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "compilerPath": "D:/Mingw-w64/mingw64/bin/gcc.exe",
-            "intelliSenseMode": "windows-gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "intelliSenseMode": "linux-gcc-x64",
             "compilerArgs": []
         }
     ],

@@ -29,44 +29,92 @@ void print(_Tp x) {
 }
 
 const int MAXN = 1e5 + 5;
-int rt, tot, fa[MAXN], ch[MAXN][2], val[MAXN], cnt[MAXN], siz[MAXN];
-int tag[MAXN];
+namespace LCT {
+	int rt, tot, fa[MAXN], ch[MAXN][2], val[MAXN], cnt[MAXN];
+	int XOR[MAXN], tag[MAXN];
 
 #define ls(x) ch[x][0]
 #define rs(x) ch[x][1]
-#define get(x) ((x) == ch[fa[(x)]][1])
+#define get(x) ((x) == ch[fa[x]][1])
+#define isRoot(x) (ch[fa[x]][0] != x && ch[fa[x]][1] != x)
 
-void pushup(int x) {
-	siz[x] = siz[ls(x)] + siz[rs(x)] + cnt[x];
-}
+	inline void pushup(int x) {
+		XOR[x] = XOR[ls(x)] ^ XOR[rs(x)] ^ val[x];
+	}
 
-void pushdown(int x) {
+	inline void reverse(int x) { swap(ls(x), rs(x)), tag[x] ^= 1; }
 
-}
+	inline void pushdown(int x) {
+		if (tag[x]) {
+			if (ls(x)) reverse(ls(x));
+			if (rs(x)) reverse(rs(x));
+			tag[x] = 0;
+		}
+	}
 
-void clear(int x) {
-	ls(x) = rs(x) = fa[x] = val[x] = siz[x] = cnt[x] = 0;
-}
+	void rotate(int x) {
+		int y = fa[x], z = fa[y], k = ch[y][1] == x, w = ch[x][!k];
+		if (!isRoot(y)) ch[z][ch[z][1] == y] = x;
+		ch[x][!k] = y, ch[y][k] = w;
+		if (w) fa[w] = y;
+		fa[y] = x, fa[x] = z;
+		pushup(y), pushup(x);
+	}
 
-void rotate(int x) {
-	int y = fa[x], z = fa[y], tp = get(x);
-	ch[y][tp] = ch[x][tp ^ 1];
-	if (ch[x][tp ^ 1]) fa[ch[x][tp ^ 1]] = y;
-	ch[x][tp ^ 1] = y;
-	fa[y] = x, fa[x] = z;
-	if (z) ch[z][y == rs(z)] = x;
-	pushup(y), pushup(x);
-}
+	void pushall(int x) {
+		if (!isRoot(x)) pushall(fa[x]);
+		pushdown(x);
+	}
 
-void splay(int x) {
-	for (int f = fa[x]; (f = fa[x]); rotate(x))
-		if (fa[f]) rotate(get(x) == get(f) ? f : x);
-	rt = x;
-}
+	void splay(int x) {
+		int y = x, z = 0;
+		pushall(x);
+		while (!isRoot(x)) {
+			y = fa[x], z = fa[y];
+			if (!isRoot(y))
+				rotate((ls(y) == x) ^ (ls(z) == y) ? x : y);
+			rotate(x);
+		}
+		pushup(x);
+	}
 
+	void access(int x) { for (int y = 0; x; x = fa[y = x]) splay(x), rs(x) = y, pushup(x); }
+	inline void makeRoot(int x) { access(x), splay(x), reverse(x); }
 
+	inline int find(int x) {
+		access(x), splay(x);
+		while (ls(x)) pushdown(x), x = ls(x);
+		splay(x);
+		return x;
+	}
+
+	inline void split(int x, int y) { makeRoot(x), access(y), splay(y); }
+	inline void link(int x, int y) { makeRoot(x); if (find(y) != x) fa[x] = y; }
+
+	inline void cut(int x, int y) {
+		split(x, y);
+		if (find(y) == x && fa[y] == x && !ls(y)) {
+			fa[y] = rs(x) = 0;
+			pushup(x);
+		}
+	}
+#undef ls
+#undef rs
+#undef get
+#undef isRoot
+} // namespace LCT
+
+int n, m;
 
 int main() {
-
+	n = read(), m = read();
+	rep (i, 1, n) LCT::val[i] = read();
+	rep (i, 1, m) {
+		int op = read(), x = read(), y = read();
+		if (op == 0) LCT::split(x, y), print(LCT::XOR[y]), putchar(10);
+		if (op == 1) LCT::link(x, y);
+		if (op == 2) LCT::cut(x, y);
+		if (op == 3) LCT::splay(x), LCT::val[x] = y, LCT::pushup(x);
+	}
 	return 0;
 }
