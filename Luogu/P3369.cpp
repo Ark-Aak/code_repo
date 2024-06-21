@@ -1,16 +1,19 @@
 #include <bits/stdc++.h>
 
-#define rep(i, a, b) for(auto i = (a); i <= (b); i++)
-#define _rep(i, a, b) for(auto i = (a); i >= (b); i--)
+#define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
+#define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
+#define ec first
+#define fb second
+#define dl make_pair
+#define dk(...) make_tuple(__VA_ARGS__)
 
 using namespace std;
 
 typedef long long ll;
 typedef pair <int, int> pii;
 
-template <typename _Tp>
-void read(_Tp& first) {
-	_Tp x = 0, f = 1; char c = getchar();
+int read() {
+	int x = 0, f = 1; char c = getchar();
 	while (!isdigit(c)) {
 		if (c == '-') f = -1;
 		c = getchar();
@@ -19,7 +22,7 @@ void read(_Tp& first) {
 		x = (x << 3) + (x << 1) + (c ^ 48);
 		c = getchar();
 	}
-	first = x * f;
+	return x * f;
 }
 
 template <typename _Tp>
@@ -29,132 +32,97 @@ void print(_Tp x) {
 	putchar(x % 10 + '0');
 }
 
-mt19937 rnd(time(0));
+const int MAXN = 1e5 + 5;
+mt19937 rnd(chrono::steady_clock::now().time_since_epoch().count());
 
-struct node {
-	int key, val, siz;
-	node *ls, *rs;
+#define ls(x) p[x].ls
+#define rs(x) p[x].rs
 
-	node(int val) {
-		this -> val = val;
-		this -> key = rnd();
-		ls = nullptr, rs = nullptr;
+class Treap {
+
+	struct node { int val, key, siz, ls, rs; } p[MAXN];
+	int cnt = 0;
+
+	inline int newNode(int val) {
+		p[++cnt].key = rnd();
+		p[cnt].val = val;
+		p[cnt].siz = 1;
+		return cnt;
 	}
 
-	void upd_siz() {
-		siz = (ls ? ls -> siz : 0) + (rs ? rs -> siz : 0) + 1;
+	inline void pushup(int x) {
+		p[x].siz = p[ls(x)].siz + p[rs(x)].siz + 1;
 	}
-};
 
-pair <node*, node*> split(node* now, int val) {
-	if (!now) return {nullptr, nullptr};
-	if (now -> val <= val) {
-		auto tmp = split(now -> rs, val);
-		now -> rs = tmp.first;
-		now -> upd_siz();
-		return {now, tmp.second};
+public:
+	int root = 0;
+
+	void split(int cur, int k, int &x, int &y) {
+		if (!cur) return x = y = 0, void();
+		if (p[cur].val <= k) x = cur, split(rs(x), k, rs(x), y);
+		else y = cur, split(ls(y), k, x, ls(y));
+		pushup(cur);
 	}
-	else {
-		auto tmp = split(now -> ls, val);
-		now -> ls = tmp.second;
-		now -> upd_siz();
-		return {tmp.first, now};
+
+	int merge(int u, int v) {
+		if (!u || !v) return u + v;
+		if (p[u].key < p[v].key) return rs(u) = merge(rs(u), v), pushup(u), u;
+		else return ls(v) = merge(u, ls(v)), pushup(v), v;
 	}
-}
 
-tuple <node*, node*, node*> splitRk(node* now, int k) {
-	if (!now) return {nullptr, nullptr, nullptr};
-	int less_siz = (now -> ls ? now -> ls -> siz : 0);
-	if (k <= less_siz) {
-		node *l, *r, *mid;
-		tie(l, mid, r) = splitRk(now -> ls, k);
-		now -> ls = r;
-		l -> upd_siz();
-		r -> upd_siz();
-		now -> upd_siz();
-		return {l, mid, r};
+	inline void insert(int val, int lt = 0, int rt = 0) {
+		split(root, val, lt, rt);
+		root = merge(merge(lt, newNode(val)), rt);
 	}
-	else if (k == less_siz + 1) {
-		node *l = now -> ls, *r = now -> rs;
-		now -> ls = nullptr;
-		now -> rs = nullptr;
-		l -> upd_siz();
-		r -> upd_siz();
-		now -> upd_siz();
-		return {l, now, r};
+
+	inline void remove(int val, int lt = 0, int mt = 0, int rt = 0) {
+		split(root, val, lt, rt);
+		split(lt, val - 1, lt, mt);
+		mt = merge(ls(mt), rs(mt));
+		root = merge(merge(lt, mt), rt);
 	}
-	else {
-		node *l, *r, * mid;
-		tie(l, mid, r) = splitRk(now -> rs, k - less_siz - 1);
-		now -> rs = l;
-		l -> upd_siz();
-		r -> upd_siz();
-		now -> upd_siz();
-		return {l, mid, r};
+
+	inline int rnk(int val, int lt = 0, int rt = 0) {
+		split(root, val - 1, lt, rt);
+		int res = p[lt].siz + 1;
+		root = merge(lt, rt);
+		return res;
 	}
-}
 
-node* merge(node* u, node* v) {
-	if (!u && !v) return nullptr;
-	if (!u && v) return v;
-	if (u && !v) return u;
-	if (u -> key < v -> key) {
-		u -> rs = merge(u -> rs, v);
-		u -> upd_siz();
-		return u;
+	inline int kth(int cur, int val) {
+		while (cur) {
+			if (p[ls(cur)].siz + 1 == val) return p[cur].val;
+			if (p[ls(cur)].siz >= val) cur = ls(cur);
+			else val -= p[ls(cur)].siz + 1, cur = rs(cur);
+		}
+		return 0;
 	}
-	else {
-		v -> ls = merge(u, v -> ls);
-		v -> upd_siz();
-		return v;
+
+	inline int pre(int val, int lt = 0, int rt = 0, int res = 0) {
+		split(root, val - 1, lt, rt);
+		if (lt) res = kth(lt, p[lt].siz);
+		root = merge(lt, rt);
+		return res;
 	}
-}
 
-int kth(node* now, int k) {
-	node *l, *r, *mid;
-	tie(l, mid, r) = splitRk(now, k);
-	int res = mid -> val;
-	merge(merge(l, mid), r);
-	return res;
-}
+	inline int nxt(int val, int lt = 0, int rt = 0, int res = 0) {
+		split(root, val, lt, rt);
+		if (rt) res = kth(rt, 1);
+		root = merge(lt, rt);
+		return res;
+	}
+} T;
 
-int rank(node* now, int val) {
-	auto tmp = split(now, val);
-	int res = (tmp.first ? tmp.first -> siz : 0) + 1;
-	merge(tmp.first, tmp.second);
-	return res;
-}
-
-int prev(node* now, int val) {
-	auto tmp = split(now, val - 1);
-	int res = kth(tmp.first, (tmp.first ? tmp.first -> siz : 0));
-	now = merge(tmp.first, tmp.second);
-	return res;
-}
-
-int nxt(node* now, int val) {
-	auto tmp = split(now, val);
-	int res = kth(tmp.second, 1);
-	now = merge(tmp.first, tmp.second);
-	return res;
-}
-
-void insert(node* now, int val) {
-	auto l = split(now, val - 1);
-	node *newNode = new node(val);
-	merge(merge(l.first, newNode), l.second);
-}
-
-void del(node* now, int val) {
-	node *l, *mid, *r;
-	auto tmp1 = split(now, val);
-	auto tmp2 = split(tmp1.first, val - 1);
-	l = tmp2.first, mid = tmp2.second, r = tmp1.second;
-	r = merge(l, r);
-	delete mid;
-}
-
-int main() {
-
+signed main() {
+	int n = read();
+	rep (i, 1, n) {
+		int op = read();
+		if (op == 1) T.insert(read());
+		if (op == 2) T.remove(read());
+		if (op == 3) print(T.rnk(read())), puts("");
+		if (op == 4) print(T.kth(T.root, read())), puts("");
+		if (op == 5) print(T.pre(read())), puts("");
+		if (op == 6) print(T.nxt(read())), puts("");
+	}
 	return 0;
 }

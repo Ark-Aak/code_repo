@@ -1,82 +1,88 @@
 #include <bits/stdc++.h>
-using namespace std;
 
-int N, T, G;
-int X[500];
+const int BUF_SIZ = 1 << 18;
+char ibuf[BUF_SIZ], *iS = ibuf, *iT = ibuf;
 
-int cost1[500][500]{};
+#define getchar() (iS == iT && (iT = (iS = ibuf) + fread(ibuf, 1, BUF_SIZ, stdin)), iS == iT ? EOF : *iS++)
 
-int Cost1(int i0, int i1)
-{
-	i0 %= N;
-	if ((i1 - i0 + N) % N == 1)
-		return 0;
-	int &ret = cost1[i0 % N][i1 % N];
-	if (!ret)
-		ret = 1 + Cost1(i0 + 1, i1) + (X[i1] - X[(i0 + 1) % N] + T) % T;
-	return ret - 1;
+template <typename _Tp>
+void read(_Tp &x) {
+	char ch(getchar());
+	bool f(false);
+	while (!isdigit(ch))
+		f |= ch == 45, ch = getchar();
+	x = ch & 15, ch = getchar();
+	while (isdigit(ch))
+		x = x * 10 + (ch & 15), ch = getchar();
+	if (f)
+		x = -x;
 }
 
-int cost[9][500][500], tcost[500][500], ncost[500][500];
-int idx[500], NN = 0; // #unique X's
+template <typename _Tp, typename... Args>
+void read(_Tp &t, Args &...args) {
+	read(t);
+	read(args...);
+}
 
-int solve()
-{
-	if (G >= NN)
-		return 0;
-	int ans = 1 << 20;
-	for (int i = 0; i < NN; ++i)
-		for (int j = 0; j < NN; ++j)
-			cost[0][i][j] = Cost1(idx[i], idx[j]);
+typedef unsigned long long ull;
+int n, q;
 
-	for (int b = 1; (1 << b) <= G; ++b)
-	{
-		for (int i = 0; i < NN; ++i)
-			for (int j = 0; j < NN; ++j)
-			{
-				int v = cost[b - 1][i][j];
-				for (int k = 1; (i + k) % NN != j; ++k)
-					v = min(v, cost[b - 1][i][(i + k) % NN] + cost[b - 1][(i + k) % NN][j]);
-				cost[b][i][j] = v;
-			}
+struct MY_GENERATOR {
+	int type;
+	ull seed;
+
+	inline ull nextInt() {
+		ull z = (seed += 0x9E37793B5F4A7C15ULL);
+		z = (z ^ (z >> 30)) * 0xBE99136D1CE4E5B9ULL;
+		z = (z ^ (z >> 27)) * 0x94A749BB033BD1FBULL;
+		return z ^ (z >> 31);
 	}
 
-	for (int i = 0; i < NN; ++i)
-		for (int j = 0; j < NN; ++j)
-			tcost[i][j] = 1 << 20;
-	for (int b = 0; (1 << b) <= G; ++b)
-	{
-		if (G & (1 << b))
-		{
-			for (int i = 0; i < NN; ++i)
-				for (int j = 0; j < NN; ++j)
-				{
-					int v = min(cost[b][i][j], tcost[i][j]);
-					for (int k = 1; (i + k) % NN != j; ++k)
-						v = min(v, cost[b][i][(i + k) % NN] + tcost[(i + k) % NN][j]);
-					ncost[i][j] = v;
-				}
-			memcpy(tcost, ncost, sizeof(tcost));
+	int get() { return nextInt() % 998244352 + 1; }
+
+	inline void get(int lastans, int &l, int &r) {
+		if (type == 2) {
+			if (!type)
+				lastans = 0;
+			l = ((1 + (nextInt() >> 33)) ^ lastans) % n + 1;
+			r = ((1 + (nextInt() >> 33)) ^ lastans) % n + 1;
+			if (l > r)
+				std::swap(l, r);
+		} else {
+			read(l), read(r);
+			if (type)
+				l ^= lastans, r ^= lastans;
 		}
 	}
-	for (int i = 0; i < NN; ++i)
-		ans = min(ans, tcost[i][i]);
-	return ans;
-}
+} gen;
 
-int main(void)
-{
-	scanf("%d%d%d", &N, &T, &G);
-	T *= 2;
-	for (int i = 0; i < N; ++i)
-		scanf("%d", X + i), X[i] %= T;
-	sort(X, X + N);
-	NN = 0;
-	for (int i = 0; i < N; ++i)
-		if (i == N - 1 || X[i] != X[i + 1])
-			idx[NN++] = i;
-	//  printf("%d\n", NN);
-	//  return 0;
-	printf("%d\n", solve());
+const int MAXN = 3000005;
+int a[MAXN], p[MAXN];
+
+int main() {
+	read(n), read(q), read(gen.type), read(gen.seed);
+	for (int i = 0; i <= n; ++i)
+		a[i] = gen.get();
+	for (int i = 1; i <= n; ++i)
+		read(p[i]);
+
+	/*
+	Write your code here
+	*/
+
+	int l, r, lastans = 0;
+	ull final_ans = 0;
+	for (int t = 1; t <= q; ++t) {
+		gen.get(lastans, l, r);
+		int ansnow = 0;
+
+		/*
+		Write your code here
+		*/
+
+		lastans = ansnow;
+		final_ans ^= 1ull * t * ansnow;
+	}
+	printf("%llu\n", final_ans);
 	return 0;
 }

@@ -1,3 +1,9 @@
+#ifdef ONLINE_JUDGE
+#pragma GCC optimize("Ofast,no-stack-protector,unroll-loops,fast-math")
+#pragma GCC target("sse,sse2,sse3,ssse3,sse4.1,sse4.2,avx,avx2,popcnt")
+#include <immintrin.h>
+#include <emmintrin.h>
+#endif
 #include <bits/stdc++.h>
 
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
@@ -10,6 +16,7 @@
 using namespace std;
 
 typedef long long ll;
+typedef __int128 i128;
 typedef pair <int, int> pii;
 
 int read() {
@@ -38,3 +45,4 @@ signed main() {
 
 	return 0;
 }
+

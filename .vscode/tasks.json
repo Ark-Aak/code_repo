@@ -4,17 +4,18 @@
 		{
 			"type": "cppbuild",
 			"label": "Compile",
-			//"command": "D:\\Mingw-w64\\mingw64\\bin\\g++.exe",
-			"command": "/usr/bin/g++",
+			"command": "D:\\Mingw-w64\\mingw64\\bin\\g++.exe",
+			// "command": "/usr/bin/g++",
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
 				"${file}",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}",
-				"-O2",
-				"-std=c++14",
-				"-Wl,-z stack-size=51200000000"
+				"-O0",
+				"-std=c++17",
+				// "-Wl,-z stack-size=51200000000"
+				"-Wl,--stack=51200000000"
 			],
 			"options": {
 				"cwd": "${fileDirname}"

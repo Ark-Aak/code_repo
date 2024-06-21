@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-#define int ll
+#define int __int128
 
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
@@ -35,51 +35,15 @@ void print(_Tp x) {
 }
 
 const int MAXN = 2e3 + 5;
-int n, k, p;
-int C[MAXN][MAXN];
+int n, k, P;
+int C[MAXN][MAXN], dp[MAXN][15][3], sum[MAXN][15][3];
 
 void init() {
-	C[0][0] = 1;
-	rep (i, 1, 2000) {
+	rep (i, 0, n) {
 		C[i][0] = 1;
-		rep (j, 1, i) C[i][j] = (C[i - 1][j] + C[i - 1][j - 1]) % p;
+		rep (j, 1, i) C[i][j] = (C[i - 1][j] + C[i - 1][j - 1]) % P;
 	}
 }
-
-namespace subtask1 {
-
-	int ord[15];
-
-	void solve() {
-		rep(i, 1, n) ord[i] = i;
-		int ans = 0;
-		do {
-			vector <int> v;
-			rep (i, 1, n) v.push_back(ord[i]);
-			bool flg = 0;
-			rep (i, 1, k) {
-				vector <vector <int>::iterator> iter;
-				for (auto it = v.begin(); it != v.end(); it++) {
-					if (it == v.begin()) {
-						if (*next(it) > *it) iter.push_back(it);
-					}
-					else if (it == prev(v.end())) {
-						if (*prev(it) > *it) iter.push_back(it);
-					}
-					else if (*next(it) > *it || *prev(it) > *it) iter.push_back(it);
-				}
-				int cnt = 0;
-				for (auto it : iter) v.erase(prev(it, cnt)), ++cnt;
-				if (v.size() == 1 && i != k) {
-					flg = 1;
-					break;
-				}
-			}
-			if (!flg) ++ans, ans %= p;
-		} while (next_permutation(ord + 1, ord + n + 1));
-		print(ans), putchar(10);
-	}
-} // namespace subtask1
 
 signed main() {
 #ifndef LOCAL
@@ -88,15 +52,40 @@ signed main() {
 	freopen("misty.out", "w", stdout);
 #endif
 #endif
-	n = read(), k = read(), p = read();
-	if (k > log2(n - 1) + 1) return puts("0"), 0;
+	n = read(), k = read(), P = read();
+	if (k > 10) {
+		puts("0");
+        return 0;
+    }
+	int K = k;
+	k = 11;
 	init();
-	if (n <= 9) subtask1::solve();
-	else if (n == 14) {
-		if (k == 1) return puts("78285103"), 0;
-		if (k == 2) return puts("78276911"), 0;
-		if (k == 3) return puts("28030570"), 0;
-		if (k == 4) return puts("27900462"), 0;
+	dp[0][0][0] = dp[0][0][1] = dp[0][0][2] = 1;
+	rep (p, 1, n) {
+		rep (i, 0, k + 1) {
+			sum[p - 1][i][0] = ((i == 0 ? 0 : sum[p - 1][i - 1][0]) + dp[p - 1][i][0]) % P;
+			sum[p - 1][i][1] = ((i == 0 ? 0 : sum[p - 1][i - 1][1]) + dp[p - 1][i][1]) % P;
+			sum[p - 1][i][2] = ((i == 0 ? 0 : sum[p - 1][i - 1][2]) + dp[p - 1][i][2]) % P;
+		}
+		rep (i, 0, p - 1) {
+			int j = p - i - 1;
+			int c = C[i + j][j];
+			/* cout << c << endl; */
+			rep (x, 1, k + 1) {
+				int val = (dp[i][x - 1][1] * sum[j][x - 1][1]) % P + ((x == 1) ? 0 : sum[i][x - 2][1]) * dp[j][x - 1][1] % P;
+				dp[p][x][0] = (dp[p][x][0] + val * c % P) % P;
+				val = ((dp[i][x - 1][2] * sum[j][x][1]) % P + (((x == 1) ? 0 : sum[i][x - 2][2]) * dp[j][x][1]) % P) % P;
+				dp[p][x][1] = (dp[p][x][1] + val * c % P) % P;
+				val = ((dp[i][x][2] * sum[j][x - 1][2]) % P + (sum[i][x - 1][2] * dp[j][x][2]) % P) % P;
+				val = (val + (dp[i][x - 1][2] * dp[j][x - 1][2]) % P) % P;
+				dp[p][x][2] = (dp[p][x][2] + (val * c) % P) % P;
+            }
+		}
 	}
+	int ans = 0;
+	rep (i, K + 1, 11) {
+		ans = (ans + dp[n][i][0]) % P;
+	}
+	print(ans);
 	return 0;
 }

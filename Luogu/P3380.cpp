@@ -1,16 +1,20 @@
 #include <bits/stdc++.h>
 
-#define rep(i, a, b) for(auto i = (a); i <= (b); i++)
-#define _rep(i, a, b) for(auto i = (a); i >= (b); i--)
+#define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
+#define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
+#define ec first
+#define fb second
+#define dl make_pair
+#define dk(...) make_tuple(__VA_ARGS__)
 
 using namespace std;
 
 typedef long long ll;
+typedef __int128 i128;
 typedef pair <int, int> pii;
 
-template <typename _Tp>
-void read(_Tp& first) {
-	_Tp x = 0, f = 1; char c = getchar();
+int read() {
+	int x = 0, f = 1; char c = getchar();
 	while (!isdigit(c)) {
 		if (c == '-') f = -1;
 		c = getchar();
@@ -19,7 +23,7 @@ void read(_Tp& first) {
 		x = (x << 3) + (x << 1) + (c ^ 48);
 		c = getchar();
 	}
-	first = x * f;
+	return x * f;
 }
 
 template <typename _Tp>
@@ -29,187 +33,142 @@ void print(_Tp x) {
 	putchar(x % 10 + '0');
 }
 
-#define int ll
-const int MAXN = 5e5 + 5, MAXM = MAXN << 5;
-
-int H[MAXN];
-int N;
-
-void init() {
-	sort(H + 1, H + 1 + N);
-	N = unique(H + 1, H + N + 1) - H - 1;
-}
-
-int find(int x) {
-	return lower_bound(H + 1, H + 1 + N, x) - H;
-}
-
-int n, m, cnt;
-int a[MAXN];
+const int MAXN = 5e5 + 5;
 
 struct node {
-	node *ls, *rs;
-	int sum;
+	int sum, ls, rs;
+} p[MAXN << 5];
 
-	node() {ls = nullptr, rs = nullptr, sum = 0;}
-};
+int _cnt, root[MAXN];
+inline int newNode() { return ++_cnt; }
 
-node* null = new node();
-
-node* newNode() {
-    node* nd = new node();
-    nd -> ls = null, nd -> rs = null, nd -> sum = 0;
-	return nd;
-}
-
-node *root[MAXN];
-
-node *ltr[MAXN], *rtr[MAXN];
-
+#define ls(x) p[x].ls
+#define rs(x) p[x].rs
 #define mid ((L + R) >> 1)
 
-void update(node* &cur, int L, int R, int k, int val) {
-	if (!cur || cur == null) cur = newNode();
-	if (L == R) return (void) (cur -> sum += val);
-	if (k <= mid) update(cur -> ls, L, mid, k, val);
-	else update(cur -> rs, mid + 1, R, k, val);
-	cur -> sum = 0;
-	cur -> sum += cur -> ls -> sum;
-	cur -> sum += cur -> rs -> sum;
+void pushup(int x) {
+	p[x].sum = p[ls(x)].sum + p[rs(x)].sum;
 }
 
-int _kth(int lcnt, int rcnt, int L, int R, int k) {
+void update(int &cur, int L, int R, int k, int val) {
+	if (!cur) cur = newNode();
+	if (L == R) return void(p[cur].sum += val);
+	if (k <= mid) update(ls(cur), L, mid, k, val);
+	else update(rs(cur), mid + 1, R, k, val);
+	pushup(cur);
+}
+
+int ltr[MAXN], rtr[MAXN];
+
+int kth(int lc, int rc, int L, int R, int k) {
 	if (L == R) return L;
 	int x = 0;
-	rep (i, 1, rcnt) x += rtr[i] -> ls -> sum;
-	rep (i, 1, lcnt) x -= ltr[i] -> ls -> sum;
+	rep (i, 1, rc) x += p[ls(rtr[i])].sum;
+	rep (i, 1, lc) x -= p[ls(ltr[i])].sum;
 	if (k <= x) {
-		rep (i, 1, lcnt) ltr[i] = ltr[i] -> ls;
-		rep (i, 1, rcnt) rtr[i] = rtr[i] -> ls;
-		return _kth(lcnt, rcnt, L, mid, k);
+		rep (i, 1, lc) ltr[i] = p[ltr[i]].ls;
+		rep (i, 1, rc) rtr[i] = p[rtr[i]].ls;
+		return kth(lc, rc, L, mid, k);
 	}
 	else {
-		rep (i, 1, lcnt) ltr[i] = ltr[i] -> rs;
-		rep (i, 1, rcnt) rtr[i] = rtr[i] -> rs;
-		return _kth(lcnt, rcnt, mid + 1, R, k - x);
+		rep (i, 1, lc) ltr[i] = p[ltr[i]].rs;
+		rep (i, 1, rc) rtr[i] = p[rtr[i]].rs;
+		return kth(lc, rc, mid + 1, R, k - x);
 	}
 }
 
-int _rnk(int lcnt, int rcnt, int L, int R, int k) {
+int rnk(int lc, int rc, int L, int R, int k) {
 	if (L == R) return 0;
-	int x = 0;
 	if (k <= mid) {
-		rep (i, 1, lcnt) ltr[i] = ltr[i] -> ls;
-		rep (i, 1, rcnt) rtr[i] = rtr[i] -> ls;
-		return _rnk(lcnt, rcnt, L, mid, k);
+		rep (i, 1, lc) ltr[i] = p[ltr[i]].ls;
+		rep (i, 1, rc) rtr[i] = p[rtr[i]].ls;
+		return rnk(lc, rc, L, mid, k);
 	}
 	else {
-		rep (i, 1, rcnt) x += rtr[i] -> ls -> sum, rtr[i] = rtr[i] -> rs;
-		rep (i, 1, lcnt) x -= ltr[i] -> ls -> sum, ltr[i] = ltr[i] -> rs;
-		return x + _rnk(lcnt, rcnt, mid + 1, R, k);
+		int x = 0;
+		rep (i, 1, rc) x += p[ls(rtr[i])].sum;
+		rep (i, 1, lc) x -= p[ls(ltr[i])].sum;
+		rep (i, 1, lc) ltr[i] = p[ltr[i]].rs;
+		rep (i, 1, rc) rtr[i] = p[rtr[i]].rs;
+		return x + rnk(lc, rc, mid + 1, R, k);
 	}
 }
 
-int lowbit(int x) {
-	return x & (-x);
-}
+const int N = 1e8;
+
+int n, m, a[MAXN];
+
+inline int lowbit(int x) { return x & -x; }
 
 void add(int x, int val) {
 	if (!x) return;
 	for (int v = x; v <= n; v += lowbit(v)) {
-		update(root[v], 1, N, a[x], val);
+		update(root[v], 0, N, a[x], val);
 	}
 }
 
 int kth(int L, int R, int k) {
-	int lcnt = 0, rcnt = 0;
+	int lc = 0, rc = 0;
 	for (int v = R; v; v -= lowbit(v)) {
-		rtr[++rcnt] = root[v];
+		rtr[++rc] = root[v];
 	}
 	for (int v = L - 1; v; v -= lowbit(v)) {
-		ltr[++lcnt] = root[v];
+		ltr[++lc] = root[v];
 	}
-	return _kth(lcnt, rcnt, 1, N, k);
+	return kth(lc, rc, 0, N, k);
 }
 
 int rnk(int L, int R, int k) {
-	int lcnt = 0, rcnt = 0;
+	int lc = 0, rc = 0;
 	for (int v = R; v; v -= lowbit(v)) {
-		rtr[++rcnt] = root[v];
+		rtr[++rc] = root[v];
 	}
 	for (int v = L - 1; v; v -= lowbit(v)) {
-		ltr[++lcnt] = root[v];
+		ltr[++lc] = root[v];
 	}
-	return _rnk(lcnt, rcnt, 1, N, k) + 1;
+	return rnk(lc, rc, 0, N, k) + 1;
 }
 
 int prev(int L, int R, int k) {
 	int rk = rnk(L, R, k) - 1;
-	if (rk == 0) return 0;
-	else return kth(L, R, rk);
-}
-
-int nxt(int L, int R, int k) {
-	if (k >= N) return N + 1;
-	int rk = rnk(L, R, k + 1);
-	if (rk == R - L + 2) return N + 1;
+	if (rk == 0) return -2147483647;
 	return kth(L, R, rk);
 }
 
-struct ops {
-	int op, l, r, pos, k;
-} op[MAXN];
+int nxt(int L, int R, int k) {
+	if (k >= N) return 2147483647;
+	int rk = rnk(L, R, k + 1);
+	if (rk == R - L + 2) return 2147483647;
+	return kth(L, R, rk);
+}
 
 signed main() {
-    null -> ls = null;
-    null -> rs = null;
-	read(n), read(m);
-	rep (i, 1, n) {
-		read(a[i]);
-		H[++N] = a[i];
-	}
+	n = read(), m = read();
+	rep (i, 1, n) a[i] = read(), add(i, 1);
 	rep (i, 1, m) {
-		read(op[i].op);
-		if (op[i].op == 1) read(op[i].l), read(op[i].r), read(op[i].k), H[++N] = op[i].k;
-		if (op[i].op == 2) read(op[i].l), read(op[i].r), read(op[i].k);
-		if (op[i].op == 3) read(op[i].pos), read(op[i].k), H[++N] = op[i].k;
-		if (op[i].op == 4) read(op[i].l), read(op[i].r), read(op[i].k), H[++N] = op[i].k;
-		if (op[i].op == 5) read(op[i].l), read(op[i].r), read(op[i].k), H[++N] = op[i].k;
-	}
-	init();
-	H[0] = (-2147483647);
-	H[N + 1] = (2147483647);
-	rep (i, 1, n) {
-		a[i] = find(a[i]);
-		add(i, 1);
-	}
-	rep (i, 1, m) if (op[i].op != 2) op[i].k = find(op[i].k);
-	rep (i, 1, m) {
-		int op, l, r, pos, k;
-		op = ::op[i].op;
-		switch (op) {
-			case 1:
-				l = ::op[i].l, r = ::op[i].r, k = ::op[i].k;
-				print(rnk(l, r, k)), putchar(10);
-				break;
-			case 2:
-				l = ::op[i].l, r = ::op[i].r, k = ::op[i].k;
-				print(H[kth(l, r, k)]), putchar(10);
-				break;
-			case 3:
-				pos = ::op[i].pos, k = ::op[i].k;
-				add(pos, -1);
-				a[pos] = k;
-				add(pos, 1);
-				break;
-			case 4:
-				l = ::op[i].l, r = ::op[i].r, k = ::op[i].k;
-				print(H[prev(l, r, k)]), putchar(10);
-				break;
-			case 5:
-				l = ::op[i].l, r = ::op[i].r, k = ::op[i].k;
-				print(H[nxt(l, r, k)]), putchar(10);
-				break;
+		int op = read();
+		int l = 0, r = 0, k = 0, pos = 0;
+		if (op == 1) {
+			l = read(), r = read(), k = read();
+			print(rnk(l, r, k)), puts("");
+		}
+		else if (op == 2) {
+			l = read(), r = read(), k = read();
+			print(kth(l, r, k)), puts("");
+		}
+		else if (op == 3) {
+			pos = read(), k = read();
+			add(pos, -1);
+			a[pos] = k;
+			add(pos, 1);
+		}
+		else if (op == 4) {
+			l = read(), r = read(), k = read();
+			print(prev(l, r, k)), puts("");
+		}
+		else {
+			l = read(), r = read(), k = read();
+			print(nxt(l, r, k)), puts("");
 		}
 	}
 	return 0;
