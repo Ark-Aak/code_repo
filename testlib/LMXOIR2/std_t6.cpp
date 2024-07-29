@@ -216,8 +216,8 @@ signed main() {
 					else str[id[i][v] - 1] = '1';
 				}
 			}
-			if (ord[1] < ord[2]) puts("1 2");
-			else puts("2 1");
+			/* if (ord[1] < ord[2]) puts("1 2"); */
+			/* else puts("2 1"); */
 		}
 		else if (ph.size() == 1) {
 			int cir = (int) nt[ph[0]].size() - 1;
@@ -260,9 +260,9 @@ signed main() {
 					else str[id[i][v] - 1] = '1';
 				}
 			}
-			if (ord[au] < ord[av]) print(au), putchar(32), print(av);
-			else print(av), putchar(32), print(au);
-			puts("");
+			/* if (ord[au] < ord[av]) print(au), putchar(32), print(av); */
+			/* else print(av), putchar(32), print(au); */
+			/* puts(""); */
 		}
 		else {
 			int cir0 = (int) nt[ph[0]].size() - 1;
@@ -290,11 +290,11 @@ signed main() {
 					else str[id[i][v] - 1] = '1';
 				}
 			}
-			if (ord[au] < ord[av]) print(au), putchar(32), print(av);
-			else print(av), putchar(32), print(au);
-			puts("");
+			/* if (ord[au] < ord[av]) print(au), putchar(32), print(av); */
+			/* else print(av), putchar(32), print(au); */
+			/* puts(""); */
 		}
-		puts(str.c_str());
+		/* puts(str.c_str()); */
 	}
 	else {
 		puts("0");
@@ -325,8 +325,8 @@ signed main() {
 		int cnt = 0;
 		rep (i, 1, n) if (!vis[i]) cnt++;
 		print(cnt), puts("");
-		rep (i, 1, n) if (!vis[i]) print(i), putchar(32);
-		puts("");
+		/* rep (i, 1, n) if (!vis[i]) print(i), putchar(32); */
+		/* puts(""); */
 	}
 	return 0;
 }

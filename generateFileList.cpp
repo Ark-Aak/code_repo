@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-#include <comdef.h>
-#include <comutil.h>
-#include <windows.h>
+/* #include <comdef.h> */
+/* #include <comutil.h> */
+/* #include <windows.h> */
 
 namespace fs = std::filesystem;
 
@@ -61,7 +61,7 @@ void generateMarkdownFileList(const std::string& directory, const std::vector<st
 }
 
 int main() {
-    SetConsoleOutputCP(CP_UTF8);
+    /* SetConsoleOutputCP(CP_UTF8); */
     std::string gitignorePath = ".gitignore"; // Path to .gitignore file
     std::ifstream gitignoreFile(gitignorePath);
     std::vector<std::string> ignorePatterns;
