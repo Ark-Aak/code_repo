@@ -2,6 +2,7 @@
 *.in
 *.out
 *.ans
-.\testlib\data
+./testlib/data
 .history
 *.prob
+./plugins

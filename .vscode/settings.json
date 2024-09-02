@@ -41,7 +41,8 @@
 		"type_traits": "cpp",
 		"utility": "cpp",
 		"typeindex": "cpp",
-		"span": "cpp"
+		"span": "cpp",
+		"cmath": "cpp"
 	},
 	"C_Cpp.errorSquiggles": "enabled"
 }

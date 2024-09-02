@@ -12,10 +12,11 @@
 				"${file}",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}",
-				"-O0",
-				"-std=c++17",
+				"-O2",
+				"-std=c++14",
 				// "-Wl,-z stack-size=51200000000"
-				"-Wl,--stack=51200000000"
+				"-Wl,--stack=51200000000",
+				"-DLOCAL"
 			],
 			"options": {
 				"cwd": "${fileDirname}"

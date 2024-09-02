@@ -9,6 +9,7 @@
 #define fb second
 #define dl make_pair
 #define dk(...) make_tuple(__VA_ARGS__)
+#define de(val) cerr << #val << " = " << (val) << endl
 
 using namespace std;
 
@@ -39,22 +40,51 @@ void print(_Tp x) {
 }
 
 int T;
-int n, m, isBad, nowMax;
+int n, m;
 
 void solve() {
-	isBad = 0;
 	n = read(), m = read();
 	set <pii> s;
+	int isBad = 0, mx = 1e9, ps = 1e9, lst = -1;
+	/* de(n), de(m); */
 	rep (i, 1, m) {
 		int op = read();
 		if (op == 0) {
-
+			int p = read(), q = read();
+			if (p - 1 > q) { isBad = 1; continue; }
+			if (p > 1) {
+				ps = min(ps, q);
+				mx = min(mx, q - p + 1);
+			}
+			auto iter = s.insert(dl(q, p)).ec;
+			if (iter != s.begin() && next(iter) != s.end() && lst == next(iter) -> ec) lst = -1;
+			if (iter != s.begin()) {
+				auto it = *prev(iter);
+				if (((it.ec + it.fb) ^ (iter -> ec + iter -> fb)) & 1) lst = max(lst, q);
+				if (abs(it.fb - p) > abs(it.ec - q)) { isBad = 1; continue; }
+			}
+			if (next(iter) != s.end()) {
+				auto it = *next(iter);
+				if (((it.ec + it.fb) ^ (iter -> ec + iter -> fb)) & 1) lst = max(lst, it.ec);
+				if (abs(it.fb - p) > abs(it.ec - q)) { isBad = 1; continue; }
+			}
+			if (lst > ps) { isBad = 1; continue; }
 		}
 		if (op == 1) {
-
+			/* de(s.size()); */
+			/* de(lst); */
+			if (isBad) { puts("bad"); continue; }
+			if (!(~lst)) {
+				if (!s.size()) { puts("0"); continue; }
+				print((s.begin() -> ec + s.begin() -> fb + 1) & 1);
+				puts("");
+			}
+			else print(prev(s.lower_bound(dl(lst, 0))) -> ec + 1), puts("");
 		}
 		if (op == 2) {
-
+			if (isBad) { puts("bad"); continue; }
+			if (mx == 1e9) { puts("inf"); continue; }
+			print(mx), puts("");
 		}
 	}
 }

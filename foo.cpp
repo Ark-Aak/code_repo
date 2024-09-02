@@ -12,6 +12,7 @@
 #define fb second
 #define dl make_pair
 #define dk(...) make_tuple(__VA_ARGS__)
+#define de(val) cerr << #val << " = " << (val) << endl
 
 using namespace std;
 

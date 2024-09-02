@@ -53,14 +53,13 @@ lll qpow(ll a, ll b, ll mod) {
 }
 
 bool Miller_Rabin(int n, int p) {
-	//cout << "MR" << endl;
 	if (n == 1) return false;
 	ll d = n - 1, r = 0;
-	while(!(d&1))d>>=1,r++;
-	int z=qpow(p,d,n);
-	if(z==1)return true;
-	rep(i,1,r){
-	    if(z==n-1)return true;
+	while(!(d & 1)) d >>= 1, r++;
+	int z = qpow(p, d, n);
+	if (z == 1) return true;
+	rep (i, 1, r) {
+	    if(z == n - 1) return true;
 	    z = mul(z, z, n);
 	}
 	return false;
