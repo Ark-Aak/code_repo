@@ -60,12 +60,17 @@ bool diff_allcomp(string file1, string file2) {
 	return system(command.c_str()) == 0;
 }
 
+bool diff_allcomp_ignore_space(string file1, string file2) {
+	string command = "fc " + file1 + " " + file2 + " /W > nul";
+	return system(command.c_str()) == 0;
+}
+
 bool diff_spj(string spj, string input, string output, string answer) {
 	string command = spj + " " + input + " " + output + " " + answer + "";
 	return system(command.c_str()) == 0;
 }
 
-bool isSpj;
+bool isSpj, ignoreSpace;
 string spjName;
 
 struct JudgeInfo {
@@ -137,7 +142,10 @@ JudgeInfo judgeProgram(string filename, string input, string output, string answ
 			return result;
 		}
 		const bool differ = isSpj ? diff_spj(spjName, input, output, answer) :
-		   							diff_allcomp(output, answer);
+		   							(!ignoreSpace ?
+									 	diff_allcomp(output, answer) :
+										diff_allcomp_ignore_space(output, answer)
+									);
 		if (differ) {
 			result.result = ACCEPTED;
 		} else {
@@ -208,6 +216,9 @@ TaskInfo loadTask(string filename) {
 	}
 	else if (spj == "all-diff") {
 		isSpj = false;
+	}
+	else if (spj == "all-diff-ignore-space") {
+		ignoreSpace = true;
 	}
 	else {
 		cerr << "Invalid spj type." << endl;

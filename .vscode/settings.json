@@ -44,5 +44,9 @@
 		"span": "cpp",
 		"cmath": "cpp"
 	},
-	"C_Cpp.errorSquiggles": "enabled"
+	"C_Cpp.errorSquiggles": "enabled",
+	"vim.vimrc.enable": true,
+	"vim.vimrc.path": "C:\\Users\\HP\\_vimrc",
+	"vim.easymotion": true,
+	"vim.statusBarColorControl": true
 }

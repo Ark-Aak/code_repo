@@ -12,6 +12,7 @@
 #define fb second
 #define dl make_pair
 #define dk(...) make_tuple(__VA_ARGS__)
+#define de(val) cerr << #val << " = " << (val) << endl
 
 using namespace std;
 
@@ -34,15 +35,29 @@ int read() {
 
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) x = (~x + 1), putchar('-');
-	if (x > 9) print(x / 10);
-	putchar(x % 10 + '0');
+	if (x < 0) putchar('-'), x = -x;
+	static int sta[40];
+	int top = 0;
+	do sta[top++] = x % 10, x /= 10; while (x);
+	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int MOD = 998244353;
+ll qpow(ll a, ll b) {
+	ll res = 1;
+	while (b) {
+		if (b & 1) res = res * a % MOD;
+		a = a * a % MOD;
+		b >>= 1;
+	}
+	return res;
+}
 
 signed main() {
-
+	ll ans = 1;
+	rep (i, 1, 1e7) {
+		ans = ans * qpow(i, i) % MOD;
+	}
+	print(ans);
 	return 0;
 }
-

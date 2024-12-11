@@ -8,10 +8,10 @@ using namespace std;
 typedef long long ll;
 typedef __int128 lll;
 
-#define int ll
-#define PRIMEN 16
+#define int lll
+#define PRIMEN 17
 
-int prime[20] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 61, 1215, 34862, 574237825};
+int prime[20] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 61, 1215, 34862, 574237825, 97};
 
 mt19937_64 rnd(time(0));
 
@@ -114,13 +114,16 @@ void solve(int x) {
 }
 
 signed main() {
-	//cout << isPrime(2152302898747) << endl;
-	read(T);
-	while (T --> 0) {
-		read(n);
+	// cout << isPrime(9000000000000000013ll) << endl;
+	// read(T);
+	// while (T --> 0) {
+	rep (n, 9000000000000000000ll, 9000000000000000100ll) {
+		// read(n);
 		ans = 0;
 		if (isPrime(n)) {
-			cout << "Prime" << endl;
+			cout << "Prime: ";
+			_print(n);
+			puts("");
 			continue;
 		}
 		solve(n);

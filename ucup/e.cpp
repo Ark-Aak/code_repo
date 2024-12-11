@@ -6,6 +6,8 @@
 #endif
 #include <bits/stdc++.h>
 
+#define int ll
+
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
 #define ec first
@@ -35,36 +37,75 @@ int read() {
 
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) x = (~x + 1), putchar('-');
-	if (x > 9) print(x / 10);
-	putchar(x % 10 + '0');
+	if (x < 0) putchar('-'), x = -x;
+	static int sta[40];
+	int top = 0;
+	do sta[top++] = x % 10, x /= 10; while (x);
+	while (top) putchar(sta[--top] + 48);
 }
 
-int n;
-int l[65], r[65], cnt[65], nw = 0;
-int w[65], ans = -1e9;
-
-void dfs(int step, int sum) {
-	if (step > n) {
-		ans = max(ans, sum);
-		return;
-	}
-	if (nw > 0) {
-		cnt[nw]++;
-		dfs(step + 1, sum - w[cnt[nw] - 1] + w[cnt[nw]]);
-		cnt[nw]--;
-	}
-	nw++;
-	cnt[nw]++;
-	dfs(step + 1, sum + w[1]);
-	cnt[nw]--;
-	nw--;
-}
-
+const int N = 1e6 + 5;
+char s[N];
+int qzh[N];
 signed main() {
-	n = read();
-	rep (i, 1, n) l[i] = read(), r[i] = read();
-	rep (i, 1, n) w[i] = read();
-
+	int T = read();
+	while (T--) {
+		int n = read();
+		scanf("%s", s + 1);
+		int p = 0, ans = 0, sum = 0;
+		rep(i, 1, n - 3) {
+			if (s[i] == 'C' && s[i + 1] == 'C' && s[i + 2] == 'P' && s[i + 3] == 'C') sum++;
+		}
+		int B = sqrt(n) + 100;
+		rep(T, 1, B) {
+			ans = max(ans, sum - p);
+			if (sum - p < -3) break;
+			p += T - 1;
+			int t = 0, pp = 0;
+			rep(i, 1, n) {
+				int res = 0;
+				if (i > 2 && s[i - 2] == 'C' && s[i - 1] == 'C' && s[i] == 'P') res++;
+				if (i > 2 && s[i - 2] == 'C' && s[i - 1] == 'C' && s[i] == 'P' && s[i + 1] == 'C') res--;
+				if (i > 1 && s[i - 1] == 'C' && s[i] == 'C' && s[i + 1] == 'P' && s[i + 2] == 'C') res--;
+				if (s[i] == 'C' && s[i + 1] == 'C' && s[i + 2] == 'P' && s[i + 3] == 'C') res--;
+				if (s[i] == 'C' && s[i + 1] == 'P' && s[i + 2] == 'C') res++;
+				if (s[i + 1] == 'C' && s[i + 2] == 'P' && s[i + 3] == 'C') res++;
+				if (res > t) {
+					t = res;
+					pp = i;
+				}
+				res = 0;
+				if (i > 1 && s[i - 1] == 'C' && s[i] == 'C' && s[i + 1] == 'C') res++;
+				if (i > 2 && s[i - 2] == 'C' && s[i - 1] == 'C' && s[i] == 'P' && s[i + 1] == 'C') res--;
+				if (i > 1 && s[i - 1] == 'C' && s[i] == 'C' && s[i + 1] == 'P' && s[i + 2] == 'C') res--;
+				if (s[i] == 'C' && s[i + 1] == 'C' && s[i + 2] == 'P' && s[i + 3] == 'C') res--;
+				if (res > t) {
+					t = res;
+					pp = i;
+				}
+			}
+			if (!pp) break;
+			int res = 0;
+			int i = pp;
+			if (i > 2 && s[i - 2] == 'C' && s[i - 1] == 'C' && s[i] == 'P') res++;
+			if (i > 2 && s[i - 2] == 'C' && s[i - 1] == 'C' && s[i] == 'P' && s[i + 1] == 'C') res--;
+			if (i > 1 && s[i - 1] == 'C' && s[i] == 'C' && s[i + 1] == 'P' && s[i + 2] == 'C') res--;
+			if (s[i] == 'C' && s[i + 1] == 'C' && s[i + 2] == 'P' && s[i + 3] == 'C') res--;
+			if (s[i] == 'C' && s[i + 1] == 'P' && s[i + 2] == 'C') res++;
+			if (s[i + 1] == 'C' && s[i + 2] == 'P' && s[i + 3] == 'C') res++;
+			if (res == t) {
+				sum += res;
+				_rep(j, n, i + 1) s[j + 1] = s[j];
+				n++;
+				s[i + 1] = 'C';
+				continue;
+			}
+			sum += t;
+			_rep(j, n, i + 1) s[j + 1] = s[j];
+			n++;
+			s[i + 1] = 'P';
+		}
+		printf("%lld\n", ans);
+	}
 	return 0;
 }

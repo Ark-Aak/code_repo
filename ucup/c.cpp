@@ -29,49 +29,76 @@ int read() {
 
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) x = (~x + 1), putchar('-');
-	if (x > 9) print(x / 10);
-	putchar(x % 10 + '0');
+	if (x < 0) putchar('-'), x = -x;
+	static int sta[40];
+	int top = 0;
+	do sta[top++] = x % 10, x /= 10; while (x);
+	while (top) putchar(sta[--top] + 48);
 }
 
-vector <pii> edges;
-vector <int> G[2000];
+char res[11];
 
-int col[2000];
+int ans = 0;
 
-void bfs() {
-	queue <int> q;
-	q.push(1);
-	col[1] = 1;
-	while (q.size()) {
-		int tp = q.front();
-		q.pop();
-		for (auto v : G[tp]) {
-			if (!col[v]) {
-				col[v] = 3 - col[tp];
-				q.push(v);
-			}
-		}
+void check(string str, int sum) {
+	// cout << str << endl;
+	if (str.size() == 0) {
+		ans = max(ans, sum);
+		return;
+	}
+	// 枚举并删除连续段
+	rep (i, 0, str.size() - 1) {
+		int j = i;
+		while (j < (int) str.size() && str[j] == str[i]) j++;
+		string tmp = str;
+		tmp.erase(i, j - i);
+		check(tmp, sum + ((j - i) == 3));
+		i = j - 1;
 	}
 }
+
+int fans = 0;
+
+map <string, int> anss;
+
+void dfs(int step, int sx, int sy, int sz) {
+	if (step > 9) {
+		string a;
+		rep (i, 1, 9) a += res[i];
+		ans = 0;
+		check(a, 0);
+		// cout << a << endl;
+		fans = max(fans, ans);
+		// cout << ans << endl;
+		anss[a] = ans;
+		return;
+	}
+	if (sx < 3) {
+		res[step] = 'g';
+		dfs(step + 1, sx + 1, sy, sz);
+	}
+	if (sy < 3) {
+		res[step] = 'a';
+		dfs(step + 1, sx, sy + 1, sz);
+	}
+	if (sz < 3) {
+		res[step] = 'o';
+		dfs(step + 1, sx, sy, sz + 1);
+	}
+}
+
+int n;
+int T;
 
 signed main() {
-	rep (i, 1, 512) {
-		rep (j, i + 1, 512) {
-			edges.push_back(dl(i * 2 - 1, j * 2));
-			edges.push_back(dl(i * 2, j * 2 - 1));
-		}
-	}
-	for (auto [u, v] : edges) {
-		G[u].push_back(v);
-		G[v].push_back(u);
-	}
-	cout << 1024 << " " << edges.size() << " " << 2 << endl;
-	bfs();
-	rep (i, 1, 1024) cout << col[i] << " ";
-	cout << endl;
-	for (auto [x, y] : edges) {
-		cout << x << " " << y << endl;
+	dfs(1, 0, 0, 0);
+	ios::sync_with_stdio(0);
+	cin.tie(0), cout.tie(0);
+	cin >> T;
+	while (T --> 0) {
+		string str;
+		cin >> str;
+		cout << anss[str] << endl;
 	}
 	return 0;
 }

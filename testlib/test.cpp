@@ -1,48 +1,82 @@
-#ifdef ONLINE_JUDGE
-#pragma GCC optimize("Ofast,no-stack-protector,unroll-loops,fast-math")
-#pragma GCC target("sse,sse2,sse3,ssse3,sse4.1,sse4.2,avx,avx2,popcnt")
-#include <immintrin.h>
-#include <emmintrin.h>
-#endif
-#include <bits/stdc++.h>
-
-#define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
-#define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
-#define ec first
-#define fb second
-#define dl make_pair
-#define dk(...) make_tuple(__VA_ARGS__)
-#define de(val) cerr << #val << " = " << (val) << endl
+#include <iostream>
+#include <vector>
+#include <stack>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
-typedef long long ll;
-typedef __int128 i128;
-typedef pair <int, int> pii;
-
-int read() {
-	int x = 0, f = 1; char c = getchar();
-	while (!isdigit(c)) {
-		if (c == '-') f = -1;
-		c = getchar();
-	}
-	while (isdigit(c)) {
-		x = (x << 3) + (x << 1) + (c ^ 48);
-		c = getchar();
-	}
-	return x * f;
+// 检查括号序列是否合法
+bool isValidSequence(const string& sequence) {
+    stack<char> s;
+    for (char c : sequence) {
+        if (c == '(' || c == '[' || c == '{') {
+            s.push(c);
+        } else {
+            if (s.empty()) return false;
+            char top = s.top();
+            if ((c == ')' && top == '(') ||
+                (c == ']' && top == '[') ||
+                (c == '}' && top == '{')) {
+                s.pop();
+            } else {
+                return false;
+            }
+        }
+    }
+    return s.empty();
 }
 
-template <typename _Tp>
-void print(_Tp x) {
-	if (x < 0) x = (~x + 1), putchar('-');
-	if (x > 9) print(x / 10);
-	putchar(x % 10 + '0');
+// 生成随机合法括号序列
+string generateRandomSequence(int length) {
+    vector<char> brackets = {'(', ')', '[', ']', '{', '}'};
+    string sequence;
+    int balance[3] = {0, 0, 0}; // 分别存储 (,[,{ 的平衡情况
+
+    while (sequence.length() < length) {
+        int idx = rand() % 6;
+        char ch = brackets[idx];
+
+        if (ch == '(') {
+            sequence.push_back(ch);
+            balance[0]++;
+        } else if (ch == '[') {
+            sequence.push_back(ch);
+            balance[1]++;
+        } else if (ch == '{') {
+            sequence.push_back(ch);
+            balance[2]++;
+        } else if (ch == ')' && balance[0] > 0) {
+            sequence.push_back(ch);
+            balance[0]--;
+        } else if (ch == ']' && balance[1] > 0) {
+            sequence.push_back(ch);
+            balance[1]--;
+        } else if (ch == '}' && balance[2] > 0) {
+            sequence.push_back(ch);
+            balance[2]--;
+        }
+    }
+    return sequence;
 }
 
+string generateParenthesisSequence(int minLen, int maxLen) {
+    int length = rand() % (maxLen - minLen + 1) + minLen;
+    string sequence;
+    do {
+        sequence = generateRandomSequence(length);
+    } while (!isValidSequence(sequence));
+    return sequence;
+}
 
+int main() {
+    srand(time(0));  // 初始化随机数种子
 
-signed main() {
+    int minLen = 50;
+    int maxLen = 50;
 
-	return 0;
+    string sequence = generateParenthesisSequence(minLen, maxLen);
+    cout << "生成的合法括号序列: " << sequence << endl;
+
+    return 0;
 }

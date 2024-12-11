@@ -1,63 +1,38 @@
-#include<iostream>
-#include<cstdio>
-#include<cstring>
-#include<algorithm>
-
+#include<bits/stdc++.h>
+#define N 262150
+#define S 520
+#define M 100005
+#define P 511
+#define D 100000
 using namespace std;
-
-char s[500005];
-int n,q;
-int t[500005][31],f[500005][31];
-
+int read(){
+	int x=0,f=1,ch=getchar();
+	for(;!isdigit(ch);ch=getchar()) f=(ch=='-')?-1:1;
+	for(;isdigit(ch);ch=getchar()) x=(x<<3)+(x<<1)+(ch^48);
+	return x*f;
+}
+int n,q,v[N],w[N];
+int f[S][M];
+bool check(int x,int base){return x>>base&1;}
 int main(){
-	
-	scanf("%s%d",s+1,&q);
-	n=strlen(s+1);
-	
-	for(int i=1;i<=n+2;i++){
-		for(int j=0;j<=26;j++){
-			t[i][j]=n+2;		// 边界
-			f[i][j]=n+2;
-		}
+	n=read();
+	for(int i=1;i<=n;++i) v[i]=read(),w[i]=read();
+	for(int i=1;i<=n && i<=P;++i){
+		for(int j=0;j<=D;++j) f[i][j]=f[i>>1][j];
+		for(int j=w[i];j<=D;++j) f[i][j]=max(f[i][j],f[i>>1][j-w[i]]+v[i]);
 	}
-	
-	for(int i=n;i>=1;i--){		// DP
-		int nw=s[i]-'a';
-		t[i][nw]=i+1;
-		for(int j=nw+1;j<=26;j++){
-			t[i][j]=t[t[i][j-1]][j-1];
-		}
-		for(int j=0;j<nw;j++){
-			t[i][j]=t[t[i][26]][j];
-		}
-	}
-	
-	for(int i=1;i<=n;i++){				// 倍增预处理
-		f[i][0]=t[i][26];
-	}
-	for(int j=1;(1<<j)<=n;j++){
-		for(int i=1;i<=n;i++){
-			f[i][j]=f[f[i][j-1]][j-1];
-		}
-	}
-	
+	for(int i=1;i<=n && i<=P;++i) for(int j=1;j<=D;++j) f[i][j]=max(f[i][j],f[i][j-1]);
+	q=read();
 	while(q--){
-		int l,r;
-		scanf("%d%d",&l,&r);
-		r++;
-		for(int j=20;j>=0;j--){			// 倍增跳转
-			if(f[l][j]<=r){
-				l=f[l][j];
-			}
+		int x=read(),l=read(),ans=0;
+		vector<int>g;
+		for(;x>P;x>>=1) g.push_back(x);
+		for(int s=0;s<(1<<g.size());++s){
+			int res=0,sum=0;
+			for(int i=0;i<g.size();++i) if(check(s,i)) res+=v[g[i]],sum+=w[g[i]];
+			if(sum<=l) ans=max(ans,res+f[x][l-sum]);
 		}
-		if(l==r){
-			puts("Yes");
-		}else{
-			puts("No");
-		}
+		printf("%d\n",ans);
 	}
-	
 	return 0;
 }
-
-

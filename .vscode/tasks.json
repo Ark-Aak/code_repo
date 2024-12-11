@@ -4,7 +4,7 @@
 		{
 			"type": "cppbuild",
 			"label": "Compile",
-			"command": "D:\\Mingw-w64\\mingw64\\bin\\g++.exe",
+			"command": "g++",
 			// "command": "/usr/bin/g++",
 			"args": [
 				"-fdiagnostics-color=always",
@@ -13,7 +13,7 @@
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}",
 				"-O2",
-				"-std=c++14",
+				"-std=c++17",
 				// "-Wl,-z stack-size=51200000000"
 				"-Wl,--stack=51200000000",
 				"-DLOCAL"

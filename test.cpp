@@ -1,88 +1,58 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 
-const int BUF_SIZ = 1 << 18;
-char ibuf[BUF_SIZ], *iS = ibuf, *iT = ibuf;
-
-#define getchar() (iS == iT && (iT = (iS = ibuf) + fread(ibuf, 1, BUF_SIZ, stdin)), iS == iT ? EOF : *iS++)
-
-template <typename _Tp>
-void read(_Tp &x) {
-	char ch(getchar());
-	bool f(false);
-	while (!isdigit(ch))
-		f |= ch == 45, ch = getchar();
-	x = ch & 15, ch = getchar();
-	while (isdigit(ch))
-		x = x * 10 + (ch & 15), ch = getchar();
-	if (f)
-		x = -x;
+namespace IO{
+    template<typename T>
+    void read(T &x){
+        char ch=getchar();int fl=1;x=0;
+        while(ch>'9'||ch<'0'){if(ch=='-')fl=-1;ch=getchar();}
+        while(ch<='9'&&ch>='0'){x=x*10+ch-48;ch=getchar();}
+        x*=fl;
+    }
+    template<typename T,typename ...Args>
+    void read(T &x,Args& ...args){
+        read(x);read(args...);
+    }
+    template <typename _Tp>
+    void write(_Tp x) {
+        if(x<0) x=(~x+1),putchar('-');
+        if(x>9) write(x/10);
+        putchar(x%10+'0');
+    }
 }
-
-template <typename _Tp, typename... Args>
-void read(_Tp &t, Args &...args) {
-	read(t);
-	read(args...);
+using namespace std;
+using namespace IO;
+const int N=505,mod=998244353;
+int fac[N],inv[N];
+int ksm(int x,int y) {
+    int ans=1;
+    while(y) {
+        if(y&1) ans=(1ll*ans*x)%mod;
+        x=(1ll*x*x)%mod; y>>=1;
+    }
+    return ans;
 }
-
-typedef unsigned long long ull;
-int n, q;
-
-struct MY_GENERATOR {
-	int type;
-	ull seed;
-
-	inline ull nextInt() {
-		ull z = (seed += 0x9E37793B5F4A7C15ULL);
-		z = (z ^ (z >> 30)) * 0xBE99136D1CE4E5B9ULL;
-		z = (z ^ (z >> 27)) * 0x94A749BB033BD1FBULL;
-		return z ^ (z >> 31);
-	}
-
-	int get() { return nextInt() % 998244352 + 1; }
-
-	inline void get(int lastans, int &l, int &r) {
-		if (type == 2) {
-			if (!type)
-				lastans = 0;
-			l = ((1 + (nextInt() >> 33)) ^ lastans) % n + 1;
-			r = ((1 + (nextInt() >> 33)) ^ lastans) % n + 1;
-			if (l > r)
-				std::swap(l, r);
-		} else {
-			read(l), read(r);
-			if (type)
-				l ^= lastans, r ^= lastans;
-		}
-	}
-} gen;
-
-const int MAXN = 3000005;
-int a[MAXN], p[MAXN];
-
-int main() {
-	read(n), read(q), read(gen.type), read(gen.seed);
-	for (int i = 0; i <= n; ++i)
-		a[i] = gen.get();
-	for (int i = 1; i <= n; ++i)
-		read(p[i]);
-
-	/*
-	Write your code here
-	*/
-
-	int l, r, lastans = 0;
-	ull final_ans = 0;
-	for (int t = 1; t <= q; ++t) {
-		gen.get(lastans, l, r);
-		int ansnow = 0;
-
-		/*
-		Write your code here
-		*/
-
-		lastans = ansnow;
-		final_ans ^= 1ull * t * ansnow;
-	}
-	printf("%llu\n", final_ans);
-	return 0;
+inline int Inc(int x,int y) {return x+y<mod?x+y:x+y-mod;}
+inline int Dec(int x,int y) {return x>=y?x-y:x-y+mod;}
+inline int Mul(int x,int y) {return (1ll*x*y)%mod;}
+inline int C(int x,int y) {
+    if(x<y || x<0 || y<0) return 0;
+    return Mul(fac[x],Mul(inv[y],inv[x-y]));
+}
+int n,K;
+map<int,int> ma;
+signed main() {
+    read(n,K);
+    for(int i=0;i<(1<<n);i++) {
+        if(__builtin_popcount(i)!=2*K) continue;
+        int sum=0,tot=0,sum1=0,sum2=0;
+        for(int j=0;j<n;j++) {
+            if(!((i>>j)&1)) continue;
+            tot++;
+            if(tot<=K) sum-=(j+1),sum1++;
+            else sum+=(j+1),sum2++;
+        }
+        ma[sum]++;
+    }
+    for(auto i:ma) printf("%d ",i.second);
+    return 0;
 }
