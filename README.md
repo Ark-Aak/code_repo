@@ -1158,6 +1158,22 @@
   - **oi**
     - [spj.cpp](/2024-12-04/oi/spj.cpp)
     - [testlib.h](/2024-12-04/oi/testlib.h)
+  - [test.cpp](/2024-12-04/test.cpp)
+- **2024-12-05**
+  - [game.cpp](/2024-12-05/game.cpp)
+  - [seq.cpp](/2024-12-05/seq.cpp)
+  - [tree.cpp](/2024-12-05/tree.cpp)
+- **2024-12-06**
+  - [i.cpp](/2024-12-06/i.cpp)
+  - [ii.cpp](/2024-12-06/ii.cpp)
+- **2024-12-08**
+  - [flowing.cpp](/2024-12-08/flowing.cpp)
+  - [instant.cpp](/2024-12-08/instant.cpp)
+  - [venture.cpp](/2024-12-08/venture.cpp)
+- **2024-12-22**
+  - [iv.cpp](/2024-12-22/iv.cpp)
+  - [v.cpp](/2024-12-22/v.cpp)
+  - [vi.cpp](/2024-12-22/vi.cpp)
 - **AtCoder**
   - [ABC174B.cpp](/AtCoder/ABC174B.cpp)
   - [ABC174D.cpp](/AtCoder/ABC174D.cpp)
@@ -1292,6 +1308,7 @@
   - [ARC175B.cpp](/AtCoder/ARC175B.cpp)
   - [ARC187A.cpp](/AtCoder/ARC187A.cpp)
   - [ARC187B.cpp](/AtCoder/ARC187B.cpp)
+  - [ARC189D.cpp](/AtCoder/ARC189D.cpp)
   - [ljh.cpp](/AtCoder/ljh.cpp)
   - [pakencamp2023d1g.cpp](/AtCoder/pakencamp2023d1g.cpp)
   - [soundhound2018_summer_final_e.cpp](/AtCoder/soundhound2018_summer_final_e.cpp)
@@ -1301,6 +1318,7 @@
   - [buckshot.cpp](/buckshot/buckshot.cpp)
 - [calc.js](/calc.js)
 - **Codeforces**
+  - [1184e3.cpp](/Codeforces/1184e3.cpp)
   - [1510i.cpp](/Codeforces/1510i.cpp)
   - [1970a1](/Codeforces/1970a1)
   - [1970a1.cpp](/Codeforces/1970a1.cpp)
@@ -1308,6 +1326,7 @@
   - [1970a2.cpp](/Codeforces/1970a2.cpp)
   - [1970c2](/Codeforces/1970c2)
   - [1970c2.cpp](/Codeforces/1970c2.cpp)
+  - [620e.cpp](/Codeforces/620e.cpp)
   - [CF1372F.cpp](/Codeforces/CF1372F.cpp)
   - [cf1510c.cpp](/Codeforces/cf1510c.cpp)
   - [test](/Codeforces/test)
