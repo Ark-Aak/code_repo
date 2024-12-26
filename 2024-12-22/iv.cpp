@@ -42,13 +42,37 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
+const int MAXN = 10;
+const int MOD = 998244353;
+int n, a[MAXN], ch[MAXN], na[MAXN], tot;
 
+void dfs(int step) {
+	if (step > n) {
+		rep (i, 1, n) {
+			na[i] = a[i];
+		}
+		rep (i, 1, n) {
+			na[i] -= ch[i];
+			na[i % n + 1] += ch[i];
+		}
+		int ans = 1;
+		rep (i, 1, n) ans = 1ll * ans * na[i] % MOD;
+		tot = (tot + ans) % MOD;
+		return;
+	}
+	rep (i, 0, a[step]) ch[step] = i, dfs(step + 1);
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("iv.in", "r", stdin);
+	freopen("iv.out", "w", stdout);
+#endif
+#endif
+	n = read();
+	rep (i, 1, n) a[i] = read();
+	dfs(1);
+	print(tot), puts("");
 	return 0;
 }

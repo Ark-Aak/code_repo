@@ -42,13 +42,20 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+int T;
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("sub.in", "r", stdin);
+	freopen("sub.out", "w", stdout);
+#endif
+#endif
+	T = read();
+	while (T --> 0) {
+		int a = read(), b = read();
+		if (a == 0 || b == 0 || (abs(a) / a) == (abs(b) / b)) puts("0");
+		else print(min(min(abs(a), abs(b)), abs(a + b))), puts("");
 	}
 	return 0;
 }

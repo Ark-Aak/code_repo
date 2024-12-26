@@ -35,20 +35,30 @@ int read() {
 
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) putchar('-'), x = -x;
-	static int sta[40];
-	int top = 0;
-	do sta[top++] = x % 10, x /= 10; while (x);
-	while (top) putchar(sta[--top] + 48);
+	if (x < 0) x = (~x + 1), putchar('-');
+	if (x > 9) print(x / 10);
+	putchar(x % 10 + '0');
 }
 
+#define int ll
 
+const int MAXN = 2e5 + 5;
+int n;
+int q, b[MAXN], pre[MAXN];
+pii x[MAXN];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+	n = read();
+	rep (i, 1, n) x[i].ec = read();
+	rep (i, 1, n) x[i].fb = read();
+	q = read();
+	sort(x + 1, x + 1 + n);
+	rep (i, 1, n) pre[i] = pre[i - 1] + x[i].fb, b[i] = x[i].ec;
+	while (q --> 0) {
+		int l = read(), r = read();
+		int L = lower_bound(b + 1, b + 1 + n, l) - b - 1;
+		int R = upper_bound(b + 1, b + 1 + n, r) - b - 1;
+		print(pre[R] - pre[L]), puts("");
 	}
 	return 0;
 }

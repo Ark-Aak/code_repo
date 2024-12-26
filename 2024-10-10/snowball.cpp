@@ -42,13 +42,24 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int MAXN = 1e6 + 5;
+const int MOD = 998244353;
+int f[MAXN];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("snowball.in", "r", stdin);
+	freopen("snowball.out", "w", stdout);
+#endif
+#endif
+	f[1] = 1;
+	rep (i, 2, 1e6) f[i] = (f[i - 1] + f[i / 2]) % MOD;
+	int q = read();
+	while (q--) {
+		int n = read();
+		print(f[n]);
+		puts("");
 	}
 	return 0;
 }

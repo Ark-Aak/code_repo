@@ -6,6 +6,8 @@
 #endif
 #include <bits/stdc++.h>
 
+#define int ll
+
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
 #define ec first
@@ -42,13 +44,34 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int MAXN = 1e5 + 5;
+int n;
+multiset <int> pre, suf;
+struct node {
+	int x, y;
+} p[MAXN];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("boast.in", "r", stdin);
+	freopen("boast.out", "w", stdout);
+#endif
+#endif
+	n = read();
+	rep (i, 1, n) p[i].x = read(), p[i].y = read();
+	sort(p + 1, p + 1 + n, [](node a, node b) {
+		return a.y < b.y;
+	});
+	pre.insert(p[1].x);
+	rep (i, 2, n) suf.insert(p[i].x + p[i].y);
+	int ans = 1e18;
+	rep (i, 2, n - 1) {
+		int myval = p[i].x + p[i].y;
+		suf.erase(suf.find(myval));
+		ans = min(ans, (*pre.begin()) + myval + (*suf.begin()));
+		pre.insert(p[i].x);
 	}
+	print(ans), puts("");
 	return 0;
 }

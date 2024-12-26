@@ -42,13 +42,58 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
+const int MAXN = 120005;
+int n, m, a[MAXN];
+double b[MAXN], sum[MAXN];
 
+void solve() {
+	int sum_positive = 0;
+	int sum_negative = 0;
+	rep (j, 1, n) {
+		if (a[j] >= 0) sum_positive += a[j];
+		else sum_negative += -a[j];
+	}
+	rep (j, 1, n) {
+		if (a[j] >= 0) b[j] = 1.0 * a[j] / (1.0 * sum_positive);
+		else b[j] = 1.0 * a[j] / (1.0 * sum_negative);
+	}
+	rep (j, 1, n) sum[j] = sum[j - 1] + b[j];
+	double maxn = -1e9;
+	int pos = 0;
+	rep (j, 1, n) {
+		if (sum[j] > maxn) maxn = sum[j], pos = j;
+	}
+	print(pos), puts("");
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("seq.in", "r", stdin);
+	freopen("seq.out", "w", stdout);
+#endif
+#endif
+	n = read(), m = read();
+	rep (i, 1, n) a[i] = read();
+	if (n <= 3000) {
+		solve();
+		rep (i, 1, m) {
+			int p = read(), v = read();
+			a[p] = v;
+			solve();
+		}
+	}
+	else {
+		int pos = 0;
+		rep (i, 1, n - 1) if (a[i] >= 0 && a[i + 1] < 0) { pos = i; break; }
+		print(pos), puts("");
+		rep (i, 1, m) {
+			int p = read(), v = read();
+			if (a[p] < 0 && v > 0) pos++;
+			if (a[p] > 0 && v < 0) pos--;
+			a[p] = v;
+			print(pos), puts("");
+		}
 	}
 	return 0;
 }

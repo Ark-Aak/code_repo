@@ -45,10 +45,9 @@ void print(_Tp x) {
 
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+	do {
+		system("gen > data.in");
+		system("string < data.in > data.out");
+	} while (!system("checker data.in data.out data.out"));
 	return 0;
 }

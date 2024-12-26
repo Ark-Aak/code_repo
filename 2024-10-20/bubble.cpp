@@ -42,13 +42,26 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int MAXN = 1e6 + 5;
+int n, k, a[MAXN], b[MAXN];
+vector <int> l[MAXN];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("bubble.in", "r", stdin);
+	freopen("bubble.out", "w", stdout);
+#endif
+#endif
+	n = read(), k = read();
+	rep (i, 1, n) a[i] = read();
+	rep (i, 1, n) l[i % k].push_back(a[i]);
+	rep (i, 0, k - 1) sort(l[i].begin(), l[i].end());
+	rep (i, 1, k) {
+		rep (j, 0, (int) l[i % k].size() - 1) {
+			b[j * k + i] = l[i % k][j];
+		}
 	}
+	rep (i, 1, n) print(b[i]), putchar(32);
 	return 0;
 }

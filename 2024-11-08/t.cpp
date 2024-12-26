@@ -45,10 +45,14 @@ void print(_Tp x) {
 
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+	double sum = 0;
+	double pp = 1;
+	rep (i, 1, 99) {
+		double prob = 0.02 + (i > 50 ? 0.02 * (i - 50) : 0);
+		pp = pp * (1 - prob);
+		sum += pp * i;
+		cout << sum << endl;
 	}
+	cout << sum << endl;
 	return 0;
 }

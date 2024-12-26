@@ -42,13 +42,25 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int MAXN = 2e5 + 5;
+int n, q, a[MAXN];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("pockets.in", "r", stdin);
+	freopen("pockets.out", "w", stdout);
+#endif
+#endif
+	n = read();
+	int sum = 0;
+	rep (i, 1, n - 1) a[i] = read(), sum += a[i];
+	sum -= a[1];
+	q = read();
+	while (q --> 0) {
+		int an = read();
+		int c = a[1] + an;
+		print(c - sum); puts("");
 	}
 	return 0;
 }

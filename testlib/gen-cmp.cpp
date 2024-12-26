@@ -42,13 +42,21 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+mt19937 _rnd(chrono::steady_clock::now().time_since_epoch().count());
+int rnd(int l, int r) { return _rnd() % (r - l + 1) + l; }
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+	freopen("data.in", "w", stdout);
+	int n = 100, q = 100;
+	cout << n << ' ' << q << endl;
+	rep (i, 1, q) {
+		int op = rnd(1, 2);
+		int l1, l2, r1, r2;
+		l1 = rnd(1, n), r1 = rnd(1, n);
+		l2 = rnd(1, n), r2 = rnd(1, n);
+		if (l1 > r1) swap(l1, r1);
+		if (l2 > r2) swap(l2, r2);
+		cout << op << ' ' << l1 << ' ' << r1 << ' ' << l2 << ' ' << r2 << endl;
 	}
 	return 0;
 }

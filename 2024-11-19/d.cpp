@@ -6,6 +6,8 @@
 #endif
 #include <bits/stdc++.h>
 
+#define int ll
+
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
 #define ec first
@@ -42,13 +44,53 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int MOD = 1e9 + 7;
+const int MAXN = 30;
+int n, ns;
+int ord[MAXN], vis[MAXN];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("d.in", "r", stdin);
+	freopen("d.out", "w", stdout);
+#endif
+#endif
+	n = read(), ns = read();
+	if (ns == 0) {
+		int res = 1;
+		rep (i, 1, 1 << n) {
+			res = res * i % MOD;
+		}
+		print(res), puts("");
+		return 0;
 	}
+	rep (i, 1, ns) vis[read()] = 1;
+	rep (i, 1, 1 << n) {
+		ord[i] = i;
+	}
+	int ans = 0;
+	do {
+		vector <int> s;
+		rep (i, 1, 1 << n) s.push_back(ord[i]);
+		rep (i, 1, n) {
+			vector <int> res;
+			rep (j, 1, (int) s.size() / 2) {
+				int a = 2 * j - 2, b = 2 * j - 1;
+				if (s[a] >= 2 && s[b] >= 2) {
+					res.push_back(min(s[a], s[b]));
+				}
+				else {
+					if (s[a] == 1 && vis[s[b]]) res.push_back(s[b]);
+					else if (s[b] == 1 && vis[s[a]]) res.push_back(s[a]);
+					else res.push_back(1);
+				}
+			}
+			s.swap(res);
+		}
+		if (s[0] == 1) ans++;
+		ans %= MOD;
+	} while (next_permutation(ord + 1, ord + 1 + (1 << n)));
+	print(ans); puts("");
 	return 0;
 }

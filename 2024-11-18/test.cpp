@@ -42,13 +42,14 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
+int fa[10005];
 
+int find(int x) {
+	if (fa[x] == x) return x;
+	return fa[x] = find(fa[x]);
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+
 	return 0;
 }

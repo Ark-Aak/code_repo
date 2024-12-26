@@ -42,13 +42,20 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
+int T, n;
 
+void solve() {
+
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("game.in", "r", stdin);
+	freopen("game.out", "w", stdout);
+#endif
+#endif
+	T = read();
+	while (T --> 0) solve();
 	return 0;
 }

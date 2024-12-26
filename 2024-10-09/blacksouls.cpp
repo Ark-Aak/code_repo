@@ -6,6 +6,8 @@
 #endif
 #include <bits/stdc++.h>
 
+#define int ll
+
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
 #define ec first
@@ -42,13 +44,29 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
+const int MOD = 998244353;
 
+int qpow(int a, int b) {
+	int res = 0;
+	while (b) {
+		if (b & 1) res = res * a % MOD;
+		a = a * a % MOD;
+		b >>= 1;
+	}
+	return res;
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("blacksouls.in", "r", stdin);
+	freopen("blacksouls.out", "w", stdout);
+#endif
+#endif
+	int q = read();
+	while (q --> 0) {
+		int a = read(), n = read();
+		print(qpow(floor(sqrt(a)) + sqrt(a), n)), puts("");
 	}
 	return 0;
 }

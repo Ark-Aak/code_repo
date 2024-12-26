@@ -35,20 +35,44 @@ int read() {
 
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) putchar('-'), x = -x;
-	static int sta[40];
-	int top = 0;
-	do sta[top++] = x % 10, x /= 10; while (x);
-	while (top) putchar(sta[--top] + 48);
+	if (x < 0) x = (~x + 1), putchar('-');
+	if (x > 9) print(x / 10);
+	putchar(x % 10 + '0');
 }
 
-
+const int MAXN = 1e6 + 5;
+const int MOD = 3;
+int n, a[MAXN];
+int f[MAXN][MOD][MOD];
+int pre[MOD][MOD];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("sequence.in", "r", stdin);
+	freopen("sequence.out", "w", stdout);
+#endif
+#endif
+	n = read();
+	rep (i, 1, n) a[i] = read() % MOD;
+	f[1][0][a[1]] = pre[0][a[1]] = 1;
+	rep (i, 2, n) {
+		rep (k1, 0, 2) {
+			rep (k2, 0, 2) {
+				int nxt1 = (a[i] - k2 + MOD) % MOD;
+				if (nxt1 < k1) continue;
+				int nxt2 = a[i];
+				f[i][nxt1][nxt2] = max(f[i][nxt1][nxt2], pre[k1][k2] + 1);
+			}
+		}
+		rep (k1, 0, 2) {
+			rep (k2, 0, 2) {
+				pre[k1][k2] = max(pre[k1][k2], f[i][k1][k2]);
+			}
+		}
 	}
+	int ans = 0;
+	rep (i, 0, 2) rep (j, 0, 2) ans = max(ans, pre[i][j]);
+	print(ans), puts("");
 	return 0;
 }

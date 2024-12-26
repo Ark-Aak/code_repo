@@ -35,20 +35,24 @@ int read() {
 
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) putchar('-'), x = -x;
-	static int sta[40];
-	int top = 0;
-	do sta[top++] = x % 10, x /= 10; while (x);
-	while (top) putchar(sta[--top] + 48);
+	if (x < 0) x = (~x + 1), putchar('-');
+	if (x > 9) print(x / 10);
+	putchar(x % 10 + '0');
 }
 
-
+int mk[105];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+	int n, m;
+	cin >> n >> m;
+	rep (i, 1, m) {
+		int op;
+		char c;
+		cin >> op >> c;
+		if (c == 'F') { puts("No"); continue; }
+		else if (mk[op]) { puts("No"); continue; }
+		mk[op] = 1;
+		puts("Yes");
 	}
 	return 0;
 }

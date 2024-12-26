@@ -42,13 +42,48 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
+const int MAXN = 1e6 + 5;
+int T, k;
+vector <pii> s;
+int col[MAXN];
 
+void solve() {
+	k = read();
+	s.clear();
+	rep (i, 1, k) col[i] = 0;
+	rep (i, 1, k) {
+		int c = read();
+		rep (j, 1, c) s.push_back(dl(read(), i));
+	}
+	sort(s.begin(), s.end());
+	// for (auto [x , id] : s) {
+		// cout << x << " + " << id << endl;
+	// }
+	col[s[0].fb]++;
+	const int n = s.size();
+	int cnt = 1;
+	int ans = 2e9;
+	for (int l = 0, r = 0; l <= r; l++) {
+		while (cnt < k && r < n - 1) {
+			r++;
+			col[s[r].fb]++;
+			if (col[s[r].fb] == 1) cnt++;
+		}
+		if (cnt == k) ans = min(ans, s[r].ec - s[l].ec);
+		col[s[l].fb]--;
+		if (col[s[l].fb] == 0) cnt--;
+	}
+	print(ans), puts("");
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("chip.in", "r", stdin);
+	freopen("chip.out", "w", stdout);
+#endif
+#endif
+	T = read();
+	while (T --> 0) solve();
 	return 0;
 }

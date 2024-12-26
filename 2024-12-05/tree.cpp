@@ -42,13 +42,28 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int MAXN = 100 + 5;
+int m, n, k, q;
+vector <int> G[MAXN][MAXN];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("tree.in", "r", stdin);
+	freopen("tree.out", "w", stdout);
+#endif
+#endif
+	m = read(), n = read(), k = read(), q = read();
+	rep (i, 1, m) {
+		rep (j, 1, n - 1) {
+			int u = read(), v = read();
+			G[i][u].push_back(v);
+			G[i][v].push_back(u);
+		}
+	}
+	rep (i, 1, q) {
+		int x = read(), y = read(), l = read();
+
 	}
 	return 0;
 }

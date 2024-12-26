@@ -42,13 +42,52 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
+const int MAXN = 1e5 + 5;
+int T, n, m, a[10];
+int sta[10];
 
+int compress() {
+	int res = 0;
+	rep (i, 1, n) res = res * 10 + sta[i];
+	return res;
+}
+
+unordered_map <int, bool> mp;
+
+void dfs() {
+	if (mp[compress()]) return;
+	mp[compress()] = 1;
+	rep (i, 1, n) {
+		int nw = sta[i];
+		if (i > 1) sta[i] = sta[i - 1], dfs();
+		sta[i] = nw;
+		if (i < n) sta[i] = sta[i + 1], dfs();
+		sta[i] = nw;
+	}
+}
+
+void solve() {
+	//2m+1, m
+	n = read(), m = read();
+	mp.clear();
+	rep (i, 1, n) a[i] = read(), sta[i] = a[i];
+	if (n == m) {
+		if (__builtin_popcount(n) == 1) putchar('1');
+		else putchar('0');
+		return;
+	}
+	dfs();
+	print(mp.size() & 1);
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("color.in", "r", stdin);
+	freopen("color.out", "w", stdout);
+#endif
+#endif
+	T = read();
+	while (T --> 0) solve();
 	return 0;
 }

@@ -42,13 +42,12 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int MAXN = 1e6 + 5;
+int n, f[MAXN];;
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+	n = read();
+	rep (i, 1, n - 1) f[i] = read();
+	rep (i, 1, n - 1) cout << f[i] << " " << i + 1 << endl;
 	return 0;
 }

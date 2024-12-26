@@ -1,10 +1,6 @@
-#ifdef ONLINE_JUDGE
-#pragma GCC optimize("Ofast,no-stack-protector,unroll-loops,fast-math")
-#pragma GCC target("sse,sse2,sse3,ssse3,sse4.1,sse4.2,avx,avx2,popcnt")
-#include <immintrin.h>
-#include <emmintrin.h>
-#endif
 #include <bits/stdc++.h>
+
+#define int ll
 
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
@@ -42,13 +38,25 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int N = 5e5 + 5, mod = 998244353;
+vector<int> vec[N], st;
+int n, m, q, a[N], b[N];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+	int Test = read();
+	while (Test--) {
+		n = read(), m = read(), q = read();
+		int Ans = 1e18, sum = 0;
+		rep (i, 1, n) a[i] = read();
+		rep (i, 1, q) {
+			int x = read(), y = read();
+			b[i] = (y - a[x] + m - 1) % m; sum += b[i];
+		}
+		sort(b + 1, b + q + 1);
+		rep (i, 1, q) {
+			Ans = min(Ans, q * b[i] + (q - i) * m - sum);
+		}
+		printf("%lld\n", Ans);
 	}
 	return 0;
 }

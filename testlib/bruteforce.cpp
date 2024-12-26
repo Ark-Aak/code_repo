@@ -42,13 +42,42 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
+const int MAXN = 505;
+int n, q;
+int fa[MAXN];
 
+int find(int x) {
+	return x == fa[x] ? x : fa[x] = find(fa[x]);
+}
+
+void merge(int x, int y) {
+	x = find(x), y = find(y);
+	if (x != y) fa[x] = y;
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+	n = read(), q = read();
+	rep (i, 1, n) fa[i] = i;
+	while (q --> 0) {
+		int op, l1, l2, r1, r2;
+		op = read(), l1 = read(), r1 = read(), l2 = read(), r2 = read();
+		if (op == 1) {
+			rep (i, l1 + 1, r1) merge(l1, i);
+			rep (i, l2 + 1, r2) merge(l2, i);
+			merge(l1, l2);
+		} else {
+			rep (i, l1, r1) {
+				rep (j, l2, r2) {
+					if (find(i) != find(j)) {
+						puts("No");
+						goto end;
+					}
+				}
+			}
+			puts("Yes");
+end:
+			continue;
+		}
 	}
 	return 0;
 }

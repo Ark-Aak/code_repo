@@ -6,6 +6,8 @@
 #endif
 #include <bits/stdc++.h>
 
+#define int ll
+
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
 #define ec first
@@ -42,13 +44,30 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int MAXN = 1e5 + 5;
+int n, m, a[MAXN], ans = 0;
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("escape.in", "r", stdin);
+	freopen("escape.out", "w", stdout);
+#endif
+#endif
+	n = read(), m = read();
+	rep (i, 1, n) a[i] = read();
+	if (m == 0) rep (i, 1, n) ans = max(ans, a[i]);
+	rep (l, 1, n) {
+		priority_queue <int, vector <int>, greater <int> > q;
+		int sum = 0;
+		rep (r, l, n) {
+			q.push(a[r]);
+			if (r - l + 1 <= m) continue;
+			sum += q.top();
+			q.pop();
+			ans = max(ans, sum);
+		}
 	}
+	print(ans), puts("");
 	return 0;
 }

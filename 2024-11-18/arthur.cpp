@@ -5,6 +5,7 @@
 #include <emmintrin.h>
 #endif
 #include <bits/stdc++.h>
+#define int ll
 
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
@@ -42,13 +43,23 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+int n;
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("arthur.in", "r", stdin);
+	freopen("arthur.out", "w", stdout);
+#endif
+#endif
+	n = read();
+	int ans = 0;
+	rep (i, 0, n - 1) ans += (n - i) * (i + 1);
+	rep (i, 1, n - 1) {
+		int u = read(), v = read();
+		if (u > v) swap(u, v);
+		ans -= u * (n - v + 1);
 	}
+	print(ans), puts("");
 	return 0;
 }

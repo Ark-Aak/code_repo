@@ -42,13 +42,18 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int MAXN = 6e3 + 5;
+vector <int> G[MAXN];
+int 😅;
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("graph.in", "r", stdin);
+	freopen("graph.out", "w", stdout);
+#endif
+#endif
+	😅 = read();
+
 	return 0;
 }

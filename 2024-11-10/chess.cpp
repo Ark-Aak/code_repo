@@ -42,13 +42,29 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+vector <tuple <int, int, char> > ans[100][100];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("chess.in", "r", stdin);
+	freopen("chess.out", "w", stdout);
+#endif
+#endif
+	ans[1][2] = {};
+	ans[1][3] = {};
+	ans[1][4] = { { 2, 3, 'L' }, { 2, 4, 'R' } };
+	ans[2][1] = {};
+	ans[2][2] = { { 2, 3, 'L' }, { 3, 3, 'L' }, { 2, 1, 'D' } };
+	ans[2][3] = {};
+	ans[2][4] = {};
+	ans[3][1] = {};
+	ans[3][2] = { { 2, 3, 'L' }, { 3, 3, 'L' }, { 2, 1, 'D' }, { 4, 2, 'R' } };
+	ans[3][3] = {};
+	ans[3][4] = {};
+	ans[4][1] = {};
+	ans[4][2] = {};
+	ans[4][3] = {};
+	ans[4][4] = {};
 	return 0;
 }

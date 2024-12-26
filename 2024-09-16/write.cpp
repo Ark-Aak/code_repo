@@ -35,20 +35,30 @@ int read() {
 
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) putchar('-'), x = -x;
-	static int sta[40];
-	int top = 0;
-	do sta[top++] = x % 10, x /= 10; while (x);
-	while (top) putchar(sta[--top] + 48);
+	if (x < 0) x = (~x + 1), putchar('-');
+	if (x > 9) print(x / 10);
+	putchar(x % 10 + '0');
 }
 
-
+int len[1000005];
+ll ans = 0;
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("write.in", "r", stdin);
+	freopen("write.out", "w", stdout);
+#endif
+#endif
+	int n, a, b;
+	cin >> n >> a >> b;
+	rep (i, 1, n) {
+		int id;
+		char c;
+		cin >> id >> c;
+		len[i] = len[id] + 1;
+		ans += len[i];
 	}
+	print(ans), puts("");
 	return 0;
 }

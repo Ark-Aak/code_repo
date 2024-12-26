@@ -6,6 +6,8 @@
 #endif
 #include <bits/stdc++.h>
 
+#define int ll
+
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
 #define ec first
@@ -42,13 +44,48 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+int Q, sum;
+set <int> s;
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("kte.in", "r", stdin);
+	freopen("kte.out", "w", stdout);
+#endif
+#endif
+	Q = read();
+	while (Q --> 0) {
+		int x = read();
+		if (s.find(x) == s.end()) s.insert(x), sum += x;
+		else s.erase(x), sum -= x;
+		if (s.size() <= 1000) {
+			auto lp = s.begin();
+			auto rp = s.rbegin();
+			int RR = 0;
+			int ans = 0;
+			int pre = 0, suf = 0;
+			do {
+				int valL = *lp;
+				int valR = *rp;
+				pre += valL, suf += valR;
+				if (pre >= suf) break;
+				// L ~ R - 1
+				if (pre >= RR) {
+					ans += suf - pre;
+					RR = suf;
+				}
+				else {
+					ans += suf - RR;
+					RR = suf;
+				}
+				lp++, rp++;
+			} while (pre < suf);
+			print(ans), puts("");
+		}
+		else {
+			print(sum - 2 * (*s.begin())), puts("");
+		}
 	}
 	return 0;
 }

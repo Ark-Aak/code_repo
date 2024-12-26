@@ -35,20 +35,37 @@ int read() {
 
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) putchar('-'), x = -x;
-	static int sta[40];
-	int top = 0;
-	do sta[top++] = x % 10, x /= 10; while (x);
-	while (top) putchar(sta[--top] + 48);
+	if (x < 0) x = (~x + 1), putchar('-');
+	if (x > 9) print(x / 10);
+	putchar(x % 10 + '0');
 }
 
+const int MAXN = 305;
+int T, mod, n, a[MAXN][MAXN], b[MAXN][MAXN], c[MAXN][MAXN];
+int expected[MAXN][MAXN];
 
+void solve() {
+	mod = read();
+	n = read();
+	rep (i, 1, n) rep (j, 1, n) a[i][j] = read();
+	rep (i, 1, n) rep (j, 1, n) b[i][j] = read();
+	rep (i, 1, n) rep (j, 1, n) c[i][j] = read();
+	rep (i, 1, n) {
+		rep (j, 1, n) {
+			expected[i][j] = 0;
+			rep (k, 1, n) expected[i][j] = (1ll * expected[i][j] + 1ll * a[i][k] * b[k][j] % mod) % mod;
+		}
+	}
+	bool flg = 1;
+	rep (i, 1, n) rep (j, 1, n) {
+		flg &= expected[i][j] == c[i][j];
+	}
+	if (flg) puts("Yes");
+	else puts("No");
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+	T = read();
+	while (T --> 0) solve();
 	return 0;
 }

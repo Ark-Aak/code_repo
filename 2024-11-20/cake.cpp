@@ -42,13 +42,42 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+int k, l, p, q;
+int x[20], y[20];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("cake.in", "r", stdin);
+	freopen("cake.out", "w", stdout);
+#endif
+#endif
+	k = read(), l = read(), p = read(), q = read();
+	rep (i, 1, q) {
+		x[i] = read(), y[i] = read();
+		int ans = 0;
+		rep (j, 1, l) {
+			vector <int> cakes[20];
+			rep (K, 1, k * l) {
+				cakes[((K + j) / l) % k].push_back(K);
+			}
+			int ord[15];
+			rep (K, 1, k) ord[K] = K;
+			do {
+				bool flg = 0;
+				rep (K, 1, i) {
+					bool f = 0;
+					for (auto id : cakes[ord[y[K]] - 1]) {
+						if (id == x[K]) f = 1;
+					}
+					if (!f) { flg = 1; break; }
+				}
+				if (flg) continue;
+				ans++;
+				ans %= p;
+			} while (next_permutation(ord + 1, ord + 1 + k));
+		}
+		print(ans), puts("");
 	}
 	return 0;
 }

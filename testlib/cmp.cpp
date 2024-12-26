@@ -45,10 +45,10 @@ void print(_Tp x) {
 
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+	do {
+		system("gen-cmp");
+		system("bruteforce < data.in > data.ans");
+		system("std < data.in > data.out");
+	} while (!system("fc data.out data.ans /W"));
 	return 0;
 }

@@ -35,20 +35,47 @@ int read() {
 
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) putchar('-'), x = -x;
-	static int sta[40];
-	int top = 0;
-	do sta[top++] = x % 10, x /= 10; while (x);
-	while (top) putchar(sta[--top] + 48);
+	if (x < 0) x = (~x + 1), putchar('-');
+	if (x > 9) print(x / 10);
+	putchar(x % 10 + '0');
 }
 
+int T;
+string s;
+int n;
 
+inline string work(string &s) {
+	unordered_map <char, int> id;
+	int cnt = 25;
+	string res;
+	for (auto ch : s) {
+		if (id.find(ch) == id.end()) id[ch] = cnt--;
+		res += 'a' + id[ch];
+	}
+	return res;
+}
+
+const int MAXN = 1e5 + 5;
+const int BASE = 131;
+const int MOD = 1e9 + 7;
+
+int hsh[MAXN];
+
+void solve() {
+	cin >> s;
+
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("str.in", "r", stdin);
+	freopen("str.out", "w", stdout);
+#endif
+#endif
+	ios::sync_with_stdio(0);
+	cin.tie(0), cout.tie(0);
+	cin >> T;
+	while (T --> 0) solve();
 	return 0;
 }

@@ -1,38 +1,48 @@
 #include<bits/stdc++.h>
-#define N 262150
-#define S 520
-#define M 100005
-#define P 511
-#define D 100000
 using namespace std;
-int read(){
-	int x=0,f=1,ch=getchar();
-	for(;!isdigit(ch);ch=getchar()) f=(ch=='-')?-1:1;
-	for(;isdigit(ch);ch=getchar()) x=(x<<3)+(x<<1)+(ch^48);
-	return x*f;
+const int mod=998244353;
+inline int Mod(int x){return x>=mod?x-mod:x;}
+inline int poww(int x,int y){
+	int sum=1;
+	while(y){
+		if(y&1)sum=1ll*sum*x%mod;
+		x=1ll*x*x%mod;
+		y>>=1;
+	}
+	return sum;
 }
-int n,q,v[N],w[N];
-int f[S][M];
-bool check(int x,int base){return x>>base&1;}
-int main(){
-	n=read();
-	for(int i=1;i<=n;++i) v[i]=read(),w[i]=read();
-	for(int i=1;i<=n && i<=P;++i){
-		for(int j=0;j<=D;++j) f[i][j]=f[i>>1][j];
-		for(int j=w[i];j<=D;++j) f[i][j]=max(f[i][j],f[i>>1][j-w[i]]+v[i]);
+int n,m,s,ans;
+int a[55];
+int fac[2005],inv[2005],p[2005][2005];
+int f[55][55][2005];
+void Init(int x){
+	int is=poww(s,mod-2);
+	fac[0]=1;for(int i=1;i<=x;i++)fac[i]=1ll*fac[i-1]*i%mod;
+	inv[x]=poww(fac[x],mod-2);for(int i=x;i>=1;i--)inv[i-1]=1ll*i*inv[i]%mod;
+	for(int i=1;i<=x;i++)
+		for(int j=p[i][0]=1;j<=x;j++)
+			p[i][j]=1ll*i*is%mod*p[i][j-1]%mod;
+}
+signed main(){
+	f[0][0][0]=1;
+	cin>>n>>m;
+	for(int i=1;i<=n;i++)cin>>a[i];
+	for(int i=1;i<=n;i++)s+=a[i];
+	Init(2e3);
+	int maxn=0;
+	for(int i=1;i<=n;i++){
+		for(int j=0;j<i;j++)
+			for(int k=0;k<=maxn;k++)
+				for(int l=0;l*m<=a[i];l++){
+					f[i][j][k+l]=Mod(f[i][j][k+l]+1ll*f[i-1][j][k]*p[a[i]-m*l][l]%mod*inv[l]%mod);
+					if(l)f[i][j+1][k+l]=Mod(f[i][j+1][k+l]+1ll*f[i-1][j][k]*p[a[i]-m*l][l-1]%mod*inv[l-1]%mod);
+				}
+		maxn+=a[i]/m;
 	}
-	for(int i=1;i<=n && i<=P;++i) for(int j=1;j<=D;++j) f[i][j]=max(f[i][j],f[i][j-1]);
-	q=read();
-	while(q--){
-		int x=read(),l=read(),ans=0;
-		vector<int>g;
-		for(;x>P;x>>=1) g.push_back(x);
-		for(int s=0;s<(1<<g.size());++s){
-			int res=0,sum=0;
-			for(int i=0;i<g.size();++i) if(check(s,i)) res+=v[g[i]],sum+=w[g[i]];
-			if(sum<=l) ans=max(ans,res+f[x][l-sum]);
-		}
-		printf("%d\n",ans);
+	for(int i=0;i<=n;i++)for(int j=i;j<=maxn;j++)if(i+j){
+		if(j&1)ans=Mod(ans+1ll*poww(p[m*j][j-i+1],mod-2)*fac[j-i]%mod*f[n][i][j]%mod);
+		else ans=Mod(ans+mod-1ll*poww(p[m*j][j-i+1],mod-2)*fac[j-i]%mod*f[n][i][j]%mod);
 	}
+	cout<<ans;
 	return 0;
 }

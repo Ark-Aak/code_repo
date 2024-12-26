@@ -35,20 +35,47 @@ int read() {
 
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) putchar('-'), x = -x;
-	static int sta[40];
-	int top = 0;
-	do sta[top++] = x % 10, x /= 10; while (x);
-	while (top) putchar(sta[--top] + 48);
+	if (x < 0) x = (~x + 1), putchar('-');
+	if (x > 9) print(x / 10);
+	putchar(x % 10 + '0');
 }
 
+const int MAXN = 1e6 + 5;
+int n, k, dep[MAXN], f[MAXN], ans, d[MAXN];
+vector <int> G[MAXN];
 
+void dfs(int u, int fa) {
+	int mx = 0;
+	for (auto v : G[u]) {
+		if (v ^ fa) {
+			dfs(v, u);
+			mx = max(mx, f[v] + 1);
+		}
+	}
+	f[u] = mx;
+	if (f[u] == k - 1 && d[u] != 1) ans++, f[u] = -1;
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("lost.in", "r", stdin);
+	freopen("lost.out", "w", stdout);
+#endif
+#endif
+	n = read(), k = read();
+	bool flg = 0;
+	rep (i, 1, n) {
+		d[i] = read();
+		if (i == 1) {
+			flg = d[i] != 1;
+			d[1] = 1;
+			continue;
+		}
+		G[d[i]].push_back(i);
 	}
+	dfs(1, 0);
+	print(ans + flg);
+	puts("");
 	return 0;
 }

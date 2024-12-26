@@ -35,20 +35,50 @@ int read() {
 
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) putchar('-'), x = -x;
-	static int sta[40];
-	int top = 0;
-	do sta[top++] = x % 10, x /= 10; while (x);
-	while (top) putchar(sta[--top] + 48);
+	if (x < 0) x = (~x + 1), putchar('-');
+	if (x > 9) print(x / 10);
+	putchar(x % 10 + '0');
 }
 
-
+const int MAXN = 2e5 + 5;
+int n, m, q;
+bitset <MAXN> a, f;
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("game.in", "r", stdin);
+	freopen("game.out", "w", stdout);
+#endif
+#endif
+	n = read(), m = read(), q = read();
+	rep (i, 1, n) a[i] = (read() + 1) & 1;
+	while (q --> 0) {
+		int op = read();
+		int l = read(), r = read();
+		if (op == 1) {
+			int d = read() & 1;
+			if (!d) continue;
+			rep (i, l, r) a[i] = !a[i];
+		}
+		else {
+			if (a[l]) {
+				puts("1");
+				continue;
+			}
+			f[r] = a[r];
+			_rep (i, r - 1, l) {
+				bool res = 0;
+				res |= a[i];
+				if (!res) {
+					rep (j, i + 1, min(i + m, r)) {
+						res |= !f[j];
+					}
+				}
+				f[i] = res;
+			}
+			print(2 - f[l]), puts("");
+		}
 	}
 	return 0;
 }

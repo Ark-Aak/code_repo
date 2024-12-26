@@ -42,13 +42,55 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int MAXN = 1e5 + 5;
+int n, m, k;
+int a[MAXN];
+multiset <int> p;
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("biscuit.in", "r", stdin);
+	freopen("biscuit.out", "w", stdout);
+#endif
+#endif
+	n = read(), m = read(), k = read();
+	rep (i, 1, n) a[i] = read();
+	sort(a + 1, a + 1 + n);
+	int sum = 0, lst = 0;
+	_rep (i, n, 1) {
+		if (sum + a[i] <= m) {
+			sum += a[i];
+			lst = i;
+		}
+		else break;
 	}
+	int r = m - sum;
+	rep (i, 1, lst - 1) {
+		p.insert(a[i]);
+		// cerr << i << endl;
+	}
+	// cerr << "???" << endl;
+	while (p.size() && k && (*p.rbegin())) {
+		int val = *p.rbegin();
+		p.erase(p.find(val));
+		p.insert(val - 1);
+		k--;
+		// cerr << k << endl;
+	}
+	int pt = 1;
+	for (auto v : p) {
+		a[pt++] = v;
+	}
+	// rep (i, 1, n) cerr << a[i] << " ";
+	// cerr << endl;
+	ll ans = 0;
+	rep (i, 1, lst - 1) {
+		ans += 1ll * (1ll + a[i]) * a[i] / 2;
+		if (i == lst - 1) {
+			ans -= 1ll * (1ll + r) * r / 2;
+		}
+	}
+	print(ans), puts("");
 	return 0;
 }

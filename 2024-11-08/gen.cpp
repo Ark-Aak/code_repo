@@ -42,13 +42,14 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+mt19937 rnd(chrono::steady_clock::now().time_since_epoch().count());
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+	int n = 100000;
+	cout << n << endl;
+	n *= 3;
+	// A, B, C 随机字符
+	rep (i, 1, n) putchar(rnd() % 3 + 'A');
+	puts("");
 	return 0;
 }

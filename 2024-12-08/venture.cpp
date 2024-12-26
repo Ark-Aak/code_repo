@@ -42,13 +42,27 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+int n;
+multiset <int> s;
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("venture.in", "r", stdin);
+	freopen("venture.out", "w", stdout);
+#endif
+#endif
+	n = read();
+	rep (i, 1, n) {
+		int op = read(), x = read();
+		if (op == 1) {
+			s.insert(x);
+		}
+		else {
+			rep (i, 1, x) {
+
+			}
+		}
 	}
 	return 0;
 }

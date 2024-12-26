@@ -6,6 +6,8 @@
 #endif
 #include <bits/stdc++.h>
 
+#define int ll
+
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
 #define ec first
@@ -42,13 +44,32 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
+int T;
 
+int ch[65];
+
+void solve() {
+	int n = read(), m = read();
+	int p = 0, ans = 0;
+	_rep (i, 62, 0) {
+		ch[i] = (n >> i) & 1;
+	}
+	_rep (i, 62, 0) {
+		p <<= 1;
+		p |= ch[i];
+		// if (i == 0) cout << "???:" << p << " " << ch[i] << endl;
+		if (p == 0) continue;
+		if (i == 0 || (p << 1 | ch[i - 1]) > m) {
+			ans += (1 << i);
+			cout << "i:" << i << endl;
+			p -= m;
+		}
+	}
+	print(ans), puts("");
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+	T = read();
+	while (T --> 0) solve();
 	return 0;
 }

@@ -6,6 +6,8 @@
 #endif
 #include <bits/stdc++.h>
 
+#define int ll
+
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
 #define ec first
@@ -42,13 +44,27 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
+int T, a, b, c;
 
+int solve(int a, int b, int c) {
+	if (b > a) swap(a, b);
+	if (c > a) swap(a, c);
+	int v = __lg(2 * (a + b + c) - 1);
+	if (!!a + !!b + !!c <= 2) return v;
+	return max(solve(max(a - (1ll << (v - 1)), 0ll), b, c) + 1, v);
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("coin.in", "r", stdin);
+	freopen("coin.out", "w", stdout);
+#endif
+#endif
+	T = read();
+	while (T --> 0) {
+		int a = read(), b = read(), c = read();
+		print(solve(a, b, c)), puts("");
 	}
 	return 0;
 }

@@ -35,20 +35,30 @@ int read() {
 
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) putchar('-'), x = -x;
-	static int sta[40];
-	int top = 0;
-	do sta[top++] = x % 10, x /= 10; while (x);
-	while (top) putchar(sta[--top] + 48);
+	if (x < 0) x = (~x + 1), putchar('-');
+	if (x > 9) print(x / 10);
+	putchar(x % 10 + '0');
 }
 
-
+const int MAXN = 505;
+int n, m;
+double f[MAXN][MAXN][MAXN];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("talk.in", "r", stdin);
+	freopen("talk.out", "w", stdout);
+#endif
+#endif
+	n = read(), m = read();
+	rep (i, 1, 500) rep (j, 1, 500) rep (k, 1, 500) f[i][j][k] = 1e9;
+	rep (i, 1, n) {
+		rep (j, 1, i) {
+			rep (k, 0, i - 1) {
+
+			}
+		}
 	}
 	return 0;
 }

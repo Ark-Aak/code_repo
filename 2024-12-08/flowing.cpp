@@ -42,13 +42,25 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int MAXN = 2e4 + 5;
+int n, q, a[MAXN];
+int dp[MAXN][40];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("flowing.in", "r", stdin);
+	freopen("flowing.out", "w", stdout);
+#endif
+#endif
+	n = read(), q = read();
+	rep (i, 1, n) a[i] = read();
+	while (q --> 0) {
+		int l = read(), r = read(), k = read();
+		rep (i, 1, n) {
+			_rep (j, k, 0) {
+			}
+		}
 	}
 	return 0;
 }

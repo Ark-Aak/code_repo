@@ -5,6 +5,7 @@
 #include <emmintrin.h>
 #endif
 #include <bits/stdc++.h>
+#include <bits/extc++.h>
 
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
@@ -42,13 +43,16 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int MAXN = 1e6 + 5;
+int n, q;
+vector <int> G[MAXN];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+	n = read(), q = read();
+	rep (i, 2, n) {
+		int fa = read();
+		G[fa].push_back(i);
+		G[i].push_back(fa);
 	}
 	return 0;
 }

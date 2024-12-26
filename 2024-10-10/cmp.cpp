@@ -45,10 +45,10 @@ void print(_Tp x) {
 
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
-	}
+	do {
+		system("gen");
+		system("bruteforce < data.in > data.ans");
+		system("glass < data.in > data.out");
+	} while (!system("fc data.ans data.out /W"));
 	return 0;
 }

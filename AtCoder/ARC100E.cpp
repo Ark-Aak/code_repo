@@ -6,6 +6,8 @@
 #endif
 #include <bits/stdc++.h>
 
+#define int ll
+
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
 #define ec first
@@ -42,13 +44,28 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
+int n, a[1 << 21];
+int mx1[1 << 21], mx2[1 << 21];
 
+void merge(int a, int b) {
+	if (mx1[a] > mx1[b]) {
+		mx2[a] = max(mx2[a], mx1[b]);
+	}
+	else {
+		int tp = mx1[a];
+		mx1[a] = mx1[b];
+		mx2[a] = max(tp, mx2[b]);
+	}
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+	n = read();
+	const int l = 1 << n;
+	rep (i, 0, l - 1) a[i] = mx1[i] = read();
+	rep (i, 0, n - 1) {
+		rep (j, 0, l - 1) if (j >> i & 1) merge(j, j ^ (1 << i));
 	}
+	int ans = 0;
+	rep (j, 1, l - 1) print(ans = max(ans, mx1[j] + mx2[j])), puts("");
 	return 0;
 }

@@ -42,13 +42,45 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
+const int MAXN = 1e6 + 5;
+int n;
 
+struct mon {
+
+	int a, d;
+
+	bool operator < (const mon &t) const {
+		return d == t.d ? a < t.a : d < t.d;
+	}
+} m[MAXN];
+
+multiset <int> s;
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("card.in", "r", stdin);
+	freopen("card.out", "w", stdout);
+#endif
+#endif
+	n = read();
+	rep (i, 1, n) m[i].a = read(), m[i].d = read();
+	sort(m + 1, m + 1 + n);
+	rep (i, 1, n) {
+		if (!s.size()) {
+			s.insert(m[i].d);
+			continue;
+		}
+		auto iter = s.lower_bound(m[i].a);
+		if (iter == s.begin()) {
+			s.insert(m[i].d);
+			continue;
+		}
+		iter--;
+		s.erase(iter);
+		s.insert(m[i].d);
+		continue;
 	}
+	print(s.size()), puts("");
 	return 0;
 }

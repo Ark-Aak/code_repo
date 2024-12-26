@@ -6,6 +6,8 @@
 #endif
 #include <bits/stdc++.h>
 
+#define int ll
+
 #define rep(i, a, b) for(int i = (a), i##end = (b); i <= i##end; i++)
 #define _rep(i, a, b) for(int i = (a), i##end = (b); i >= i##end; i--)
 #define ec first
@@ -42,13 +44,49 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+const int MAXN = 505;
+const int MOD = 998244353;
+int n, m;
+int a[MAXN], pos[MAXN], f[MAXN][MAXN][MAXN];
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("c.in", "r", stdin);
+	freopen("c.out", "w", stdout);
+#endif
+#endif
+	n = read(), m = read();
+	rep (i, 1, m) a[i] = read();
+	rep (i, 1, m) pos[a[i]] = i;
+	if (!pos[0]) rep (i, 1, m + 1) f[i][i][0] = 1;
+	else f[pos[0]][pos[0] + 1][0] = 1;
+	rep (i, 1, n - 1) {
+		if (!pos[i]) {
+			rep (r, 1, m + 1) {
+				int res = 0;
+				_rep (l, r, 1) {
+					res = (res + f[l][r][i - 1]) % MOD;
+					f[l][r][i] = (f[l][r][i] + res) % MOD;
+				}
+			}
+			rep (l, 1, m + 1) {
+				int res = 0;
+				rep (r, l, m + 1) {
+					res = (res + f[l][r][i - 1]) % MOD;
+					f[l][r][i] = (f[l][r][i] + res) % MOD;
+				}
+			}
+		}
+		else {
+			rep (l, 1, m + 1) {
+				rep (r, l, m + 1) {
+					int res = f[min(pos[i], l)][max(pos[i] + 1, r)][i] + f[l][r][i - 1];
+					f[min(pos[i], l)][max(pos[i] + 1, r)][i] = res % MOD;
+				}
+			}
+		}
 	}
+	print(f[1][m + 1][n - 1]), puts("");
 	return 0;
 }

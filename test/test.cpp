@@ -42,13 +42,22 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-
+int facsum(int x) {
+	int res = 0;
+	rep (i, 1, sqrt(x)) if (x % i == 0) {
+		res++;
+		if (i * i != x) res++;
+	}
+	return res;
+}
 
 signed main() {
-	freopen("test.in", "w", stdout);
-	cout << "25000 24999 1" << endl;
-	rep (i, 1, 24999) {
-		cout << i << " " << i + 1 << endl;
+	rep (i, 1, 100) {
+		// 把数字倒过来
+		int x = i;
+		int y = 0;
+		while (x) y = y * 10 + x % 10, x /= 10;
+		if (facsum(i) == facsum(y) && i != y) printf("%d\n", i);
 	}
 	return 0;
 }
