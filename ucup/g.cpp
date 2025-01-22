@@ -5,6 +5,7 @@
 #include <emmintrin.h>
 #endif
 #include <bits/stdc++.h>
+#include <bits/extc++.h>
 
 #define int ll
 
@@ -44,32 +45,67 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-int T;
+int exgcd(int a, int b, int &x, int &y) {
+    if (b == 0) {
+        x = 1, y = 0;
+        return a;
+    }
+    int x1, y1;
+    int g = exgcd(b, a % b, x1, y1);
+    x = y1;
+    y = x1 - (a / b) * y1;
+    return g;
+}
 
-int ch[65];
-
-void solve() {
-	int n = read(), m = read();
-	int p = 0, ans = 0;
-	_rep (i, 62, 0) {
-		ch[i] = (n >> i) & 1;
-	}
-	_rep (i, 62, 0) {
-		p <<= 1;
-		p |= ch[i];
-		// if (i == 0) cout << "???:" << p << " " << ch[i] << endl;
-		if (p == 0) continue;
-		if (i == 0 || (p << 1 | ch[i - 1]) > m) {
-			ans += (1 << i);
-			cout << "i:" << i << endl;
-			p -= m;
-		}
-	}
-	print(ans), puts("");
+int minOps(int N, int A, int B) {
+	int g = gcd(A, B);
+	if (N % g != 0) return -1;
+	int B_ = B / g, A_ = A / g, N_ = -N / g;
+	int x, y;
+	exgcd(B_, A_, x, y);
+	x = (1LL * x * N_) % A_;
+	if (x < 0) x += A_;
+	return x;
 }
 
 signed main() {
-	T = read();
-	while (T --> 0) solve();
+	int T = read();
+	while (T --> 0) {
+		__gnu_pbds::cc_hash_table <int, int> hsh;
+		int a, b, n;
+		a = read(), b = read(), n = read();
+		int fn = n;
+		bool flg = 0;
+		if (minOps(n, a, b) == -1) {
+			puts("No");
+			flg = 1;
+			continue;
+		}
+		hsh[n] = 1;
+		n = (minOps(n, a, b) * b + n) / a;
+		hsh[n] = 1;
+		rep (i, 1, 100) {
+			int nxt = minOps(n, a, b);
+			if (nxt == -1) {
+				puts("No");
+				flg = 1;
+				break;
+			}
+			int addTo = n + b * nxt;
+			if (n <= fn && fn <= addTo && (fn - n) % b == 0) {
+				puts("Yes");
+				flg = 1;
+				break;
+			}
+			if (hsh[addTo]) {
+				puts("No");
+				flg = 1;
+				break;
+			}
+			n = addTo / a;
+			hsh[n] = 1;
+		}
+		if (!flg) puts("No");
+	}
 	return 0;
 }
