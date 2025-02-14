@@ -12,6 +12,7 @@
 #define fb second
 #define dl make_pair
 #define dk(...) make_tuple(__VA_ARGS__)
+#define de(val) cerr << #val << " = " << (val) << endl
 
 using namespace std;
 
@@ -34,20 +35,44 @@ int read() {
 
 template <typename _Tp>
 void print(_Tp x) {
-	if (x < 0) x = (~x + 1), putchar('-');
-	if (x > 9) print(x / 10);
-	putchar(x % 10 + '0');
+	if (x < 0) putchar('-'), x = -x;
+	static int sta[40];
+	int top = 0;
+	do sta[top++] = x % 10, x /= 10; while (x);
+	while (top) putchar(sta[--top] + 48);
 }
 
+const int MAXN = 205;
+int n, m, a, b;
+vector <int> G[MAXN];
 
+namespace subtask1 {
+
+	int ch[MAXN];
+
+	void dfs(int step) {
+		
+	}
+	
+	void solve() {
+		
+	}
+
+} // namespace subtask1
 
 signed main() {
 #ifndef LOCAL
 #ifndef ONLINE_JUDGE
-
+	freopen("education.in", "r", stdin);
+	freopen("education.out", "w", stdout);
 #endif
 #endif
+	n = read(), m = read(), a = read(), b = read();
+	rep (i, 1, m) {
+		int u = read(), v = read();
+		G[u].push_back(v);
+		G[v].push_back(u);
+	}
 
 	return 0;
 }
-

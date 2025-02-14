@@ -42,21 +42,55 @@ void print(_Tp x) {
 	while (top) putchar(sta[--top] + 48);
 }
 
-int T;
+const int MAXN = 5e5 + 5;
+struct node {
+	int x, y;
+
+	bool operator<(const node &t) const { 
+		return x == t.x ? y < t.y : x < t.x;
+	}
+
+	node() { x = 0, y = 0; }
+	node(int x, int y) { this -> x = 0, this -> y = 0; }
+
+} s[MAXN], t[MAXN];
+
+int n, m;
+int cnt[MAXN];
+
+inline node fws(int i) { return node(s[i].x, s[i].y); }
+inline node bks(int i) { return node(s[i].y, s[i].x); }
+inline node fwt(int i) { return node(t[i].x, t[i].y); }
+inline node bkt(int i) { return node(t[i].y, t[i].x); }
+
+map <set <pii>, int> mp;
+
+void dfs(int step) {
+	
+}
 
 signed main() {
-	T = read();
-	while (T --> 0) {
-		int a = read(), b = read();
-		int ans1 = b * (b + 1) / 2;
-		if (a > 2) ans1++;
-		else ans1 += b + 1;
-		int ans2 = b * (b - 1) / 2;
-		if (a > 3) ans2++;
-		else if (a != 3) ans2 = 1e9;
-		else ans2 += 3;
-		int ans = min(ans1, ans2);
-		print(ans), puts("");
+#ifndef LOCAL
+#ifndef ONLINE_JUDGE
+	freopen("super.in", "r", stdin);
+	freopen("super.out", "w", stdout);
+#endif
+#endif
+	n = read(), m = read();
+	rep (i, 1, m) {
+		s[i].x = read(), s[i].y = read();
+		cnt[s[i].x]++, cnt[s[i].y]++;
+		if (s[i].x > s[i].y) swap(s[i].x, s[i].y);
 	}
+	rep (i, 1, m) {
+		t[i].x = read(), t[i].y = read();
+		cnt[t[i].x]--, cnt[t[i].y]--;
+		if (t[i].x > t[i].y) swap(t[i].x, t[i].y);
+	}
+	bool flg = 1;
+	rep (i, 1, n) flg &= cnt[i] == 0;
+	if (!flg) return puts("NO"), 0;
+	puts("YES");
+	puts("0");
 	return 0;
 }
